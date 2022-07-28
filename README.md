@@ -2,6 +2,7 @@
 ---
 
 ### Overview
+
 Adventure app - Rent adventure equipment, schedule reservation based on availability, database of equipment and status, pay for rental, leave reviews
 calendar for availability
 ---
@@ -17,6 +18,7 @@ Users can comment on listings
 ---
 
 ### Technologies
+
 React
 JavaScript
 Java
@@ -29,6 +31,7 @@ Google Calendar API
 ---
 
 ### What We Learned
+
 REACT
 API integration - Google Calendar, Stripe
 Bootstrap
@@ -37,6 +40,7 @@ Spring security/authentication
 ---
 
 ### What's Next
+
 Social Media - photos/stories of renters using equipment on
 Rewards program
 Newsletter
@@ -47,6 +51,7 @@ Ecommerce page
 ---
 
 ### Authors
+
 PFC976
 JarohnJ
 rachelscott-kc
