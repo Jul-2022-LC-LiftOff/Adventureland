@@ -15,7 +15,7 @@ public class GroupController{
 
     @RequestMapping("")
     public String group(Model model) {
-//        model.addAttribute("group", groupRepository.findAll());
+        model.addAttribute("group", groupRepository.findAll());
         return "group/index";
     }
 

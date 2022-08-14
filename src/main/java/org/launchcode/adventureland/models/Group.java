@@ -7,20 +7,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-//@Table(name = "group")
 public class Group extends AbstractEntity{
 
-    private String description;
+//    private String description;
 
 
-    @OneToMany
-    @JoinColumn(name = "group_id")
-    private final List<Inventory> inventory = new ArrayList<>();
-
-    public Group(){}
-
-    public Group(String aDescription){
-        super();
-        this.description = aDescription;
-    }
+//    @OneToMany
+//    @JoinColumn(name = "group_id")
+//    private final List<Inventory> inventory = new ArrayList<>();
+//
+//    public Group(){}
+//
+//    public Group(String aDescription){
+//        super();
+//        this.description = aDescription;
+//    }
 }
