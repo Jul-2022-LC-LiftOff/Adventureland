@@ -13,36 +13,48 @@
 <body>
 <div th:replace="fragments :: page-header"></div>
 
-<div class="card mx-auto display:block mt-5" style="width: 30rem;">
-    <form method="post">
+<div class="card mx-auto display:block mt-5" style="width: 40rem;">
+    <form method="post" th:action="@{/register}">
         <div class="card-body">
             <h1 class="card-title text-center">Register</h1>
-            <label class="form-label">First Name:</label>
-            <input class="form-control" th:field="${user.firstName}" th:value="${firstName}" placeholder="First Name">
-            <p class="error" style="color: red" th:errors="${user.firstName}"></p>
+            <div>
+                <label class="form-label">First Name:</label>
+                <input class="form-control" th:field="${user.firstName}" th:value="${firstName}"
+                       placeholder="First Name">
+                <p class="error" style="color: red" th:errors="${user.firstName}"></p>
+            </div>
             <br>
-            <label class="form-label">Last Name:</label>
-            <input class="form-control" th:field="${user.lastName}" th:value="${lastName}" placeholder="Last Name">
-            <p class="error" style="color: red" th:errors="${user.lastName}"></p>
+            <div>
+                <label class="form-label">Last Name:</label>
+                <input class="form-control" th:field="${user.lastName}" th:value="${lastName}" placeholder="Last Name">
+                <p class="error" style="color: red" th:errors="${user.lastName}"></p>
+            </div>
             <br>
-            <label class="form-label">Birth Date:</label>
-            <input class="form-control" type="date" th:field="${user.birthdate}" th:value="${birthdate}"
-                   placeholder="Birth Date">
-            <p class="error" style="color: red" th:errors="${user.birthdate}"></p>
+            <div>
+                <label class="form-label">Birth Date:</label>
+                <input class="form-control" type="date" th:field="${user.birthdate}" th:value="${birthdate}"
+                       placeholder="Birth Date">
+                <p class="error" style="color: red" th:errors="${user.birthdate}"></p>
+            </div>
             <br>
-            <label class="form-label">Email:</label>
-            <input class="form-control" type="email" th:field="${user.email}" th:value="${email}"
-                   placeholder="Email Address">
-            <p class="error" style="color: red" th:errors="${user.email}"></p>
+            <div>
+                <label class="form-label">Email:</label>
+                <input class="form-control" type="email" th:field="${user.email}" th:value="${email}"
+                       placeholder="Email Address">
+                <p class="error" style="color: red" th:errors="${user.email}"></p>
+            </div>
             <br>
-            <label class="form-label">Password:</label>
-            <input class="form-control" type="password" th:field="${user.password}" th:value="${password}"
-                   placeholder="Password">
-            <p class="error" style="color: red" th:errors="${user.password}"></p>
+            <div>
+                <label class="form-label">Password:</label>
+                <input class="form-control" type="password" id="password" th:field="${user.password}"
+                       placeholder="Password">
+                <p class="error" style="color: red" th:errors="${user.password}"></p>
+            </div>
             <br>
-            <label for="verify" class="form-label">Confirm Password:</label>
-            <input class="form-control" type="password" id="verify" name="verify" placeholder="Confirm Password">
-            <br>
+            <div>
+                <label class="form-label">Confirm Password:</label>
+                <input class="form-control" type="password" id="verify" name="verify" placeholder="Confirm Password">
+            </div>
         </div>
         <div class="card-footer text-center">
             <button class="btn btn-primary btn-sm" type="submit">Submit</button>

@@ -25,13 +25,13 @@ public class UserController {
     }
 
     @PostMapping("register")
-    public String processRegistrationForm(String verify, @ModelAttribute @Valid User user,
-                                          Errors errors, Model model) {
-        if (!errors.hasErrors() && (user.getPassword().equals(verify))) {
-            userRepository.save(user);
-            return "redirect:";
+    public String processRegistrationForm(@ModelAttribute @Valid User user,
+                                          Errors errors, String verify) {
+        if (errors.hasErrors() || (!user.getPassword().equals(verify))) {
+            return "register";
         }
 
-        return "register";
+        userRepository.save(user);
+        return "redirect:/";
     }
 }

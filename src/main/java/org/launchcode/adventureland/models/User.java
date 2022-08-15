@@ -21,7 +21,7 @@ public class User extends AbstractEntity {
     @NotBlank(message = "Must enter an email.")
     @Email(message = "Must be a valid email.")
     private String email;
-    @NotBlank(message = "Must enter a password between 6 and 20 characters.")
+    @NotNull(message = "Must enter a password between 6 and 20 characters.")
     @Size(min = 6, max = 20)
     private String password;
 
@@ -76,6 +76,10 @@ public class User extends AbstractEntity {
 
     public String getPassword() {
         return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     //    public List<Reservation> getReservations() {
