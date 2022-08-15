@@ -14,7 +14,7 @@ public class CategoryController{
     private CategoryRepository categoryRepository;
 
     @GetMapping("")
-    public String group(Model model) {
+    public String category(Model model) {
         model.addAttribute("title", "All Categories");
         model.addAttribute("categories", categoryRepository.findAll());
         return "categories/index";
