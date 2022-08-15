@@ -1,6 +1,6 @@
 package org.launchcode.adventureland.controllers;
 
-import org.launchcode.adventureland.models.data.GroupRepository;
+import org.launchcode.adventureland.models.data.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 public class HomeController  {
 
     @Autowired
-    private GroupRepository groupRepository;
+    private CategoryRepository groupRepository;
 
 
 }

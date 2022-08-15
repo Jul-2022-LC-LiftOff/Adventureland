@@ -11,20 +11,9 @@ public class AbstractEntity {
 
     @Id
     @GeneratedValue
-    private Long id;
-
-    @NonNull
-    private String name;
+    private Integer id;
 
 
 
-    public Long getId() {return id;}
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+    public Integer getId() {return id;}
 }

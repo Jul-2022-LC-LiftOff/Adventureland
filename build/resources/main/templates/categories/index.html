@@ -9,8 +9,8 @@
 <div class="container body-content">
     <h2>Equipment Categories</h2>
     <ul>
-        <li th:each="skill : ${group}">
-            <a th:href="@{'/group/view/' + ${group.id}}" th:text="${group.name}"></a>
+        <li th:each="category : ${categories}">
+            <a th:href="@{'/categories/view/' + ${category.id}}" th:text="${category.name}"></a>
         </li>
     </ul>
 </div>
