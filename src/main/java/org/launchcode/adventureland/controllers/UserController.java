@@ -34,4 +34,16 @@ public class UserController {
         userRepository.save(user);
         return "redirect:/";
     }
+
+    @GetMapping("login")
+    public String displayLoginPage(Model model) {
+        model.addAttribute(new User());
+        return "login";
+    }
+
+    @PostMapping("login")
+    public String processLoginPage(@ModelAttribute User user, String email) {
+        // TODO: add code that authenticates the user.
+        return "redirect:/";
+    }
 }
