@@ -16,10 +16,12 @@
             <div>
                 <label class="form-label">Email:</label>
                 <input class="form-control" type="email" th:field="${user.email}" th:value="${email}" placeholder="Email Address"><br>
+                <p class="error" style="color: red" th:errors="${user.email}"></p>
             </div>
             <div>
                 <label class="form-label">Password:</label>
                 <input class="form-control" type="password" th:field="${user.password}" th:value="${password}" placeholder="Password"><br>
+                <p class="error" style="color: red" th:errors="${user.password}"></p>
             </div>
         </div>
         <div class="card-footer text-center">

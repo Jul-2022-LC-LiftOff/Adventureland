@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class UserController {
@@ -37,13 +39,22 @@ public class UserController {
 
     @GetMapping("login")
     public String displayLoginPage(Model model) {
-        model.addAttribute(new User());
+        model.addAttribute("user", new User());
         return "login";
     }
 
     @PostMapping("login")
-    public String processLoginPage(@ModelAttribute User user, String email) {
-        // TODO: add code that authenticates the user.
-        return "redirect:/";
+    public String processLoginPage(@ModelAttribute User user,String email, String password, Errors errors, Model model) {
+        User foundUser = userRepository.findByEmail(email);
+        if (foundUser == null) {
+            errors.rejectValue("email", "email.invalid", "Invalid email address");
+            return "login";
+        } else if (errors.hasErrors() || (!foundUser.getPassword().equals(password))) {
+            errors.rejectValue("password", "password.invalid", "Invalid password");
+            //add errors, or no found user
+                return "login";
+            } else {
+               return "redirect:/";
+            }
     }
 }
