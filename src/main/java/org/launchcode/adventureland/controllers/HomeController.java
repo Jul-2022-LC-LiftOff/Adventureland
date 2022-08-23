@@ -1,15 +1,14 @@
-package org.launchcode.adventureland.controllers;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-
-@Controller
-public class HomeController  {
-
-    @GetMapping
-    public String index() {
-        return "index";
-    }
-
-
-}
+//package org.launchcode.adventureland.controllers;
+//
+//import org.launchcode.adventureland.models.data.CategoryRepository;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.stereotype.Controller;
+//
+//@Controller
+//public class HomeController  {
+//
+//    @Autowired
+//    private CategoryRepository groupRepository;
+//
+//
+//}
