@@ -1,11 +1,13 @@
 package org.launchcode.adventureland.models;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Equipment extends AbstractEntity{
 
-    private String category;
+    @ManyToOne
+    private Category category;
 
     private String equipmentName;
 
@@ -17,19 +19,20 @@ public class Equipment extends AbstractEntity{
 
     public Equipment(){}
 
-    public Equipment(String category, String equipmentName, String manufacturer, int quantity, int price) {
-        this.category = category;
-        this.equipmentName = equipmentName;
-        this.manufacturer = manufacturer;
-        this.quantity = quantity;
-        this.price = price;
+    public Equipment(Category aCategory, String anEquipmentName, String aManufacturer, int aQuantity, int aPrice) {
+        super();
+        this.category = aCategory;
+        this.equipmentName = anEquipmentName;
+        this.manufacturer = aManufacturer;
+        this.quantity = aQuantity;
+        this.price = aPrice;
     }
 
-    public String getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 
