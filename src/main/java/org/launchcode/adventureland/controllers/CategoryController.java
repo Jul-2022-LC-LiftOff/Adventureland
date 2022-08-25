@@ -32,14 +32,14 @@ public class CategoryController{
 
     // this will need items displayed below
     @GetMapping("/{categoryId}")
-    public String displayViewCategory(Model model, @PathVariable  Integer categoryId, String value) {
+    public String displayViewCategory(Model model, @PathVariable  Integer categoryId) {
 
         Optional optCategory = categoryRepository.findById(categoryId);
         if (optCategory.isPresent()) {
             Category category = (Category) optCategory.get();
             Iterable<Equipment> equipmentInCategory;
 
-            value = category.toString();
+            String value = category.toString();
             equipmentInCategory = CatData.findByValue(value, equipmentRepository.findAll());
             model.addAttribute("category", category);
             model.addAttribute("title", "Equipment in " + value);
