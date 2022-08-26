@@ -6,6 +6,7 @@ import org.launchcode.adventureland.models.data.UserRepository;
 import org.launchcode.adventureland.service.UserService;
 import org.launchcode.adventureland.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -38,25 +39,26 @@ public class UserController {
 
     @GetMapping("register")
     public String displayRegistrationForm() {
-        return "register";
+        return "user/register";
     }
 
     @PostMapping("register")
     public String processRegistrationForm(@ModelAttribute("user") UserRegistrationDto registrationDto) {
 
         userService.save(registrationDto);
-        return "redirect:/registration?success";
+        return "redirect:/login";
     }
 
     @GetMapping("login")
     public String displayLoginPage(Model model) {
         model.addAttribute("user", new User());
-        return "login";
+        return "user/login";
     }
 
-//    @PostMapping("login")
-//    public String processLoginPage(@ModelAttribute User user,String email, String password, Errors errors, Model model) {
-//        User foundUser = userRepository.findByEmail(email);
+
+    //    @PostMapping("login")
+//    public String processLoginPage(String email, String password, Errors errors, Model model) {
+//        UserDetails foundUser = userService.loadUserByUsername(email);
 //        if (foundUser == null) {
 //            errors.rejectValue("email", "email.invalid", "Invalid email address");
 //            return "login";
