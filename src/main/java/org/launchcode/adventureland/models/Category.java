@@ -1,6 +1,8 @@
 package org.launchcode.adventureland.models;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,8 +12,10 @@ public class Category extends AbstractEntity{
     private String name;
     private String description;
 
-//    private final List<Inventory> inventory = new ArrayList<>();
 
+    @OneToMany
+    @JoinColumn(name = "equipment_id")
+    private final List<Equipment> equipment = new ArrayList<>();
 
     public Category(){}
 
@@ -37,9 +41,9 @@ public class Category extends AbstractEntity{
         this.description = description;
     }
 
-//    public List<Inventory> getInventory() {
-//        return inventory;
-//    }
+    public List<Equipment> getEquipment() {
+        return equipment;
+    }
 
     @Override
     public String toString() {
