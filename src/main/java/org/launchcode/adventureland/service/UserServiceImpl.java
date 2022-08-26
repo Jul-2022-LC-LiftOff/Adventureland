@@ -1,10 +1,12 @@
 package org.launchcode.adventureland.service;
 
+
 import org.launchcode.adventureland.dto.UserRegistrationDto;
 import org.launchcode.adventureland.models.Role;
 import org.launchcode.adventureland.models.User;
 import org.launchcode.adventureland.models.data.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,10 +24,12 @@ public class UserServiceImpl implements UserService{
 
     private UserRepository userRepository;
 
+    @Lazy
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepository userRepository) {
+
+    public UserServiceImpl(@Lazy UserRepository userRepository) {
         super();
         this.userRepository = userRepository;
     }
@@ -33,7 +37,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public User save(UserRegistrationDto registrationDto) {
 
-        User user = new User(registrationDto.getFirstName(), registrationDto.getLastName(), registrationDto.getEmail(), registrationDto.getBirthdate(), passwordEncoder.encode(registrationDto.getPassword()), Arrays.asList(new Role("ROLE_USER")));
+        User user = new User(registrationDto.getFirstName(), registrationDto.getLastName(), registrationDto.getEmail(), passwordEncoder.encode(registrationDto.getPassword()), registrationDto.getBirthdate());
         return userRepository.save(user);
     }
 

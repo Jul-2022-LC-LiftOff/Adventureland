@@ -4,6 +4,7 @@ import org.launchcode.adventureland.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -17,7 +18,7 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-@SpringBootConfiguration
+@Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
 
@@ -49,7 +50,7 @@ public class SecurityConfiguration {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/**", "index", "/css/*", "/js/*")
+                .antMatchers("/css/*", "/js/*", "/register", "/")
                 .permitAll()
                 //.anyMatcher() and .permitAll() allow you to specify which pages can be accessed by everyone.
                 //.antMatchers("/api/**").hasRole(ApplicationUserRole.STUDENT.name())

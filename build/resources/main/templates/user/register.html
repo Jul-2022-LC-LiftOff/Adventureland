@@ -20,41 +20,41 @@
             <h1 class="card-title text-center">Register</h1>
             <div>
                 <label class="form-label">First Name:</label>
-                <input class="form-control" th:field="${user.firstName}" th:value="${firstName}"
+                <input class="form-control" th:field="${user.firstName}" th:value="${firstName}" required
                        placeholder="First Name">
-                <p class="error" style="color: red" th:errors="${user.firstName}"></p>
+                <!--                <p class="error" style="color: red" th:errors="${user.firstName}"></p>-->
             </div>
             <br>
             <div>
                 <label class="form-label">Last Name:</label>
-                <input class="form-control" th:field="${user.lastName}" th:value="${lastName}" placeholder="Last Name">
-                <p class="error" style="color: red" th:errors="${user.lastName}"></p>
-            </div>
-            <br>
-            <div>
-                <label class="form-label">Birth Date:</label>
-                <input class="form-control" type="date" th:field="${user.birthdate}" th:value="${birthdate}"
-                       placeholder="Birth Date">
-                <p class="error" style="color: red" th:errors="${user.birthdate}"></p>
+                <input class="form-control" th:field="${user.lastName}" th:value="${lastName}" required placeholder="Last Name">
+                <!--                <p class="error" style="color: red" th:errors="${user.lastName}"></p>-->
             </div>
             <br>
             <div>
                 <label class="form-label">Email:</label>
-                <input class="form-control" type="email" th:field="${user.email}" th:value="${email}"
+                <input class="form-control" type="email" th:field="${user.email}" th:value="${email}" required
                        placeholder="Email Address">
-                <p class="error" style="color: red" th:errors="${user.email}"></p>
+                <!--                <p class="error" style="color: red" th:errors="${user.email}"></p>-->
             </div>
             <br>
             <div>
                 <label class="form-label">Password:</label>
-                <input class="form-control" type="password" id="password" th:field="${user.password}"
+                <input class="form-control" type="password" id="password" th:field="${user.password}" required
                        placeholder="Password">
-                <p class="error" style="color: red" th:errors="${user.password}"></p>
+                <!--                <p class="error" style="color: red" th:errors="${user.password}"></p>-->
             </div>
             <br>
+            <!--            <div>-->
+            <!--                <label class="form-label">Confirm Password:</label>-->
+            <!--                <input class="form-control" type="password" id="verify" name="verify" placeholder="Confirm Password">-->
+            <!--            </div>-->
+            <!--            <br>-->
             <div>
-                <label class="form-label">Confirm Password:</label>
-                <input class="form-control" type="password" id="verify" name="verify" placeholder="Confirm Password">
+                <label class="form-label">Birth Date:</label>
+                <input class="form-control" type="date" th:field="${user.birthdate}" th:value="${birthdate}"
+                       required placeholder="Birth Date">
+                <!--                <p class="error" style="color: red" th:errors="${user.birthdate}"></p>-->
             </div>
         </div>
         <div class="card-footer text-center">
