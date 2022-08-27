@@ -50,7 +50,7 @@ public class SecurityConfiguration {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/css/*", "/js/*", "/register", "/")
+                .antMatchers("/css/*", "/js/*", "/register", "/", "/json/*")
                 .permitAll()
                 //.anyMatcher() and .permitAll() allow you to specify which pages can be accessed by everyone.
                 //.antMatchers("/api/**").hasRole(ApplicationUserRole.STUDENT.name())
@@ -64,8 +64,8 @@ public class SecurityConfiguration {
                 .formLogin()
                 .loginPage("/login").permitAll()
                 .defaultSuccessUrl("/", true)
-                //.and()
-                //.rememberMe()
+                .and()
+                .rememberMe()
                 .and()
                 .logout()
                 .logoutUrl("/logout")

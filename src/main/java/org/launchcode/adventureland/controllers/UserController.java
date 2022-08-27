@@ -21,10 +21,11 @@ import java.util.List;
 @Controller
 public class UserController {
 
-//    @Autowired
-//    private UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     private UserService userService;
+
 
     public UserController(UserService userService) {
         super();
@@ -44,9 +45,11 @@ public class UserController {
 
     @PostMapping("register")
     public String processRegistrationForm(@ModelAttribute("user") UserRegistrationDto registrationDto) {
-
+        if (userRepository.findByEmail(registrationDto.getEmail()) != null) {
+            return "user/already_registered";
+        }
         userService.save(registrationDto);
-        return "redirect:/login";
+        return "user/register_success";
     }
 
     @GetMapping("login")
