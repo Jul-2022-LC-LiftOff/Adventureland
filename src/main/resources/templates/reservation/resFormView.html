@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head">
+</head>
+
+<head>
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet"/>
+    <link th:href="@{/css/adventureland.css}" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
+          integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <script type="text/javascript" th:src="@{/js/bootstrap.js}"></script>
+    
+    <title th:text="'adventureland' + ${title == null ? '' : ' :: ' + title}">Adventure Outdoors</title>
+
+</head>
+
+
+<body class="container">
+<nav th:replace="fragments :: page-header"></nav>
+
+<h1 th:text="${title}">Default Title</h1>
+
+
+<div class="container" id="reserve-form">
+    <form  th:action="@{/reservation/cartView}"  th:object="${reservation}" method="post">
+        <div th:object="${equipment}">
+            <div class="col-md-6">
+                <div class="row">
+                    <h1 th:text="${equipment.equipmentName}"></h1>
+                </div>
+                <div class="row">
+                    <h3 th:text="|Rate: ${equipment.price}|"></h3>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label for="equipmentName"> Select Equipment: </label>
+                        <input class="form-control" id="equipmentName" type="text" name="equipmentName"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="equipmentQuantity"> Select Quantity: </label>
+                        <input class="form-control" id="equipmentQuantity" type="number" name="equipmentQuantity"/>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="dateReserved"> Select dateReserved: </label>
+                        <input class="form-control" id="dateReserved" type="date" name="dateReserved"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="total"> Total: </label>
+                        <input class="form-control" id="total" type="number" name="total"/>
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="submit" value="Add To Cart">
+                    </div>
+                    <div class="container-text" id="about-rental">
+                        <div class="row">
+                            <h3 style="margin-left:30px">About this rental</h3>
+<!--                            <p th:text="${equipment.description}"></p>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <img src="${equipment.image}" alt="${equipment.name}" width="425" height="625">
+                <img src="https://images.pexels.com/photos/2749500/pexels-photo-2749500.jpeg" alt="kayak" width="425" height="625">-->
+            </div>
+        </div>
+    </form>
+</div>
+
+
+</body>
+
+
+</html>
+
+
+
+
+
+
+<!--////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+
+<!--<div class="container" id="reserve-form">-->
+<!--    <div class="row">-->
+<!--    -->
+<!--    <div class="col-md-6">-->
+<!--        <div class="row">-->
+<!--            <h1>Kayaks</h1>-->
+<!--        </div>-->
+<!--       <div class="row">-->
+<!--           <h3>Rate $50.00 / day</h3>-->
+<!--       </div>-->
+<!--        <div class="row">-->
+<!--        <label for="quantity">Number of Kayaks </label>-->
+<!--        <input class="form-control" id="quantity" type="number" name="Quantity" />-->
+<!--        <div class="form-group">-->
+<!--                    <label for="startDate">Date: </label>-->
+<!--                    <input class="form-control" id="startDate" type="date" name="startDate" />-->
+<!--                </div>-->
+<!--            <table>-->
+<!--                <thead>-->
+<!--                <b>Total</b>-->
+<!--                </thead>-->
+<!--                <thead>-->
+<!--                 Total Amount of $$ for number of kayaks and days-->
+<!--                </thead>-->
+<!--            </table>-->
+<!--            -->
+<!--&lt;!&ndash;TODO: Confirm button configuration is in fact submitting&ndash;&gt;-->
+<!--            <a th:href="@{'/reservation/cart/'}" class="btn btn-success" role="button" type="submit">Add To Cart</a>-->
+<!--            <div class="container-text" id="about-rental">-->
+<!--                <div class="row">-->
+<!--                <h3 style="margin-left:30px">About this rental</h3>-->
+<!--                <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="col-md-6">-->
+<!--        <img src="https://images.pexels.com/photos/2749500/pexels-photo-2749500.jpeg" alt="kayak" width="425" height="625">-->
+<!--    </div>-->
+<!--    -->
+<!--    </div>-->
+<!--    </div>-->
+
