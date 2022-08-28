@@ -2,6 +2,7 @@ package org.launchcode.adventureland.models;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import java.math.BigDecimal;
 
 @Entity
 public class Equipment extends AbstractEntity{
@@ -15,11 +16,11 @@ public class Equipment extends AbstractEntity{
 
     private int quantity;
 
-    private int price;
+    private BigDecimal price;
 
     public Equipment(){}
 
-    public Equipment(Category aCategory, String anEquipmentName, String aManufacturer, int aQuantity, int aPrice) {
+    public Equipment(Category aCategory, String anEquipmentName, String aManufacturer, int aQuantity, BigDecimal aPrice) {
         super();
         this.category = aCategory;
         this.equipmentName = anEquipmentName;
@@ -60,11 +61,11 @@ public class Equipment extends AbstractEntity{
         this.quantity = quantity;
     }
 
-    public int getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 }

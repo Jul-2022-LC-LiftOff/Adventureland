@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.Entity;
 import javax.validation.Valid;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -35,8 +36,9 @@ public class ReservationController {
 
     @GetMapping("")
     public String displayReservationList(Model model) {
-
-        return "reservation/resFormView";
+        model.addAttribute("title", "Cart");
+        model.addAttribute("reservation", reservation);
+        return "reservation/cartView";
     }
 
     // **SEE BELOW**
@@ -50,10 +52,36 @@ public class ReservationController {
             Equipment equipment = (Equipment) optEquipment.get();
 
             model.addAttribute("equipment", equipment);
+            model.addAttribute("reservation", new Reservation(equipment.getEquipmentName(), equipment.getPrice()));
+
             return "reservation/resFormView";
         } else {
             return "redirect:../";
         }
     }
+
+    @GetMapping("cartView")
+    public String displayCart(Model model /*@PathVariable int userId*/) {
+        model.addAttribute("title", "Cart");
+        model.addAttribute("ReservationList", reservationRepository.findAll());
+        model.addAttribute("reservation", reservation);
+
+        return"reservation/cartView";
+    }
+
+    @PostMapping("cartView")
+    public String processAddReservationForm(@ModelAttribute Reservation newReservation, Errors errors, Model model) {
+        if (errors.hasErrors()) {
+            return "reservation/resFormView";
+        } else {
+            reservationRepository.save(newReservation);
+            model.addAttribute("ReservationList", reservationRepository.findAll());
+            model.addAttribute("reservation", reservation);
+            return "reservation/cartView";
+        }
+
+
+    }
+
 
 }

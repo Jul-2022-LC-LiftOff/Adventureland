@@ -21,7 +21,7 @@ public class Reservation extends AbstractEntity {
     @Transient
     private SimpleDateFormat dateReserved;
 
-    @NotNull
+//    @NotNull
     private int equipmentQuantity;
 
     private BigDecimal unitPrice;
@@ -66,6 +66,12 @@ public class Reservation extends AbstractEntity {
         this.equipmentQuantity = equipmentQuantity;
         this.unitPrice = unitPrice;
         this.total = total;
+    }
+
+    public Reservation(String equipmentName, BigDecimal price) {
+        super();
+        this.equipmentName = equipmentName;
+        this.unitPrice = price;
     }
 
 

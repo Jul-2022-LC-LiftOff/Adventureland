@@ -33,12 +33,23 @@
                 <div class="row">
                     <h3 th:text="|Rate: ${equipment.price}|"></h3>
                 </div>
+                <div class="row">
+                    <div class="form-group">
+                        <input th:attr="value = ${reservation.equipmentName}"  class="form-control" id="equipmentName" type="hidden" name="equipmentName"/>
+                        <input th:attr="value = ${reservation.unitPrice}" class="form-control" id="unitPrice" type="hidden" name="unitPrice"/>
+                        <input th:attr="value = ${reservation.equipmentQuantity}+1"  class="form-control" id="equipmentQuantity" type="hidden" name="equipmentQuantity"/>
+                        <input th:attr="value = ${reservation.unitPrice}"  class="form-control" id="total" type="hidden" name="total"/>
+                    </div>
+                </div>
+                
+                
                     <div class="container-text" id="about-rental">
                         <div class="row">
-
                             <h3 style="">Description</h3>
-
                         </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Add To Cart">
                     </div>
                 </div>
             </div>
