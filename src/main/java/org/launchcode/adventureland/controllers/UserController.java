@@ -6,6 +6,9 @@ import org.launchcode.adventureland.models.data.UserRepository;
 import org.launchcode.adventureland.service.UserService;
 import org.launchcode.adventureland.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,7 +43,12 @@ public class UserController {
 
     @GetMapping("register")
     public String displayRegistrationForm() {
-        return "user/register";
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            return "user/register";
+        }
+
+        return "redirect:/";
     }
 
     @PostMapping("register")
@@ -54,11 +62,28 @@ public class UserController {
 
     @GetMapping("login")
     public String displayLoginPage(Model model) {
-        model.addAttribute("user", new User());
-        return "user/login";
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            model.addAttribute("user", new User());
+            return "user/login";
+        }
+
+        return "redirect:/";
+        //return "user/login";
     }
 
 
+//    @PostMapping("login")
+//    public String processLoginForm(@Valid @ModelAttribute("user") UserRegistrationDto registrationDto) {
+//        User user = userRepository.findByEmail(registrationDto.getEmail());
+//        if (user != null) {
+//            userService.loadUserByUsername(registrationDto.getEmail());
+//            return "redirect:/";
+//        }
+//
+//        return "redirect:/login";
+//
+//    }
     //    @PostMapping("login")
 //    public String processLoginPage(String email, String password, Errors errors, Model model) {
 //        UserDetails foundUser = userService.loadUserByUsername(email);
