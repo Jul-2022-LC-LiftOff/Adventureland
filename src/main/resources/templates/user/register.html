@@ -11,35 +11,35 @@
 
 </head>
 
-<body>
+<body style="background-color: #cc5500">
 <div th:replace="fragments :: page-header"></div>
 
-<div class="card mx-auto display:block mt-5" style="width: 40rem;">
+<div class="card mx-auto display:block mt-5" style="width: 40rem; background-color: #D2B48C">
     <form method="post" th:action="@{/register}">
         <div class="card-body">
-            <h1 class="card-title text-center">Register</h1>
+            <h1 class="card-title text-center" style="font-family:Garamond">Register</h1>
             <div>
-                <label class="form-label">First Name:</label>
+                <label class="form-label" style="font-family:Garamond">First Name:</label>
                 <input class="form-control" th:field="${user.firstName}" th:value="${firstName}" required
                        placeholder="First Name">
                 <!--                <p class="error" style="color: red" th:errors="${user.firstName}"></p>-->
             </div>
             <br>
             <div>
-                <label class="form-label">Last Name:</label>
+                <label class="form-label" style="font-family:Garamond">Last Name:</label>
                 <input class="form-control" th:field="${user.lastName}" th:value="${lastName}" required placeholder="Last Name">
                 <!--                <p class="error" style="color: red" th:errors="${user.lastName}"></p>-->
             </div>
             <br>
             <div>
-                <label class="form-label">Email:</label>
+                <label class="form-label" style="font-family:Garamond">Email:</label>
                 <input class="form-control" type="email" th:field="${user.email}" th:value="${email}" required
                        placeholder="Email Address">
                 <!--                <p class="error" style="color: red" th:errors="${user.email}"></p>-->
             </div>
             <br>
             <div>
-                <label class="form-label">Password:</label>
+                <label class="form-label" style="font-family:Garamond">Password:</label>
                 <input class="form-control" type="password" id="password" th:field="${user.password}" required
                        placeholder="Password">
                 <!--                <p class="error" style="color: red" th:errors="${user.password}"></p>-->
@@ -51,16 +51,16 @@
             <!--            </div>-->
             <!--            <br>-->
             <div>
-                <label class="form-label">Birth Date:</label>
+                <label class="form-label" style="font-family:Garamond">Birth Date:</label>
                 <input class="form-control" type="date" th:field="${user.birthdate}" th:value="${birthdate}"
                        required placeholder="Birth Date">
                 <!--                <p class="error" style="color: red" th:errors="${user.birthdate}"></p>-->
             </div>
         </div>
         <div class="card-footer text-center">
-            <button class="btn btn-primary btn-sm" type="submit">Submit</button>
+            <button class="btn btn-dark btn-sm" type="submit">Submit</button>
             <br>
-            <div><a href="http://localhost:8080/login">Already have an account? Login here.</a></div>
+            <div><a href="http://localhost:8080/login" style="color: black">Already have an account? Login here.</a></div>
         </div>
     </form>
 </div>
