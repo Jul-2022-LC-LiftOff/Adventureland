@@ -17,10 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-//import org.launchcode.adventureland.persistent.models.Reservation;
-//import org.launchcode.adventureland.persistent.models.data.reservationRepository;
-
-
 @Controller
 @RequestMapping("reservation")
 public class ReservationController {
@@ -39,11 +35,8 @@ public class ReservationController {
 
     @GetMapping("")
     public String displayReservationList(Model model) {
-        model.addAttribute("title", "Cart");
-        model.addAttribute("ReservationList",reservationRepository.findAll());
-        model.addAttribute("reservation", reservation);
 
-        return "reservation/cartView";
+        return "reservation/resFormView";
     }
 
     // **SEE BELOW**
@@ -61,49 +54,6 @@ public class ReservationController {
         } else {
             return "redirect:../";
         }
-
     }
-
-    @PostMapping("cartView")
-    public String processAddReservationForm(@ModelAttribute @Valid Reservation newReservation, Errors errors, Model model) {
-
-        if (errors.hasErrors()) {
-            return "reservation/resFormView";
-        } else {
-
-
-            reservationRepository.save(newReservation);
-            model.addAttribute("ReservationList", reservationRepository.findAll());
-
-            model.addAttribute("reservation", reservation);
-
-
-            return "reservation/cartView";
-
-        }
-    }
-
-//    @GetMapping("cartView")
-//    public String displayCart(Model model /*@PathVariable int userId*/) {
-//        model.addAttribute("title", "Cart");
-//        model.addAttribute("ReservationList", reservationRepository.findAll());
-//        model.addAttribute("reservation", reservation);
-//
-//        return"reservation/cartView";
-//    }
-
-//    @GetMapping("view")
-//    public String displayViewReservation(Model model/*, @PathVariable int userId*/){
-//
-//            model.addAttribute("title", "My Reservations");
-//            return "reservation/view";
-//        }
-
-
-//    @GetMapping("editView")
-//    public String displayEditReservationForm(Model model) {
-//        model.addAttribute("title", "Edit Reservation");
-//        return "reservation/editView";
-//    }
 
 }

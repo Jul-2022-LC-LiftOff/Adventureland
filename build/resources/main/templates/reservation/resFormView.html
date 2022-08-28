@@ -18,52 +18,33 @@
 <body class="container">
 <nav th:replace="fragments :: page-header"></nav>
 
-<h1 th:text="${title}">Default Title</h1>
-
+<!--<h1 th:text="${title}">Default Title</h1>-->
+<h3 style="">About This Equipment</h3>
 
 <div class="container" id="reserve-form">
     <form  th:action="@{/reservation/cartView}"  th:object="${reservation}" method="post">
         <div th:object="${equipment}">
             <div class="col-md-6">
                 <div class="row">
+                </div>
+                <div class="row">
                     <h1 th:text="${equipment.equipmentName}"></h1>
                 </div>
                 <div class="row">
                     <h3 th:text="|Rate: ${equipment.price}|"></h3>
                 </div>
-                <div class="row">
-                    <div class="form-group">
-                        <label for="equipmentName"> Select Equipment: </label>
-                        <input class="form-control" id="equipmentName" type="text" name="equipmentName"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="equipmentQuantity"> Select Quantity: </label>
-                        <input class="form-control" id="equipmentQuantity" type="number" name="equipmentQuantity"/>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="dateReserved"> Select dateReserved: </label>
-                        <input class="form-control" id="dateReserved" type="date" name="dateReserved"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="total"> Total: </label>
-                        <input class="form-control" id="total" type="number" name="total"/>
-                    </div>
-                    
-                    <div class="form-group">
-                        <input type="submit" value="Add To Cart">
-                    </div>
                     <div class="container-text" id="about-rental">
                         <div class="row">
-                            <h3 style="margin-left:30px">About this rental</h3>
-<!--                            <p th:text="${equipment.description}"></p>-->
+
+                            <h3 style="">Description</h3>
+
                         </div>
                     </div>
                 </div>
             </div>
             
             <div class="col-md-6">
-                <img src="${equipment.image}" alt="${equipment.name}" width="425" height="625">
+<!--                <img src="${equipment.image}" alt="${equipment.name}" width="425" height="625">-->
                 <img src="https://images.pexels.com/photos/2749500/pexels-photo-2749500.jpeg" alt="kayak" width="425" height="625">-->
             </div>
         </div>
