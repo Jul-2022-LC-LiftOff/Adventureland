@@ -16,7 +16,7 @@ public class CategoryController{
     @Autowired
     private CategoryRepository categoryRepository;
 
-    @GetMapping
+    @GetMapping("")
     public String index(Model model) {
         model.addAttribute("title", "All Categories");
         model.addAttribute("categories", categoryRepository.findAll());
