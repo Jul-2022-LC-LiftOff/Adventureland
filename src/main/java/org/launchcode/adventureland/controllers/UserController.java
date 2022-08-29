@@ -21,7 +21,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -58,12 +63,21 @@ public class UserController {
 
 
     @PostMapping("register")
-    public String processRegistrationForm(@ModelAttribute("user") UserRegistrationDto registrationDto, Errors errors) {
+    public String processRegistrationForm(@ModelAttribute("user") UserRegistrationDto registrationDto, Errors errors) throws ParseException {
         if (userRepository.findByEmail(registrationDto.getEmail()) != null) {
             errors.rejectValue( "email", "email.duplicate", "Email is already registered.");
             return "user/register";
     //if there is already a user with that email address in the repository, then show error message and return registration form.
         }
+        String userBirthday = registrationDto.getBirthdate();
+        LocalDate userBirthdayDate = LocalDate.parse(userBirthday);
+        LocalDate now = LocalDate.now();
+        if ((userBirthdayDate.getYear() > now.minusYears(18).getYear()) || (userBirthdayDate.getYear() == now.minusYears(18).getYear() && userBirthdayDate.getDayOfYear() > now.getDayOfYear())) {
+            errors.rejectValue( "birthdate", "birthdate.year.greater", "Must be at least 18.");
+            return "user/register";
+            //if the user's birth year is greater than the current one minus 18 years OR the user's birth year is equal to the current year minus 18 BUT still not 18, then reject value.
+        }
+
         userService.save(registrationDto);
         return "user/register_success";
         //otherwise, return registration success page.

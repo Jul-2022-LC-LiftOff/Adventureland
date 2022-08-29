@@ -49,7 +49,7 @@
             <!--            <br>-->
             <div>
                 <label class="form-label" style="font-family:Garamond">Birth Date:</label>
-                <input class="form-control" type="date" th:field="${user.birthdate}" th:value="${birthdate}"
+                <input class="form-control" type="date" name="birthdate" id="birthdate" th:value="${birthdate}"
                        required placeholder="Birth Date">
                                 <p class="error" style="color: red" th:errors="${user.birthdate}"></p>
             </div>
