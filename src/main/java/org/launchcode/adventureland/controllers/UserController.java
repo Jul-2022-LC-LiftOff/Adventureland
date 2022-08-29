@@ -1,5 +1,6 @@
 package org.launchcode.adventureland.controllers;
 
+
 import org.launchcode.adventureland.dto.UserRegistrationDto;
 import org.launchcode.adventureland.models.User;
 import org.launchcode.adventureland.models.data.UserRepository;
@@ -16,7 +17,9 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
@@ -51,10 +54,13 @@ public class UserController {
         return "redirect:/";
     }
 
+
     @PostMapping("register")
-    public String processRegistrationForm(@ModelAttribute("user") UserRegistrationDto registrationDto) {
+    public String processRegistrationForm(@ModelAttribute("user") UserRegistrationDto registrationDto, Errors errors) {
         if (userRepository.findByEmail(registrationDto.getEmail()) != null) {
-            return "user/already_registered";
+            errors.rejectValue( "email", "email.duplicate", "Email is already registered.");
+            return "user/register";
+
         }
         userService.save(registrationDto);
         return "user/register_success";
@@ -69,7 +75,6 @@ public class UserController {
         }
 
         return "redirect:/";
-        //return "user/login";
     }
 
 
