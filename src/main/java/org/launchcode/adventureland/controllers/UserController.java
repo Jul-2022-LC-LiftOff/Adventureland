@@ -57,4 +57,9 @@ public class UserController {
                return "redirect:/";
             }
     }
+    @GetMapping("account")
+    public String displayAccount(Model model) {
+        model.addAttribute("title", "My Account");
+        return "account";
+    }
 }
