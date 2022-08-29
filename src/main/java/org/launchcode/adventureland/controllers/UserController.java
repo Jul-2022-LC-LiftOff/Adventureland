@@ -73,7 +73,7 @@ public class UserController {
     public String displayLoginPage(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-            model.addAttribute("user", new User());
+            //model.addAttribute("user", new User());
             return "user/login";
             //if user is not authenticated/logged in, return login form.
         }
@@ -94,13 +94,13 @@ public class UserController {
 //        return "redirect:/login";
 //
 //    }
-    //    @PostMapping("login")
-//    public String processLoginPage(String email, String password, Errors errors, Model model) {
-//        UserDetails foundUser = userService.loadUserByUsername(email);
+//        @PostMapping("login")
+//    public String processLoginPage(@ModelAttribute("user") UserRegistrationDto registrationDto, Errors errors, Model model) {
+//        UserDetails foundUser = userService.loadUserByUsername(registrationDto.getEmail());
 //        if (foundUser == null) {
 //            errors.rejectValue("email", "email.invalid", "Invalid email address");
 //            return "login";
-//        } else if (errors.hasErrors() || (!foundUser.getPassword().equals(password))) {
+//        } else if (errors.hasErrors() || (!foundUser.getPassword().equals(registrationDto.getPassword()))) {
 //            errors.rejectValue("password", "password.invalid", "Invalid password");
 //            //add errors, or no found user
 //                return "login";

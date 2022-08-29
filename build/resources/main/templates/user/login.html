@@ -14,7 +14,7 @@
 
             <!-- error message -->
             <div th:if="${param.error}">
-                <div class="alert alert-danger">Invalid username or
+                <div class="alert alert-danger">Invalid email or
                     password.
                 </div>
             </div>
@@ -27,10 +27,9 @@
             </div>
 
             <div class="form-group">
-                <label for="email" style="font-family:Garamond"> Email </label> :
-                <input type="text" class="form-control" id="email"
-                       name="email" placeholder="Enter Email Address"
-                       autofocus="autofocus">
+                <label for="email" style="font-family:Garamond">Email</label> :
+                <input type="email" class="form-control" id="email"
+                       name="email" placeholder="Enter Email Address">
             </div>
             <br>
             <div class="form-group">
