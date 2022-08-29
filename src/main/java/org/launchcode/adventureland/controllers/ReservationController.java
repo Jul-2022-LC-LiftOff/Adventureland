@@ -83,5 +83,13 @@ public class ReservationController {
 
     }
 
+    @GetMapping("resConfirmView")
+    public String displayConfirmation(Model model) {
+        model.addAttribute("title", "Your reservation has been confirmed!");
+        model.addAttribute("ReservationList", reservationRepository.findAll());
+        model.addAttribute("reservation", reservation);
+        return"reservation/resConfirmView";
+    }
+
 
 }

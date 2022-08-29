@@ -24,30 +24,33 @@
 <!--<h3 th:unless="${reservation} and ${reservation.size()}">No Reservations</h3>-->
 
 
-<form  th:action="@{/reservation/resConfirmView}"  th:object="${ReservationList}" method="post">
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th>Equipment</th>
-            <th>Quantity</th>
-            <th>Unit Price</th>
-            <th></th>
-        </thead>
-        <tbody>
-        <tr th:each="reservation : ${ReservationList}">
-            <td th:text="${reservation.equipmentName}"></td>
-            <td th:text="${reservation.equipmentQuantity}"></td>
-            <td th:text="${reservation.unitPrice}"></td>
-        </tr>
-        </tbody>
-        <thead>
-        <tr>
 
-    </table>
-    <div>
-        <a th:href="@{'/equipment'}" class="btn btn-success" role="button">Continue Shopping</a>
-        <a th:href="@{'/reservation/resConfirmView'}" class="btn btn-success" role="button" type="submit">Complete Reservation</a>
-    </div>
-</form>
+<div>
+    
+    <h3>Confirmation Number</h3>
+    <!--    <h5>"${reservation.reservationId}"</h5>-->
+</div>
+
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Equipment</th>
+        <th>Quantity</th>
+        <!--        &lt;!&ndash;        <th>dateReserved</th>&ndash;&gt;-->
+        <!--        <th>Total</th>-->
+    </thead>
+    <tr th:each="reservation : ${ReservationList}">
+        <td th:text="${reservation.equipmentName}"></td>
+        <td th:text="${reservation.equipmentQuantity}"></td>
+        <!--        &lt;!&ndash;        <td th:text="${reservation.dateReserved}"></td>&ndash;&gt;-->
+        <!--        <td th:text="${reservation.total}"></td>-->
+    </tr>
+
+
+</table>
+
+<!--<a th:href="@{'/reservation/edit'}" class="btn btn-success" role="button" type="submit">Edit Reservation</a>-->
+
 </body>
 </html>
