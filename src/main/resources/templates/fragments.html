@@ -15,7 +15,12 @@
 
 <nav th:fragment="page-header" class="navbar navbar-expand-lg navbar-fixed-top bg-dark" role="navigation">
     <div class="container-fluid">
-            <a th:href="@{/}" class="navbar-brand" style="font-family:Garamond; color:tan">Adventure Outdoors</a>
+
+            <a class="navbar-brand" href="/">
+                <img src="https://i.ibb.co/kxRLg81/logo.png" alt="" width="200" height="80">
+            </a>
+
+<!--            <a th:href="@{/}" class="navbar-brand" style="font-family:Garamond; color:tan">Adventure Outdoors</a>-->
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav">
                 <li class="nav-item"><a class="nav-link" href="http://localhost:8080/categories" style="font-family:Garamond; color:tan">All Categories</a></li>
