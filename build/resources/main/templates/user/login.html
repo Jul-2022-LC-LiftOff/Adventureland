@@ -32,9 +32,9 @@
             </div>
 
             <div class="form-group">
-                <label for="username" style="font-family:Garamond"> Username </label> :
-                <input type="text" class="form-control" id="username"
-                       name="username" placeholder="Enter Email Address"
+                <label for="email" style="font-family:Garamond"> Email </label> :
+                <input type="text" class="form-control" id="email"
+                       name="email" placeholder="Enter Email Address"
                        autofocus="autofocus">
             </div>
             <br>
@@ -51,14 +51,14 @@
                 </p>
                 <br>
                 <div>
-                    <input style="background-color: #000000; font-family:Garamond" type="submit" name="login-submit"
+                    <button style="background-color: #000000; font-family:Garamond" type="submit" name="login-submit"
                            id="login-submit"
-                           class="form-control btn btn-dark btn-sm"
-                           value="Log In"/>
+                           class="btn btn-dark btn-lg"
+                           value="Log In"/>Login</button>
                 </div>
                 <br>
                 <div class="text-center">
-                    <span style="font-family:Garamond">New user? <a href="/" th:href="@{/registration}" style="font-family:Garamond; color:black">
+                    <span style="font-family:Garamond">New user? <a href="http://localhost:8080/register" style="font-family:Garamond; color:black">
                 Register
                   here</a></span>
                 </div>
