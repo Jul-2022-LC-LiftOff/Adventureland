@@ -49,9 +49,11 @@ public class UserController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "user/register";
+            //if user is not authenticated/logged in, return register form.
         }
 
         return "redirect:/";
+        //otherwise, redirect to home page.
     }
 
 
@@ -60,10 +62,11 @@ public class UserController {
         if (userRepository.findByEmail(registrationDto.getEmail()) != null) {
             errors.rejectValue( "email", "email.duplicate", "Email is already registered.");
             return "user/register";
-
+    //if there is already a user with that email address in the repository, then show error message and return registration form.
         }
         userService.save(registrationDto);
         return "user/register_success";
+        //otherwise, return registration success page.
     }
 
     @GetMapping("login")
@@ -72,9 +75,11 @@ public class UserController {
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             model.addAttribute("user", new User());
             return "user/login";
+            //if user is not authenticated/logged in, return login form.
         }
 
         return "redirect:/";
+        //otherwise, return home page.
     }
 
 
