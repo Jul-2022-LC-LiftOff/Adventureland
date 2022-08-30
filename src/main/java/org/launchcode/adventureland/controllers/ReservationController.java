@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.Entity;
 import javax.validation.Valid;
-import java.math.BigDecimal;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -62,7 +62,6 @@ public class ReservationController {
 
     @GetMapping("cartView")
     public String displayCart(Model model /*@PathVariable int userId*/) {
-        model.addAttribute("title", "Cart");
         model.addAttribute("ReservationList", reservationRepository.findAll());
         model.addAttribute("reservation", reservation);
 

@@ -16,17 +16,17 @@ public class Equipment extends AbstractEntity{
 
     private int quantity;
 
-    private BigDecimal price;
+    private double price;
 
     public Equipment(){}
 
-    public Equipment(Category aCategory, String anEquipmentName, String aManufacturer, int aQuantity, BigDecimal aPrice) {
+    public Equipment(Category category, String equipmentName, String manufacturer, int quantity, double price) {
         super();
-        this.category = aCategory;
-        this.equipmentName = anEquipmentName;
-        this.manufacturer = aManufacturer;
-        this.quantity = aQuantity;
-        this.price = aPrice;
+        this.category = category;
+        this.equipmentName = equipmentName;
+        this.manufacturer = manufacturer;
+        this.quantity = quantity;
+        this.price = price;
     }
 
     public Category getCategory() {
@@ -61,11 +61,11 @@ public class Equipment extends AbstractEntity{
         this.quantity = quantity;
     }
 
-    public BigDecimal getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 }

@@ -5,8 +5,7 @@ import org.springframework.ui.Model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,15 +17,15 @@ public class Reservation extends AbstractEntity {
     @NotNull
     private String equipmentName;
 
-    @Transient
-    private SimpleDateFormat dateReserved;
 
-//    @NotNull
+    private String dateReserved;
+
+    @NotNull
     private int equipmentQuantity;
 
-    private BigDecimal unitPrice;
+    private double unitPrice;
 
-    private BigDecimal total;
+    private double total;
 
 
     @ManyToMany
@@ -36,9 +35,9 @@ public class Reservation extends AbstractEntity {
     @ManyToOne
     private User user;
 
-    public Reservation(String equipmentName, String dateReserved, int equipmentQuantity, BigDecimal unitPrice, BigDecimal total, User user) {
+    public Reservation(String equipmentName, String dateReserved, int equipmentQuantity, double unitPrice, double total, User user) {
         this.equipmentName = equipmentName;
-        this.dateReserved = new SimpleDateFormat(dateReserved);
+        this.dateReserved = dateReserved;
         this.equipmentQuantity = equipmentQuantity;
         this.unitPrice = unitPrice;
         this.total = total;
@@ -49,29 +48,19 @@ public class Reservation extends AbstractEntity {
 
     }
 
-    public Reservation(Model model) {
+    public Reservation(String equipmentName, double unitPrice) {
         super();
-        this.equipmentName = (String) model.getAttribute("equipmentName");
-        this.dateReserved = (SimpleDateFormat) model.getAttribute("dateReserved");
-        this.equipmentQuantity = (int) model.getAttribute("equipmentQuantity");
-        this.unitPrice = (BigDecimal) model.getAttribute("unitPrice");
-        this.total = (BigDecimal) model.getAttribute("total");
-        this.user = (User) model.getAttribute("user");
+        this.equipmentName = equipmentName;
+        this.unitPrice = unitPrice;
     }
 
-    public Reservation(String equipmentName, SimpleDateFormat dateReserved, int equipmentQuantity, BigDecimal unitPrice, BigDecimal total) {
+    public Reservation(String equipmentName, String dateReserved, int equipmentQuantity, double unitPrice, double total) {
         super();
         this.equipmentName = equipmentName;
         this.dateReserved = dateReserved;
         this.equipmentQuantity = equipmentQuantity;
         this.unitPrice = unitPrice;
         this.total = total;
-    }
-
-    public Reservation(String equipmentName, BigDecimal price) {
-        super();
-        this.equipmentName = equipmentName;
-        this.unitPrice = price;
     }
 
 
@@ -83,12 +72,12 @@ public class Reservation extends AbstractEntity {
         this.equipmentName = equipmentName;
     }
 
-    public SimpleDateFormat getDateReserved() {
+    public String getDateReserved() {
 
         return dateReserved;
     }
 
-    public void setDateReserved(SimpleDateFormat dateReserved) {
+    public void setDateReserved(String dateReserved) {
         this.dateReserved = dateReserved;
     }
 
@@ -100,15 +89,15 @@ public class Reservation extends AbstractEntity {
         this.equipmentQuantity = equipmentQuantity;
     }
 
-    public BigDecimal getUnitPrice() {
+    public double getUnitPrice() {
         return unitPrice;
     }
 
-    public void setUnitPrice(BigDecimal unitPrice) {
+    public void setUnitPrice(double unitPrice) {
         this.unitPrice = unitPrice;
     }
 
-    public BigDecimal getTotal() {
+    public double getTotal() {
         return total;
     }
 
@@ -124,8 +113,16 @@ public class Reservation extends AbstractEntity {
         this.user = user;
     }
 
+    //    public Number calculateTotal(id) {
+//
+//        Where equals ID
+//
+//            double total = unitPrice * equipmentQuantity
+//
+//        return total;
+//    }
 
-    public void setTotal(BigDecimal total) {
+    public void setTotal(double total) {
         this.total = total;
     }
 

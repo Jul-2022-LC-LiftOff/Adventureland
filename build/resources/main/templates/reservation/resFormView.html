@@ -41,6 +41,11 @@
                         <input th:attr="value = ${reservation.unitPrice}" class="form-control" id="unitPrice" type="hidden" name="unitPrice"/>
                         <input th:attr="value = ${reservation.unitPrice}"  class="form-control" id="total" type="hidden" name="total"/>
                     </div>
+                    <div class="form-group">
+                        <label for="dateReserved"> Select dateReserved: </label>
+                        <input th:attr="value = ${reservation.dateReserved}" th:field="${reservation.dateReserved}" class="form-control" id="dateReserved" type="date" name="dateReserved"/>
+                       
+                    </div>
                 </div>
                 <div class="form-group">
                     <input type="submit" value="Add To Cart">

@@ -17,14 +17,14 @@
 //
 //        return args -> {
 //
-//            log.info("preloading" + repository.save(new Equipment("Water Gear", "Kayak", "Innova", 20, 50)));
-//            log.info("preloading" + repository.save(new Equipment("Water Gear", "Canoe", "PakCanoes", 20, 65)));
-//            log.info("preloading" + repository.save(new Equipment("Snow Gear", "Skis", "K2", 20, 65)));
-//            log.info("preloading" + repository.save(new Equipment("Snow Gear", "Snowboard", "Burton", 20, 65)));
-//            log.info("preloading" + repository.save(new Equipment("Camping Gear", "Tent", "Ozark Outdoors", 20, 45)));
-//            log.info("preloading" + repository.save(new Equipment("Camping Gear", "Stove", "Coleman", 20, 40)));
-//            log.info("preloading" + repository.save(new Equipment("Climbing Gear", "Climbing Shoes", "Black Diamond", 20, 25)));
-//            log.info("preloading" + repository.save(new Equipment("Climbing Gear", "Harness", "Black Diamond", 20, 20)));
+//            log.info("preloading" + repository.save(new Equipment((1,"Stuff for tasks","Tools"), "Kayak", "Innova", 20, 50.00)));
+//            log.info("preloading" + repository.save(new Equipment("Water Gear", "Canoe", "PakCanoes", 20, 65.00)));
+//            log.info("preloading" + repository.save(new Equipment("Snow Gear", "Skis", "K2", 20, 65.00)));
+//            log.info("preloading" + repository.save(new Equipment("Snow Gear", "Snowboard", "Burton", 20, 65.00)));
+//            log.info("preloading" + repository.save(new Equipment("Camping Gear", "Tent", "Ozark Outdoors", 20, 45.00)));
+//            log.info("preloading" + repository.save(new Equipment("Camping Gear", "Stove", "Coleman", 20, 40.00)));
+//            log.info("preloading" + repository.save(new Equipment("Climbing Gear", "Climbing Shoes", "Black Diamond", 20, 25.00)));
+//            log.info("preloading" + repository.save(new Equipment("Climbing Gear", "Harness", "Black Diamond", 20, 20.00)));
 //        };
 //    }
 //}

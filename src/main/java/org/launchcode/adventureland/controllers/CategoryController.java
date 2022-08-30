@@ -10,7 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Optional;
+import java.util.Scanner;
 
 @Controller
 @RequestMapping(value = "categories")
@@ -22,7 +24,7 @@ public class CategoryController{
     @Autowired
     private EquipmentRepository equipmentRepository;
 
-    @GetMapping
+    @GetMapping("")
     public String index(Model model) {
         model.addAttribute("title", "All Categories");
         model.addAttribute("categories", categoryRepository.findAll());
@@ -31,6 +33,7 @@ public class CategoryController{
     }
 
     // this will need items displayed below
+
     @GetMapping("/{categoryId}")
     public String displayViewCategory(Model model, @PathVariable  Integer categoryId) {
 
@@ -40,6 +43,7 @@ public class CategoryController{
             Iterable<Equipment> equipmentInCategory;
 
             String value = category.toString();
+
             equipmentInCategory = CatData.findByValue(value, equipmentRepository.findAll());
             model.addAttribute("category", category);
             model.addAttribute("title", "Equipment in " + value);
@@ -49,6 +53,23 @@ public class CategoryController{
         } else {
             return "redirect:../";
         }
+    }
+    @GetMapping("add")
+    public String displayEquipmentForm(Model model) {
+        model.addAttribute("title", "Add Category");
+        model.addAttribute("newCategory", new Category());
+
+        return "categories/add";
+    }
+
+
+    @PostMapping("add")
+    public String processEquipmentForm(@ModelAttribute @Valid Category newCategory) {
+
+        categoryRepository.save(newCategory);
+
+        return "redirect:";
+
     }
 
 }
