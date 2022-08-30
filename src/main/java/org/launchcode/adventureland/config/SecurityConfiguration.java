@@ -44,7 +44,7 @@ public class SecurityConfiguration {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/css/*", "/js/*", "/", "/categories", "/search", "/register", "/login", "/equipment", "/search")
+                .antMatchers("/css/*", "/js/*", "/", "/categories", "/search", "/register", "/login", "/equipment", "/search/results", "/categories/{categoryId}")
                 .permitAll()
                 //.mvcMatchers("/register", "/login").anonymous()
                 //.anyMatcher() and .permitAll() allow you to specify which pages can be accessed by everyone.
