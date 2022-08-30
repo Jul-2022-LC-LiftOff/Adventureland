@@ -1,32 +1,39 @@
 package org.launchcode.adventureland.models;
 
 //import javax.persistence.*;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 import java.time.LocalDate;
+import java.util.Collection;
 
 @Entity
-public class User extends AbstractEntity {
+//@Table(name = "user", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
+public class User {
 
-    @NotBlank(message = "Must enter a first name.")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "first_name")
     private String firstName;
-    @NotBlank(message = "Must enter a last name.")
+
+    @Column(name = "last_name")
     private String lastName;
-    @NotBlank(message = "Must enter an email.")
-    @Email(message = "Must be a valid email.")
+
     private String email;
-    @NotNull(message = "Must enter a password between 6 and 20 characters.")
-    @Size(min = 6, max = 20)
+
     private String password;
 
-    @NotNull(message = "Must enter a birthdate.")
     private String birthdate;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    //@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    private final List<Role> roles = new ArrayList<>();
 
 //    @OneToMany
 //    private List<Reservation> reservations;
@@ -40,6 +47,14 @@ public class User extends AbstractEntity {
     }
 
     public User() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -66,6 +81,14 @@ public class User extends AbstractEntity {
         this.email = email;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public String getBirthdate() {
         return birthdate;
     }
@@ -74,13 +97,11 @@ public class User extends AbstractEntity {
         this.birthdate = birthdate;
     }
 
-    public String getPassword() {
-        return password;
+    public Collection<Role> getRoles() {
+        return roles;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+
 
     //    public List<Reservation> getReservations() {
 //        return reservations;

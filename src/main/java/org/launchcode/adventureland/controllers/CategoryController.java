@@ -1,10 +1,7 @@
 package org.launchcode.adventureland.controllers;
 
-import org.launchcode.adventureland.models.CatData;
-import org.launchcode.adventureland.models.Equipment;
 import org.launchcode.adventureland.models.data.CategoryRepository;
 import org.launchcode.adventureland.models.Category;
-import org.launchcode.adventureland.models.data.EquipmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,10 +16,7 @@ public class CategoryController{
     @Autowired
     private CategoryRepository categoryRepository;
 
-    @Autowired
-    private EquipmentRepository equipmentRepository;
-
-    @GetMapping
+    @GetMapping("")
     public String index(Model model) {
         model.addAttribute("title", "All Categories");
         model.addAttribute("categories", categoryRepository.findAll());
@@ -37,14 +31,7 @@ public class CategoryController{
         Optional optCategory = categoryRepository.findById(categoryId);
         if (optCategory.isPresent()) {
             Category category = (Category) optCategory.get();
-            Iterable<Equipment> equipmentInCategory;
-
-            String value = category.toString();
-            equipmentInCategory = CatData.findByValue(value, equipmentRepository.findAll());
             model.addAttribute("category", category);
-            model.addAttribute("title", "Equipment in " + value);
-            model.addAttribute("equipments", equipmentInCategory);
-
             return "catView";
         } else {
             return "redirect:../";
