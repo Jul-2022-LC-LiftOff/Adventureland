@@ -7,6 +7,9 @@ import org.launchcode.adventureland.models.data.EquipmentRepository;
 import org.launchcode.adventureland.models.data.CategoryRepository;
 import org.launchcode.adventureland.models.data.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -30,8 +33,11 @@ public class EquipmentController {
     public String displayEquipment(Model model){
 
         model.addAttribute("EquipmentList", equipmentRepository.findAll());
-
-        return "equipment/view";
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            return "equipment/view";
+        }
+        return "loggedInUser/viewEquipment";
 
     }
     @GetMapping("add")

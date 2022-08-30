@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head">
+</head>
+<body>
+<div th:replace="loggedInUser/fragments :: logged-in-header"></div>
+<div>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>All Categories</th>
+        </tr>
+        </thead>
+        <tr th:each="category : ${categories}">
+            <td th:text="${category.name}"></td>
+            <td th:text="${category.description}"></td>
+            <td>
+                <a th:href="@{/categories/{id}(id=${category.id})}" class="btn">View Inventory</a>
+            </td>
+        </tr>
+
+    </table>
+
+    <!--    needs to be admin only-->
+    <a th:href="@{/categories/add}" class="btn">New Category</a>
+
+
+</div>
+
+</body>
+</html>
