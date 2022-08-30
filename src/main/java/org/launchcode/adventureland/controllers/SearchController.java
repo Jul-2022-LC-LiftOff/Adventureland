@@ -4,6 +4,9 @@ import org.launchcode.adventureland.models.CatData;
 import org.launchcode.adventureland.models.Equipment;
 import org.launchcode.adventureland.models.data.EquipmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,7 +33,11 @@ public class SearchController {
     @RequestMapping("")
     public String search(Model model){
         model.addAttribute("columns", columnChoices);
-        return "search";
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            return "search";
+        }
+        return "loggedInUser/search";
     }
 
     @PostMapping("results")
@@ -42,6 +49,11 @@ public class SearchController {
         model.addAttribute("columns", columnChoices);
         model.addAttribute("title", "Equipment matching " + columnChoices.get(searchType) + "with " +searchTerm);
         model.addAttribute("equipment", equipment);
-        return "search";
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            return "search";
+        }
+        return "loggedInUser/search";
     }
 }
