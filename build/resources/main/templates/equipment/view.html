@@ -11,8 +11,8 @@ List of the Equipment
 <table id="Equipment List">
     <thead>
     <tr>
+        <th> Name </th>
         <th> Category </th>
-        <th> Type </th>
         <th> Manufacturer </th>
         <th> Quantity </th>
         <th> Price </th>
@@ -20,8 +20,8 @@ List of the Equipment
     </thead>
     <tbody>
     <tr th:each="equipment : ${EquipmentList}">
-        <td th:text="${equipment.category}"></td>
         <td th:text="${equipment.equipmentName}"></td>
+        <td th:text="${equipment.category}"></td>
         <td th:text="${equipment.manufacturer}"></td>
         <td th:text="${equipment.quantity}"></td>
         <td th:text="${equipment.price}"></td>
@@ -30,6 +30,9 @@ List of the Equipment
     </tbody>
 
 </table>
+
+<!--    needs to be admin-only      -->
+<a th:href="@{/equipment/add}" class="btn">New Item</a>
 
 </body>
 </html>

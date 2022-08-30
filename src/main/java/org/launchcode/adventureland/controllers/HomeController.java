@@ -7,9 +7,9 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class HomeController  {
 
-    public String viewIndex(){
-        return "index";
-    }
+//    public String viewIndex(){
+//        return "index";
+//    }
 
 
 }
