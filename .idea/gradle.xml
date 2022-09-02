@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+<<<<<<< HEAD
+=======
   <component name="GradleMigrationSettings" migrationVersion="1" />
+>>>>>>> refs/remotes/origin/dev
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
@@ -12,6 +15,8 @@
           </set>
         </option>
       </GradleProjectSettings>
+<<<<<<< HEAD
+=======
       <GradleProjectSettings>
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -21,6 +26,7 @@
           </set>
         </option>
       </GradleProjectSettings>
+>>>>>>> refs/remotes/origin/dev
     </option>
   </component>
 </project>
