@@ -3,6 +3,7 @@ package org.launchcode.adventureland.controllers;
 
 import org.launchcode.adventureland.dto.UserRegistrationDto;
 import org.launchcode.adventureland.models.User;
+import org.launchcode.adventureland.models.data.ReservationRepository;
 import org.launchcode.adventureland.models.data.UserRepository;
 import org.launchcode.adventureland.service.UserService;
 import org.launchcode.adventureland.service.UserServiceImpl;
@@ -34,6 +35,9 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+
+//    @Autowired
+//    private ReservationRepository reservationRepository;
 
     private UserService userService;
 

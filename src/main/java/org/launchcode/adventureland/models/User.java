@@ -36,6 +36,7 @@ public class User {
     private final List<Role> roles = new ArrayList<>();
 
 //    @OneToMany
+//    @JoinColumn(name = "user_id", referencedColumnName = "id")
 //    private List<Reservation> reservations;
 
     public User(String firstName, String lastName, String email, String password, String birthdate) {
