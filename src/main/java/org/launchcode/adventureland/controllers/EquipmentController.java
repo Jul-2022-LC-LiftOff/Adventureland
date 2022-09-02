@@ -1,6 +1,6 @@
 package org.launchcode.adventureland.controllers;
 
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
+
 import org.launchcode.adventureland.models.Category;
 import org.launchcode.adventureland.models.Equipment;
 import org.launchcode.adventureland.models.Category;

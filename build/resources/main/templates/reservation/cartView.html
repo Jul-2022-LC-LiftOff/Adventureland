@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/">
+<!--<head th:replace="fragments :: head">-->
+<!--</head>-->
+
+<head>
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet"/>
+    <link th:href="@{/css/adventureland.css}" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
+          integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <script type="text/javascript" th:src="@{/js/bootstrap.js}"></script>
+    
+    <title th:text="'adventureland' + ${title == null ? '' : ' :: ' + title}">Adventure Outdoors</title>
+
+</head>
+
+
+<body class="container-fluid">
+
+<nav th:replace="fragments :: page-header"></nav>
+
+<h1>Cart</h1>
+
+
+<!--<h3 th:unless="${reservation} and ${reservation.size()}">No Reservations</h3>-->
+
+
+<form  th:action="@{/reservation/resConfirmView}"  th:object="${ReservationList}" method="post">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Equipment</th>
+            <th>Quantity</th>
+            <th>Unit Price</th>
+            <th></th>
+        </thead>
+        <tbody>
+        <tr th:each="reservation : ${ReservationList}">
+            <td th:text="${reservation.equipmentName}"></td>
+            <td th:text="${reservation.equipmentQuantity}"></td>
+            <td th:text="${reservation.unitPrice}"></td>
+        </tr>
+        </tbody>
+        <thead>
+        <tr>
+
+    </table>
+    <div>
+        <a th:href="@{'/equipment'}" class="btn btn-success" role="button">Continue Shopping</a>
+        <a th:href="@{'/reservation/resConfirmView'}" class="btn btn-success" role="button" type="submit">Complete Reservation</a>
+    </div>
+</form>
+</body>
+</html>
