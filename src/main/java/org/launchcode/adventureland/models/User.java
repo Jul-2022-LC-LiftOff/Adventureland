@@ -35,8 +35,8 @@ public class User {
     //@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private final List<Role> roles = new ArrayList<>();
 
-//    @OneToMany
-//    private List<Reservation> reservations;
+    @OneToMany
+    private List<Reservation> reservations;
 
     public User(String firstName, String lastName, String email, String password, String birthdate) {
         this.firstName = firstName;
@@ -103,9 +103,9 @@ public class User {
 
 
 
-    //    public List<Reservation> getReservations() {
-//        return reservations;
-//    }
-//
-//
+        public List<Reservation> getReservations() {
+        return reservations;
+    }
+
+
 }

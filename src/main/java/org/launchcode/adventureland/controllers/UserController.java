@@ -96,30 +96,18 @@ public class UserController {
         //otherwise, return home page.
     }
 
-
-//    @PostMapping("login")
-//    public String processLoginForm(@Valid @ModelAttribute("user") UserRegistrationDto registrationDto) {
-//        User user = userRepository.findByEmail(registrationDto.getEmail());
-//        if (user != null) {
-//            userService.loadUserByUsername(registrationDto.getEmail());
-//            return "redirect:/";
-//        }
-//
-//        return "redirect:/login";
-//
-//    }
-//        @PostMapping("login")
-//    public String processLoginPage(@ModelAttribute("user") UserRegistrationDto registrationDto, Errors errors, Model model) {
-//        UserDetails foundUser = userService.loadUserByUsername(registrationDto.getEmail());
-//        if (foundUser == null) {
-//            errors.rejectValue("email", "email.invalid", "Invalid email address");
-//            return "login";
-//        } else if (errors.hasErrors() || (!foundUser.getPassword().equals(registrationDto.getPassword()))) {
-//            errors.rejectValue("password", "password.invalid", "Invalid password");
-//            //add errors, or no found user
-//                return "login";
-//            } else {
-//               return "redirect:/";
-//            }
-//    }
+    @GetMapping("account")
+    public String displayAccount(Model model, UserRegistrationDto userRegistrationDto) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            return "user/login";
+        }
+        String email = authentication.getName();
+        User user = userRepository.findByEmail(email);
+        String firstName = user.getFirstName();
+        model.addAttribute("title", firstName + "'s Account");
+        model.addAttribute("reservations", user.getReservations());
+        model.addAttribute("user", user);
+       return "loggedInUser/account";
+    }
 }
