@@ -38,12 +38,13 @@ public class User {
     @OneToMany
     private List<Reservation> reservations;
 
-    public User(String firstName, String lastName, String email, String password, String birthdate) {
+    public User(String firstName, String lastName, String email, String password, String birthdate, List<Reservation> reservations) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.birthdate = birthdate;
+        this.reservations = reservations;
     }
 
     public User() {

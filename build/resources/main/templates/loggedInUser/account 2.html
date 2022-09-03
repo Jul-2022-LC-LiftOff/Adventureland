@@ -40,22 +40,12 @@
                             </h2>
                             <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
                                  data-bs-parent="#accordion">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <ul class="list-group list-group-flush accordion-body">
-                                            <label>Equipment Name:
-                                                <li class="list-group-item" th:text="${reservation.equipmentName}"></li>
-                                            </label>
-                                            <label>Equipment Quantity:
-                                                <li class="list-group-item"
-                                                    th:text="${reservation.equipmentQuantity}"></li>
-                                            </label>
-                                            <label>Total Price:
-                                                <li class="list-group-item" th:text="${reservation.total}"></li>
-                                            </label>
-                                        </ul>
-                                    </div>
-                                </div>
+                                    <ul class="list-group list-group-flush accordion-body">
+                                        <label for="1" class="control-label">Equipment Name: <li id="1" class="list-group-item" th:text="${reservation.equipmentName}"></li></label>
+                                        <label for="2" class="control-label">Equipment Quantity: <li id="2" class="list-group-item" th:text="${reservation.equipmentQuantity}"></li></label>
+                                        <label for="3" class="control-label">Total Price: <li id="3" class="list-group-item" th:text="${reservation.total}"></li></label>
+                                    </ul>
+
                             </div>
                         </div>
                     </div>

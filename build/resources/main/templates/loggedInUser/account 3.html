@@ -38,24 +38,14 @@
                                         th:text="${reservation.dateReserved}">
                                 </button>
                             </h2>
-                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                            <div id="collapseOne" class="accordion-collapse collapse show text-center" aria-labelledby="headingOne"
                                  data-bs-parent="#accordion">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <ul class="list-group list-group-flush accordion-body">
-                                            <label>Equipment Name:
-                                                <li class="list-group-item" th:text="${reservation.equipmentName}"></li>
-                                            </label>
-                                            <label>Equipment Quantity:
-                                                <li class="list-group-item"
-                                                    th:text="${reservation.equipmentQuantity}"></li>
-                                            </label>
-                                            <label>Total Price:
-                                                <li class="list-group-item" th:text="${reservation.total}"></li>
-                                            </label>
-                                        </ul>
-                                    </div>
-                                </div>
+                                    <ul class="list-group list-group-flush accordion-body text-center">
+                                        <label>Equipment Name: <li class="list-group-item" th:text="${reservation.equipmentName}"></li></label>
+                                        <label>Equipment Quantity: <li class="list-group-item" th:text="${reservation.equipmentQuantity}"></li></label>
+                                        <label>Total Price: <li class="list-group-item" th:text="${reservation.total}"></li></label>
+                                    </ul>
+
                             </div>
                         </div>
                     </div>

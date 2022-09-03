@@ -10,16 +10,16 @@
     <div class="row">
         <div class="col-md-6">
             <div class="card">
-            <div class="card-header text-center">Account Profile</div>
+                <div class="card-header text-center" style="font-family:Garamond">Account Profile</div>
                 <div class="card-body">
                     <form class="form form-group">
-                        <label class="form-control" for="firstName">First Name:
+                        <label class="form-control" for="firstName" style="font-family:Garamond">First Name:
                             <p th:text="${user.firstName}" id="firstName" class="form-control"></p>
                         </label>
-                        <label class="form-control" for="lastName">Last Name:
+                        <label class="form-control" for="lastName" style="font-family:Garamond">Last Name:
                             <p th:text="${user.lastName}" id="lastName" class="form-control"></p>
                         </label>
-                        <label class="form-control" for="email">Email Address:
+                        <label class="form-control" for="email" style="font-family:Garamond">Email Address:
                             <p th:text="${user.email}" id="email" class="form-control"></p>
                         </label>
                     </form>
@@ -28,16 +28,35 @@
         </div>
         <div class="col-md-6">
             <div class="card">
-            <div class="card-header text-center">Reservations</div>
+                <div class="card-header text-center" style="font-family:Garamond">Reservations</div>
                 <div class="card-body">
-                    <div class="card">
-                        <div class="card-body-inner">
-                            <tr th:each="reservation: ${reservations}">
-                                <td th:text="${reservation.dateReserved}" />
-                                <td th:text="${reservation.equipmentName}" />
-                                <td th:text="${reservation.equipmentQuantity}" />
-                                <td th:text="${reservation.total}" />
-                            </tr>
+                    <div class="accordion" id="accordion" th:each="reservation: ${reservations}">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
+                                        th:text="${reservation.dateReserved}">
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                                 data-bs-parent="#accordion">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <ul class="list-group list-group-flush accordion-body">
+                                            <label>Equipment Name:
+                                                <li class="list-group-item" th:text="${reservation.equipmentName}"></li>
+                                            </label>
+                                            <label>Equipment Quantity:
+                                                <li class="list-group-item"
+                                                    th:text="${reservation.equipmentQuantity}"></li>
+                                            </label>
+                                            <label>Total Price:
+                                                <li class="list-group-item" th:text="${reservation.total}"></li>
+                                            </label>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -45,5 +64,7 @@
         </div>
     </div>
 </div>
+
+
 </body>
 </html>
