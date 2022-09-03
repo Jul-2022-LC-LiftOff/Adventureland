@@ -27,21 +27,22 @@
             </div>
         </div>
         <div class="col-md-6">
-            <div class="card" style="font-family:Garamond">
+            <div class="card">
                 <div class="card-header text-center" style="font-family:Garamond">Reservations</div>
-                <div class="card-body" th:each="reservation: ${reservations}">
-                    <div class="accordion" id="accordion">
+                <div class="card-body">
+                    <div class="accordion" id="accordion" th:each="reservation: ${reservations}">
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="headingOne">
-                                <button class="accordion-button" role="tab" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne"
-                                        th:text="${reservation.dateReserved}" onclick="">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
+                                        th:text="${reservation.dateReserved}">
                                 </button>
                             </h2>
-                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                            <div id="collapseOne" class="collapse" aria-labelledby="headingOne"
                                  data-bs-parent="#accordion">
-                                    <div class="accordion-body">
-                                        <ul class="list-group list-group-flush" style="font-family:Garamond">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <ul class="list-group list-group-flush accordion-body" style="font-family:Garamond">
                                             <label>Equipment Name:
                                                 <li class="list-group-item" th:text="${reservation.equipmentName}"></li>
                                             </label>
@@ -54,6 +55,7 @@
                                             </label>
                                         </ul>
                                     </div>
+                                </div>
                             </div>
                         </div>
                     </div>

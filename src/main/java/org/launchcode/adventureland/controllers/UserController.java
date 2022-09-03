@@ -24,10 +24,7 @@ import javax.validation.Valid;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class UserController {
@@ -105,8 +102,10 @@ public class UserController {
         String email = authentication.getName();
         User user = userRepository.findByEmail(email);
         String firstName = user.getFirstName();
+        Object[] reservations = user.getReservations().toArray();
+
         model.addAttribute("title", firstName + "'s Account");
-        model.addAttribute("reservations", user.getReservations());
+        model.addAttribute("reservations", reservations);
         model.addAttribute("user", user);
        return "loggedInUser/account";
     }
