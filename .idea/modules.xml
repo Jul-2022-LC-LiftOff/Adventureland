@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/adventureland.main.iml" filepath="$PROJECT_DIR$/.idea/modules/adventureland.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/adventureland.test.iml" filepath="$PROJECT_DIR$/.idea/modules/adventureland.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/org.launchcode.adventureland.iml" filepath="$PROJECT_DIR$/.idea/modules/org.launchcode.adventureland.iml" />
+    </modules>
+  </component>
+</project>

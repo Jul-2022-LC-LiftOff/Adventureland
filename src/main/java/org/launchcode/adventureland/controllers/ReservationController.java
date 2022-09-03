@@ -3,7 +3,7 @@ package org.launchcode.adventureland.controllers;
 import org.launchcode.adventureland.models.Equipment;
 import org.launchcode.adventureland.models.Reservation;
 import org.launchcode.adventureland.models.data.EquipmentRepository;
-import org.launchcode.adventureland.models.data.ReservationRepository;
+//import org.launchcode.adventureland.models.data.ReservationRepository;
 import org.launchcode.adventureland.models.data.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
