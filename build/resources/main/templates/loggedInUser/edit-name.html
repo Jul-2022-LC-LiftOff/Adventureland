@@ -15,18 +15,17 @@
                     Account Profile
                 </div>
                 <div class="card-body">
-                    <form class="form form-group">
+                    <form class="form form-group" method="post" th:action="@{/account/edit-name}">
                         <div class="form-group">
                             <label class="form-label" for="name" style="font-family:Garamond">Name:
-                                <input type="text" th:value="${user.firstName} + ' ' + ${user.lastName}" id="name" class="form-control" readonly/>
+                                <input type="text" id="name" name="name" class="form-control"/>
                             </label>
-                            <a th:href="@{/account/edit-name}" style="font-family:Garamond; color:red; font-size:14px;">Edit Name</a>
+                            <button type="submit" class="btn btn-primary">Save</button>
                         </div>
                         <div class="form-group">
                             <label class="form-label" for="email" style="font-family:Garamond">Email Address:
-                                <input type="text" th:value="${user.email}" id="email" class="form-control" readonly/>
+                                <input type="text" th:value="${user.email}" id="email" name="email" class="form-control" readonly/>
                             </label>
-                            <a th:href="@{/account/edit-email}" style="font-family:Garamond; color:red; font-size:14px;">Edit Email</a>
                         </div>
                         <div class="form-group">
                             <a th:href="@{/account/edit-password}" style="font-family:Garamond; color:red; font-size:14px;">Change Password?</a>

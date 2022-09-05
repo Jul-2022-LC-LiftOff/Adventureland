@@ -17,22 +17,19 @@
                 <div class="card-body">
                     <form class="form form-group">
                         <div class="form-group">
-                            <label class="form-label" for="firstName" style="font-family:Garamond">Name:
-                                <input type="text" th:value="${user.firstName} + ' ' + ${user.lastName}" id="firstName" class="form-control" readonly/>
+                            <label class="form-label" for="name" style="font-family:Garamond">Name:
+                                <input type="text" th:value="${user.firstName} + ' ' + ${user.lastName}" id="name" class="form-control" readonly/>
                             </label>
-                            <a th:href="@{/loggedInUser/account/edit-name}" style="font-family:Garamond; color:red; font-size:14px;">Edit Name</a>
+                            <a th:href="@{/account/edit-name}" style="font-family:Garamond; color:red; font-size:14px;">Edit Name</a>
                         </div>
                         <div class="form-group">
                             <label class="form-label" for="email" style="font-family:Garamond">Email Address:
                                 <input type="text" th:value="${user.email}" id="email" class="form-control" readonly/>
                             </label>
-                            <a th:href="@{/loggedInUser/account/edit-email}" style="font-family:Garamond; color:red; font-size:14px;">Edit Email</a>
+                            <a th:href="@{/account/edit-email}" style="font-family:Garamond; color:red; font-size:14px;">Edit Email</a>
                         </div>
                         <div class="form-group">
-                            <label class="form-label" for="password" style="font-family:Garamond">Password:
-                                <input type="password" th:value="${user.password}" id="password" class="form-control" readonly/>
-                            </label>
-                            <a th:href="@{/loggedInUser/account/edit-password}" style="font-family:Garamond; color:red; font-size:14px;">Change Password?</a>
+                            <a th:href="@{/account/edit-password}" style="font-family:Garamond; color:red; font-size:14px;">Change Password?</a>
                         </div>
                     </form>
                 </div>

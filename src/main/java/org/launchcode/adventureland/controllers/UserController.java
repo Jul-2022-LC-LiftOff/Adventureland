@@ -29,6 +29,9 @@ import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
+
+
+
 @Controller
 public class UserController {
 
@@ -114,4 +117,36 @@ public class UserController {
        return "loggedInUser/account";
     }
 
+    @GetMapping("account/edit-name")
+    public String displayEditNameForm(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            return "redirect:/login";
+            //if user is not authenticated/logged in, return login form.
+        }
+
+        String email = authentication.getName();
+        User user = userRepository.findByEmail(email);
+        String firstName = user.getFirstName();
+        List<Reservation> reservations = user.getReservations();
+        model.addAttribute("title", firstName + "'s Account");
+        model.addAttribute("reservations", reservations);
+        model.addAttribute("user", user);
+        return "loggedInUser/edit-name";
+        //otherwise, redirect to home page.
+    }
+
+    @PostMapping("account/edit-name")
+    public String processEditNameForm(String name) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        User user = userRepository.findByEmail(email);
+        String[] nameArray = name.split(" ");
+        user.setFirstName(nameArray[0]);
+        user.setLastName(nameArray[1]);
+        userRepository.flush();
+
+
+        return "redirect:/account";
+    }
 }
