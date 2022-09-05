@@ -9,7 +9,10 @@ import org.launchcode.adventureland.service.UserService;
 import org.launchcode.adventureland.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -133,7 +136,7 @@ public class UserController {
         model.addAttribute("reservations", reservations);
         model.addAttribute("user", user);
         return "loggedInUser/edit-name";
-        //otherwise, redirect to home page.
+
     }
 
     @PostMapping("account/edit-name")
@@ -146,6 +149,33 @@ public class UserController {
         user.setLastName(nameArray[1]);
         userRepository.flush();
 
+
+        return "redirect:/account";
+    }
+
+    @GetMapping("account/edit-email")
+    public String displayEditEmailForm(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        User user = userRepository.findByEmail(email);
+        String firstName = user.getFirstName();
+        List<Reservation> reservations = user.getReservations();
+        model.addAttribute("title", firstName + "'s Account");
+        model.addAttribute("reservations", reservations);
+        model.addAttribute("user", user);
+        return "loggedInUser/edit-email";
+
+    }
+
+    @PostMapping("account/edit-email")
+    public String processEditEmailForm(String email) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String authEmail = authentication.getName();
+        User user = userRepository.findByEmail(authEmail);
+        user.setEmail(email);
+        userRepository.flush();
+        Authentication authentication2 = new UsernamePasswordAuthenticationToken(user, user.getPassword());
+        SecurityContextHolder.getContext().setAuthentication(authentication2);
 
         return "redirect:/account";
     }
