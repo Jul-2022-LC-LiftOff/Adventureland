@@ -18,12 +18,12 @@
                     <form class="form form-group" method="post" th:action="@{/account/edit-email}">
                         <div class="form-group">
                             <label class="form-label" for="name" style="font-family:Garamond">Name:
-                                <input type="text" th:value="${user.firstName} + ' ' + ${user.lastName}" id="name" name="name" class="form-control" readonly/>
+                                <input type="text" th:value="${user.firstName} + ' ' + ${user.lastName}" id="name" name="name" class="form-control form-control-lg" readonly/>
                             </label>
                         </div>
                         <div class="form-group">
                             <label class="form-label" for="email" style="font-family:Garamond">Email Address:
-                                <input type="text" th:value="${user.email}" id="email" name="email" class="form-control"/>
+                                <input type="text" th:value="${user.email}" id="email" name="email" class="form-control form-control-lg"/>
                             </label>
                             <button type="submit" class="btn btn-primary">Save</button>
                         </div>

@@ -18,15 +18,15 @@
                     <form class="form form-group">
                         <div class="form-group">
                             <label class="form-label" for="name" style="font-family:Garamond">Name:
-                                <input type="text" th:value="${user.firstName} + ' ' + ${user.lastName}" id="name" class="form-control" readonly/>
+                                <input type="text" th:value="${user.firstName} + ' ' + ${user.lastName}" id="name" class="form-control form-control-lg" readonly/>
                             </label>
-                            <a th:href="@{/account/edit-name}" style="font-family:Garamond; color:red; font-size:14px;">Edit Name</a>
+                            <a th:href="@{/account/edit-name}"><button class="btn btn-danger" type="button"  style="font-family:Garamond; color:white; font-size:14px;">Edit</button></a>
                         </div>
                         <div class="form-group">
                             <label class="form-label" for="email" style="font-family:Garamond">Email Address:
-                                <input type="text" th:value="${user.email}" id="email" class="form-control" readonly/>
+                                <input type="text" th:value="${user.email}" id="email" class="form-control form-control-lg" readonly/>
                             </label>
-                            <a th:href="@{/account/edit-email}" style="font-family:Garamond; color:red; font-size:14px;">Edit Email</a>
+                            <a th:href="@{/account/edit-email}"><button class="btn btn-danger" type="button"  style="font-family:Garamond; color:white; font-size:14px;">Edit</button></a>
                         </div>
                         <div class="form-group">
                             <a th:href="@{/account/edit-password}" style="font-family:Garamond; color:red; font-size:14px;">Change Password?</a>
