@@ -1,6 +1,10 @@
 package org.launchcode.adventureland.models;
 
 //import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -29,6 +33,8 @@ public class User {
 
     private String password;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private String birthdate;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -103,8 +109,7 @@ public class User {
     }
 
 
-
-        public List<Reservation> getReservations() {
+    public List<Reservation> getReservations() {
         return reservations;
     }
 

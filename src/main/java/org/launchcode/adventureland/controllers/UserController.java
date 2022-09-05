@@ -2,6 +2,7 @@ package org.launchcode.adventureland.controllers;
 
 
 import org.launchcode.adventureland.dto.UserRegistrationDto;
+import org.launchcode.adventureland.models.Reservation;
 import org.launchcode.adventureland.models.User;
 import org.launchcode.adventureland.models.data.UserRepository;
 import org.launchcode.adventureland.service.UserService;
@@ -24,7 +25,9 @@ import javax.validation.Valid;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 public class UserController {
@@ -94,7 +97,7 @@ public class UserController {
     }
 
     @GetMapping("account")
-    public String displayAccount(Model model, UserRegistrationDto userRegistrationDto) {
+    public String displayAccount(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "user/login";
@@ -102,11 +105,13 @@ public class UserController {
         String email = authentication.getName();
         User user = userRepository.findByEmail(email);
         String firstName = user.getFirstName();
-        Object[] reservations = user.getReservations().toArray();
-
+        List<Reservation> reservations = user.getReservations();
         model.addAttribute("title", firstName + "'s Account");
         model.addAttribute("reservations", reservations);
         model.addAttribute("user", user);
+
+
        return "loggedInUser/account";
     }
+
 }

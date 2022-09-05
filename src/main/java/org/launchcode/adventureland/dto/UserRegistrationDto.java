@@ -2,6 +2,7 @@ package org.launchcode.adventureland.dto;
 
 import org.launchcode.adventureland.models.Reservation;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class UserRegistrationDto {

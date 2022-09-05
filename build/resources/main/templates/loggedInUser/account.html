@@ -2,58 +2,72 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/" xmlns:font-family="http://www.w3.org/1999/xhtml">
 <head th:replace="fragments :: head">
 </head>
-<body class="container-fluid">
+<body class="container-fluid"
+      style="background-image:url(https://images.unsplash.com/photo-1426604966848-d7adac402bff?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80)">
 <div th:replace="loggedInUser/fragments :: logged-in-header"></div>
 <h1 class="text-center" style="font-family:Garamond" th:text="${title}">Default Title</h1>
 
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-6">
-            <div class="card">
-                <div class="card-header text-center" style="font-family:Garamond">Account Profile</div>
+            <div class="card" style="background-color: #F8F0E3">
+                <div class="card-header text-center" style="font-family:Garamond; font-weight:bold; font-size:18px;">
+                    Account Profile
+                </div>
                 <div class="card-body">
                     <form class="form form-group">
-                        <label class="form-control" for="firstName" style="font-family:Garamond">First Name:
-                            <p th:text="${user.firstName}" id="firstName" class="form-control"></p>
-                        </label>
-                        <label class="form-control" for="lastName" style="font-family:Garamond">Last Name:
-                            <p th:text="${user.lastName}" id="lastName" class="form-control"></p>
-                        </label>
-                        <label class="form-control" for="email" style="font-family:Garamond">Email Address:
-                            <p th:text="${user.email}" id="email" class="form-control"></p>
-                        </label>
+                        <div class="form-group">
+                            <label class="form-label" for="firstName" style="font-family:Garamond">Name:
+                                <input type="text" th:value="${user.firstName} + ' ' + ${user.lastName}" id="firstName" class="form-control" readonly/>
+                            </label>
+                            <a th:href="@{/loggedInUser/account/edit-name}" style="font-family:Garamond; color:red; font-size:14px;">Edit Name</a>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="email" style="font-family:Garamond">Email Address:
+                                <input type="text" th:value="${user.email}" id="email" class="form-control" readonly/>
+                            </label>
+                            <a th:href="@{/loggedInUser/account/edit-email}" style="font-family:Garamond; color:red; font-size:14px;">Edit Email</a>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="password" style="font-family:Garamond">Password:
+                                <input type="password" th:value="${user.password}" id="password" class="form-control" readonly/>
+                            </label>
+                            <a th:href="@{/loggedInUser/account/edit-password}" style="font-family:Garamond; color:red; font-size:14px;">Change Password?</a>
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
         <div class="col-md-6">
-            <div class="card" style="font-family:Garamond">
-                <div class="card-header text-center" style="font-family:Garamond">Reservations</div>
+            <div class="card" style="font-family:Garamond; background-color: #F8F0E3">
+                <div class="card-header text-center" style="font-family:Garamond; font-weight:bold; font-size:18px">
+                    Reservation History
+                </div>
                 <div class="card-body" th:each="reservation: ${reservations}">
                     <div class="accordion" id="accordion">
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="headingOne">
-                                <button class="accordion-button" role="tab" type="button" data-bs-toggle="collapse"
+                                <button class="accordion-button active" data-bs-toggle="collapse"
                                         data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne"
-                                        th:text="${reservation.dateReserved}" onclick="">
+                                        th:text="${reservation.dateReserved}">
                                 </button>
                             </h2>
-                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                            <div id="collapseOne" class="accordion-collapse collapse show active" aria-labelledby="headingOne"
                                  data-bs-parent="#accordion">
-                                    <div class="accordion-body">
-                                        <ul class="list-group list-group-flush" style="font-family:Garamond">
-                                            <label>Equipment Name:
-                                                <li class="list-group-item" th:text="${reservation.equipmentName}"></li>
-                                            </label>
-                                            <label>Equipment Quantity:
-                                                <li class="list-group-item"
-                                                    th:text="${reservation.equipmentQuantity}"></li>
-                                            </label>
-                                            <label>Total Price:
-                                                <li class="list-group-item" th:text="${reservation.total}"></li>
-                                            </label>
-                                        </ul>
-                                    </div>
+                                <div class="accordion-body">
+                                    <ul class="list-group list-group-flush" style="font-family:Garamond">
+                                        <label>Equipment Name:
+                                            <li class="list-group-item" th:text="${reservation.equipmentName}"></li>
+                                        </label>
+                                        <label>Equipment Quantity:
+                                            <li class="list-group-item"
+                                                th:text="${reservation.equipmentQuantity}"></li>
+                                        </label>
+                                        <label>Total Price:
+                                            <li class="list-group-item" th:text="${reservation.total}"></li>
+                                        </label>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
