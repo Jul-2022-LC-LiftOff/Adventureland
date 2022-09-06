@@ -10,6 +10,7 @@
 <div>
 
     <h1 th:text="${#strings.capitalizeWords(title)}"></h1>
+    <h2 th:text="${#strings.capitalizeWords(subtitle)}"></h2>
 
     <table>
         <tr th:each="equipment : ${equipments}">

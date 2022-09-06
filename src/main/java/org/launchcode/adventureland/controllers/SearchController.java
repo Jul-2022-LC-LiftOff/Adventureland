@@ -49,7 +49,8 @@ public class SearchController {
 
 
         model.addAttribute("searchTypes", searchChoices);
-        model.addAttribute("title", "Search Results For: " + searchTerm + " (Narrowed by: " + searchChoices.get(searchType) + ")");
+        model.addAttribute("title", "Equipment containing: " + searchTerm);
+        model.addAttribute("subtitle", "Search by: " + searchChoices.get(searchType));
         model.addAttribute("equipments", equipment);
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
