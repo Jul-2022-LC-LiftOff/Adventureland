@@ -1,6 +1,7 @@
 package org.launchcode.adventureland.models;
 
 import java.util.ArrayList;
+import java.util.function.Predicate;
 
 public class CatData {
 
@@ -13,8 +14,11 @@ public class CatData {
             return (ArrayList<Equipment>) allEquipment;
         }
 
+        if (column.isEmpty())
+
         if (column.equals("all")){
             results = findByValue(value, allEquipment);
+            results.removeIf(Predicate.isEqual("Manufacturer"));
             return results;
         }
         for (Equipment equipment : allEquipment) {
