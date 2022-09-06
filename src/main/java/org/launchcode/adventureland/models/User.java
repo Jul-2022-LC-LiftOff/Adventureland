@@ -33,8 +33,6 @@ public class User {
 
     private String password;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private String birthdate;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

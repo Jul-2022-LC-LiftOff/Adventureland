@@ -3,7 +3,7 @@
 <head th:replace="fragments :: head">
 </head>
 <body class="container-fluid"
-      style="background-image:url(https://images.unsplash.com/photo-1426604966848-d7adac402bff?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80)">
+      style="background-image:url(https://images.unsplash.com/photo-1426604966848-d7adac402bff?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80); background-size: cover;">
 <div th:replace="loggedInUser/fragments :: logged-in-header"></div>
 <h1 class="text-center" style="font-family:Garamond" th:text="${title}">Default Title</h1>
 
@@ -11,16 +11,16 @@
     <div class="row">
         <div class="col-md-6">
             <div class="card" style="background-color: #F8F0E3">
-                <div class="card-header text-center" style="font-family:Garamond; font-weight:bold; font-size:18px;">
+                <div class="card-header text-center" style="font-family:Garamond; font-weight:bold; font-size:24px;">
                     Account Profile
                 </div>
                 <div class="card-body">
                     <form class="form form-group" method="post" th:action="@{/account/edit-name}">
                         <div class="form-group">
-                            <label class="form-label" for="name" style="font-family:Garamond">Name:
+                            <label class="form-label" for="name" style="font-family:Garamond">Name (First & Last):
                                 <input type="text" id="name" name="name" class="form-control form-control-lg"/>
                             </label>
-                            <button type="submit" class="btn btn-primary">Save</button>
+                            <button type="submit" class="btn btn-success">Save</button>
                         </div>
                         <div class="form-group">
                             <label class="form-label" for="email" style="font-family:Garamond">Email Address:
@@ -36,35 +36,15 @@
         </div>
         <div class="col-md-6">
             <div class="card" style="font-family:Garamond; background-color: #F8F0E3">
-                <div class="card-header text-center" style="font-family:Garamond; font-weight:bold; font-size:18px">
+                <div class="card-header text-center" style="font-family:Garamond; font-weight:bold; font-size:24px">
                     Reservation History
                 </div>
-                <div class="card-body" th:each="reservation: ${reservations}">
-                    <div class="accordion" id="accordion">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingOne">
-                                <button class="accordion-button active" data-bs-toggle="collapse"
-                                        data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne"
-                                        th:text="${reservation.dateReserved}">
-                                </button>
-                            </h2>
-                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
-                                 data-bs-parent="#accordion">
-                                <div class="accordion-body">
-                                    <ul class="list-group list-group-flush" style="font-family:Garamond">
-                                        <label>Equipment Name:
-                                            <li class="list-group-item" th:text="${reservation.equipmentName}"></li>
-                                        </label>
-                                        <label>Equipment Quantity:
-                                            <li class="list-group-item"
-                                                th:text="${reservation.equipmentQuantity}"></li>
-                                        </label>
-                                        <label>Total Price:
-                                            <li class="list-group-item" th:text="${reservation.total}"></li>
-                                        </label>
-                                    </ul>
-                                </div>
-                            </div>
+                <div class="card-body">
+                    <div class="card border-success" th:each="reservation: ${reservations}" style="font-family:Garamond; font-size:20px; text-align:center">
+                        <div class="card-header" style="background-color:green; color: white;" th:text="${reservation.dateReserved}">
+                        </div>
+                        <div class="card-body text-success"
+                             th:text="${reservation.equipmentQuantity} + ' ' + ${reservation.equipmentName} + ': $' + ${reservation.total}">
                         </div>
                     </div>
                 </div>
@@ -72,7 +52,6 @@
         </div>
     </div>
 </div>
-
 
 </body>
 </html>

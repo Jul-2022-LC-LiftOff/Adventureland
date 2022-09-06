@@ -71,15 +71,15 @@ public class UserController {
     @PostMapping("register")
     public String processRegistrationForm(@ModelAttribute("user") UserRegistrationDto registrationDto, Errors errors) throws ParseException {
         if (userRepository.findByEmail(registrationDto.getEmail()) != null) {
-            errors.rejectValue( "email", "email.duplicate", "Email is already registered.");
+            errors.rejectValue("email", "email.duplicate", "Email is already registered.");
             return "user/register";
-    //if there is already a user with that email address in the repository, then show error message and return registration form.
+            //if there is already a user with that email address in the repository, then show error message and return registration form.
         }
         String userBirthday = registrationDto.getBirthdate();
         LocalDate userBirthdayDate = LocalDate.parse(userBirthday);
         LocalDate now = LocalDate.now();
         if ((userBirthdayDate.getYear() > now.minusYears(18).getYear()) || (userBirthdayDate.getYear() == now.minusYears(18).getYear() && userBirthdayDate.getDayOfYear() > now.getDayOfYear())) {
-            errors.rejectValue( "birthdate", "birthdate.year.greater", "Must be at least 18.");
+            errors.rejectValue("birthdate", "birthdate.year.greater", "Must be at least 18.");
             return "user/register";
             //if the user's birth year is greater than the current one minus 18 years OR the user's birth year is equal to the current year minus 18 BUT still not 18, then reject value.
         }
@@ -117,7 +117,7 @@ public class UserController {
         model.addAttribute("user", user);
 
 
-       return "loggedInUser/account";
+        return "loggedInUser/account";
     }
 
     @GetMapping("account/edit-name")
@@ -146,37 +146,11 @@ public class UserController {
         User user = userRepository.findByEmail(email);
         String[] nameArray = name.split(" ");
         user.setFirstName(nameArray[0]);
-        user.setLastName(nameArray[1]);
+        user.setLastName(nameArray[nameArray.length - 1]);
         userRepository.flush();
 
 
         return "redirect:/account";
     }
 
-    @GetMapping("account/edit-email")
-    public String displayEditEmailForm(Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String email = authentication.getName();
-        User user = userRepository.findByEmail(email);
-        String firstName = user.getFirstName();
-        List<Reservation> reservations = user.getReservations();
-        model.addAttribute("title", firstName + "'s Account");
-        model.addAttribute("reservations", reservations);
-        model.addAttribute("user", user);
-        return "loggedInUser/edit-email";
-
-    }
-
-    @PostMapping("account/edit-email")
-    public String processEditEmailForm(String email) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String authEmail = authentication.getName();
-        User user = userRepository.findByEmail(authEmail);
-        user.setEmail(email);
-        userRepository.flush();
-        Authentication authentication2 = new UsernamePasswordAuthenticationToken(user, user.getPassword());
-        SecurityContextHolder.getContext().setAuthentication(authentication2);
-
-        return "redirect:/account";
-    }
 }
