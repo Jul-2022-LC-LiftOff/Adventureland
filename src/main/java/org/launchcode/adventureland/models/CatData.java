@@ -18,7 +18,7 @@ public class CatData {
 
         if (column.equals("all")){
             results = findByValue(value, allEquipment);
-            results.removeIf(Predicate.isEqual("Manufacturer")); // searching letter M resulted in all results, this removes undesired results
+            results.removeIf(Predicate.isEqual("Manufacturer")); // searching letters only found in that word resulted in all results, this removes undesired results
             return results;
         }
         for (Equipment equipment : allEquipment) {

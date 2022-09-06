@@ -7,16 +7,22 @@
 
 <form th:action="@{/search/results}" method = "post">
 
-    <p>
-    <div  th:object="${columns}">
-        <select class="form-control" id="searchType" name="searchType">
-            <option value="">Search By:</option>
-            <option th:each="column : ${columns}"
-                    th:value="${column.value}"
-                    th:text="${column.value}"></option>
-        </select>
+
+    <div class="form-group">
+
+        <ul>
+            <li th:each="searchType : ${searchTypes}">
+                <span th:text="${searchType.value}"></span>
+                <input type="radio"
+                       name="searchType"
+                       th:id="${searchType.key}"
+                       th:value="${searchType.key}">
+
+            </li>
+        </ul>
+
+
     </div>
-    </p>
 
     <p>
         <label for="searchTerm">Search Term:</label>
@@ -27,4 +33,5 @@
 </form>
 
 </body>
+
 </html>
