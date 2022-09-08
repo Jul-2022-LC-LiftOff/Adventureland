@@ -14,11 +14,13 @@ public class CatData {
             return (ArrayList<Equipment>) allEquipment;
         }
 
-        if (column.isEmpty())
+//        if (column.isEmpty())
+
+
 
         if (column.equals("all")){
             results = findByValue(value, allEquipment);
-            results.removeIf(Predicate.isEqual("Manufacturer")); // searching letters only found in that word resulted in all results, this removes undesired results
+//            results.removeIf(Predicate.isEqual("Manufacturer")); // searching letters only found in that word resulted in all results, this removes undesired results
             return results;
         }
         for (Equipment equipment : allEquipment) {
@@ -57,8 +59,6 @@ public class CatData {
             } else if (equipment.getCategory().toString().toLowerCase().contains(lowerVal)){
                 results.add(equipment);
             } else if (equipment.getManufacturer().toLowerCase().contains(lowerVal)){
-                results.add(equipment);
-            } else if (equipment.toString().toLowerCase().contains(lowerVal)){
                 results.add(equipment);
             }
         }

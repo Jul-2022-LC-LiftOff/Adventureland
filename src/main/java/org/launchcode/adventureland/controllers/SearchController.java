@@ -45,8 +45,8 @@ public class SearchController {
     public String displaySearchResults(Model model, @RequestParam String searchType, @RequestParam String searchTerm){
         Iterable<Equipment> equipment;
 
-        equipment = CatData.findByColumnAndValue(searchType, searchTerm, equipmentRepository.findAll());
 
+        equipment = CatData.findByColumnAndValue(searchType, searchTerm, equipmentRepository.findAll());
 
         model.addAttribute("searchTypes", searchChoices);
         model.addAttribute("title", "Equipment containing: " + searchTerm);

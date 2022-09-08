@@ -18,7 +18,8 @@
                 <input type="radio"
                        name="searchType"
                        th:id="${searchType.key}"
-                       th:value="${searchType.key}">
+                       th:value="${searchType.key}"
+                       th:checked="${searchType.key == 'all'}">
 
             </li>
         </ul>
