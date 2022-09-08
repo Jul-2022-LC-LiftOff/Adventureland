@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head">
+</head>
+
+<body>
+
+<div th:replace="loggedInUser/fragments :: logged-in-header"></div>
+
+<div>
+
+    <h1 th:text="${#strings.capitalizeWords(title)}"></h1>
+    <h2 th:text="${#strings.capitalizeWords(subtitle)}"></h2>
+
+    <table>
+        <tr th:each="equipment : ${equipments}">
+            <td>
+                <p th:text="${'Name: ' + equipment.equipmentName}"></p>
+                <p>
+                    Manufacturer:
+                    <a th:text="${equipment.manufacturer}"></a>
+                </p>
+                <p>
+                    Price Per Day:   $
+                    <a th:text="${equipment.price}"></a>
+                </p>
+            </td>
+        </tr>
+    </table>
+
+</div>
+</body>
+</html>

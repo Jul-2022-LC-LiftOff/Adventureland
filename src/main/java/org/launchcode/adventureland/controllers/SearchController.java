@@ -22,17 +22,18 @@ public class SearchController {
     @Autowired
     private EquipmentRepository equipmentRepository;
 
-    static HashMap<String, String> columnChoices = new HashMap<>();
+    static HashMap<String, String> searchChoices = new HashMap<>();
 
     public SearchController(){
-        columnChoices.put("name", "Name");
-        columnChoices.put("manufacturer", "Manufacturer");
-        columnChoices.put("category", "Category");
+        searchChoices.put("all", "All");
+        searchChoices.put("name", "Name");
+        searchChoices.put("manufacturer", "Manufacturer");
+        searchChoices.put("category", "Category");
     }
 
     @RequestMapping("")
     public String search(Model model){
-        model.addAttribute("columns", columnChoices);
+        model.addAttribute("searchTypes", searchChoices);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "search";
@@ -44,16 +45,18 @@ public class SearchController {
     public String displaySearchResults(Model model, @RequestParam String searchType, @RequestParam String searchTerm){
         Iterable<Equipment> equipment;
 
+
         equipment = CatData.findByColumnAndValue(searchType, searchTerm, equipmentRepository.findAll());
 
-        model.addAttribute("columns", columnChoices);
-        model.addAttribute("title", "Equipment matching " + columnChoices.get(searchType) + "with " +searchTerm);
-        model.addAttribute("equipment", equipment);
+        model.addAttribute("searchTypes", searchChoices);
+        model.addAttribute("title", "Equipment containing: " + searchTerm);
+        model.addAttribute("subtitle", "Search by: " + searchChoices.get(searchType));
+        model.addAttribute("equipments", equipment);
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-            return "search";
+            return "searchResults";
         }
-        return "loggedInUser/search";
+        return "loggedInUser/searchResults";
     }
 }
