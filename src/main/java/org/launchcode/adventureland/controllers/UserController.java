@@ -106,7 +106,7 @@ public class UserController {
         User user = userRepository.findByEmail(email);
         String firstName = user.getFirstName();
         List<Reservation> reservations = user.getReservations();
-        model.addAttribute("title", "Hello, " + firstName + "!");
+        model.addAttribute("title", "Hi, " + firstName + "!");
         model.addAttribute("reservations", reservations);
         model.addAttribute("user", user);
 
@@ -126,7 +126,7 @@ public class UserController {
         User user = userRepository.findByEmail(email);
         String firstName = user.getFirstName();
         List<Reservation> reservations = user.getReservations();
-        model.addAttribute("title", "Hello, " + firstName + "!");
+        model.addAttribute("title", "Hi, " + firstName + "!");
         model.addAttribute("reservations", reservations);
         model.addAttribute("user", user);
         return "loggedInUser/edit-name";
