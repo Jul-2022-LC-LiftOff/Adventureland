@@ -40,11 +40,11 @@
                     Reservation History
                 </div>
                 <div class="card-body">
-                    <div class="card border-success" th:each="reservation: ${reservations}" style="font-family:Garamond; font-size:20px; text-align:center">
-                        <div class="card-header" style="background-color:green; color: white;" th:text="${reservation.dateReserved}">
+                    <div class="card border-dark" th:each="reservation: ${reservations}" style="font-family:Garamond; font-size:20px; text-align:center">
+                        <div class="card-header" style="background-color:black; color: white;" th:text="${reservation.dateReserved}">
                         </div>
-                        <div class="card-body text-success"
-                             th:text="${reservation.equipmentQuantity} + ' ' + ${reservation.equipmentName} + ': $' + ${reservation.total}">
+                        <div class="card-body text-dark"
+                             th:text="'A rental of' + ' ' + ${reservation.equipmentQuantity} + ' ' + ${reservation.equipmentName} + '(s) for $' + ${reservation.total}">
                         </div>
                     </div>
                 </div>
