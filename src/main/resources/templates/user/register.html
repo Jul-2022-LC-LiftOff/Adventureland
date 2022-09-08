@@ -3,7 +3,7 @@
 <head th:replace="fragments :: head">
 </head>
 
-<body style="background-image: url(https://images.unsplash.com/photo-1426604966848-d7adac402bff?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80)">
+<body style="background-image: url(https://images.unsplash.com/photo-1426604966848-d7adac402bff?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80); background-size: cover;">
 <div th:replace="fragments :: page-header"></div>
 
 <div th:if="${param.error}">
@@ -49,7 +49,7 @@
             <!--            <br>-->
             <div>
                 <label class="form-label" style="font-family:Garamond">Birth Date:</label>
-                <input class="form-control" type="date" name="birthdate" id="birthdate" th:value="${birthdate}"
+                <input class="form-control" type="date" name="birthdate" id="birthdate"  th:value="${birthdate}"
                        required placeholder="Birth Date">
                                 <p class="error" style="color: red" th:errors="${user.birthdate}"></p>
             </div>

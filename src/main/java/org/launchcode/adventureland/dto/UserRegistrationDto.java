@@ -1,5 +1,10 @@
 package org.launchcode.adventureland.dto;
 
+import org.launchcode.adventureland.models.Reservation;
+
+import java.time.LocalDate;
+import java.util.List;
+
 public class UserRegistrationDto {
 
     private String firstName;
@@ -7,6 +12,8 @@ public class UserRegistrationDto {
     private String email;
     private String password;
     private String birthdate;
+
+    private List<Reservation> reservations;
 
     public UserRegistrationDto() {
 
@@ -50,5 +57,13 @@ public class UserRegistrationDto {
 
     public void setBirthdate(String birthdate) {
         this.birthdate = birthdate;
+    }
+
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
     }
 }

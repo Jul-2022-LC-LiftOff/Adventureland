@@ -1,6 +1,11 @@
 package org.launchcode.adventureland.models;
 
 //import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -12,7 +17,6 @@ import java.time.LocalDate;
 import java.util.Collection;
 
 @Entity
-//@Table(name = "user", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 public class User {
 
     @Id
@@ -35,15 +39,16 @@ public class User {
     //@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private final List<Role> roles = new ArrayList<>();
 
-//    @OneToMany
-//    private List<Reservation> reservations;
+    @OneToMany
+    private List<Reservation> reservations;
 
-    public User(String firstName, String lastName, String email, String password, String birthdate) {
+    public User(String firstName, String lastName, String email, String password, String birthdate, List<Reservation> reservations) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.birthdate = birthdate;
+        this.reservations = reservations;
     }
 
     public User() {
@@ -102,10 +107,9 @@ public class User {
     }
 
 
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
 
-    //    public List<Reservation> getReservations() {
-//        return reservations;
-//    }
-//
-//
+
 }
