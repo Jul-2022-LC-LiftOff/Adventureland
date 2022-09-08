@@ -2,37 +2,29 @@ package org.launchcode.adventureland.controllers;
 
 
 import org.launchcode.adventureland.dto.UserRegistrationDto;
+import org.launchcode.adventureland.models.ChangePassword;
 import org.launchcode.adventureland.models.Reservation;
 import org.launchcode.adventureland.models.User;
 import org.launchcode.adventureland.models.data.UserRepository;
 import org.launchcode.adventureland.service.UserService;
-import org.launchcode.adventureland.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.*;
-import java.util.stream.Collectors;
-
-
 
 
 @Controller
@@ -43,7 +35,9 @@ public class UserController {
 
     private UserService userService;
 
-
+    public BCryptPasswordEncoder thePasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
     public UserController(UserService userService) {
         super();
         this.userService = userService;
@@ -153,4 +147,30 @@ public class UserController {
         return "redirect:/account";
     }
 
+    @GetMapping("account/edit-password")
+    public String getEditPasswordForm(Model model) {
+        model.addAttribute("title", "Edit Password");
+        model.addAttribute("changePassword", new ChangePassword());
+        return "loggedInUser/edit-password";
+    }
+
+    @PostMapping("account/edit-password")
+    public String processEditPasswordForm(@ModelAttribute ChangePassword changePassword, Errors errors)  {
+
+        User user = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+
+        if (!thePasswordEncoder().matches(changePassword.getOldPassword(), user.getPassword())) {
+            errors.rejectValue("oldPassword", "wrong.old.password", "Incorrect password.");
+        return "loggedInUser/edit-password";
+        }
+
+        if (!changePassword.getNewPassword().equals(changePassword.getVerifyPassword())) {
+            errors.rejectValue("verifyPassword", "wrong.new.password", "Passwords do not match.");
+            return "loggedInUser/edit-password";
+        }
+
+        user.setPassword(thePasswordEncoder().encode(changePassword.getNewPassword()));
+        userRepository.flush();
+        return "redirect:/account";
+    }
 }
