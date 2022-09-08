@@ -155,21 +155,21 @@ public class UserController {
     }
 
     @PostMapping("account/edit-password")
-    public String processEditPasswordForm(@ModelAttribute ChangePassword changePassword, Errors errors)  {
+    public String processEditPasswordForm(@ModelAttribute ChangePassword changeThePassword, Errors errors)  {
 
         User user = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
 
-        if (!thePasswordEncoder().matches(changePassword.getOldPassword(), user.getPassword())) {
+        if (!thePasswordEncoder().matches(changeThePassword.getOldPassword(), user.getPassword())) {
             errors.rejectValue("oldPassword", "wrong.old.password", "Incorrect password.");
         return "loggedInUser/edit-password";
         }
 
-        if (!changePassword.getNewPassword().equals(changePassword.getVerifyPassword())) {
+        if (!changeThePassword.getNewPassword().equals(changeThePassword.getVerifyPassword())) {
             errors.rejectValue("verifyPassword", "wrong.new.password", "Passwords do not match.");
             return "loggedInUser/edit-password";
         }
 
-        user.setPassword(thePasswordEncoder().encode(changePassword.getNewPassword()));
+        user.setPassword(thePasswordEncoder().encode(changeThePassword.getNewPassword()));
         userRepository.flush();
         return "redirect:/account";
     }
