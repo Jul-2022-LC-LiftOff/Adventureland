@@ -1,6 +1,7 @@
 package org.launchcode.adventureland.controllers;
 
 import org.launchcode.adventureland.models.User;
+import org.launchcode.adventureland.models.UserData;
 import org.launchcode.adventureland.models.data.CategoryRepository;
 import org.launchcode.adventureland.models.data.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +17,14 @@ public class HomeController  {
 
     @Autowired
     private UserRepository userRepository;
+
     @GetMapping("")
     public String index(Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+        if (UserData.isUserNotLoggedIn()) {
             return "index";
         }
-        String email = authentication.getName();
+
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userRepository.findByEmail(email);
         model.addAttribute("user", user);
         return "index";
