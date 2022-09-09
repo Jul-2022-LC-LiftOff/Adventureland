@@ -4,6 +4,7 @@ package org.launchcode.adventureland.controllers;
 import org.launchcode.adventureland.models.Category;
 import org.launchcode.adventureland.models.Equipment;
 import org.launchcode.adventureland.models.Category;
+import org.launchcode.adventureland.models.User;
 import org.launchcode.adventureland.models.data.EquipmentRepository;
 import org.launchcode.adventureland.models.data.CategoryRepository;
 import org.launchcode.adventureland.models.data.UserRepository;
@@ -30,6 +31,9 @@ public class EquipmentController {
     @Autowired
     CategoryRepository categoryRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @GetMapping("")
     public String displayEquipment(Model model){
 
@@ -38,7 +42,11 @@ public class EquipmentController {
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "equipment/view";
         }
-        return "loggedInUser/viewEquipment";
+
+        String email = authentication.getName();
+        User user = userRepository.findByEmail(email);
+        model.addAttribute("user", user);
+        return "equipment/view";
 
     }
     @GetMapping("add")

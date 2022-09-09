@@ -2,7 +2,9 @@ package org.launchcode.adventureland.controllers;
 
 import org.launchcode.adventureland.models.CatData;
 import org.launchcode.adventureland.models.Equipment;
+import org.launchcode.adventureland.models.User;
 import org.launchcode.adventureland.models.data.EquipmentRepository;
+import org.launchcode.adventureland.models.data.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -22,6 +24,9 @@ public class SearchController {
     @Autowired
     private EquipmentRepository equipmentRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     static HashMap<String, String> searchChoices = new HashMap<>();
 
     public SearchController(){
@@ -38,7 +43,10 @@ public class SearchController {
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "search";
         }
-        return "loggedInUser/search";
+        String email = authentication.getName();
+        User user = userRepository.findByEmail(email);
+        model.addAttribute("user", user);
+        return "search";
     }
 
     @PostMapping("results")
@@ -57,6 +65,9 @@ public class SearchController {
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "searchResults";
         }
-        return "loggedInUser/searchResults";
+        String email = authentication.getName();
+        User user = userRepository.findByEmail(email);
+        model.addAttribute("user", user);
+        return "searchResults";
     }
 }

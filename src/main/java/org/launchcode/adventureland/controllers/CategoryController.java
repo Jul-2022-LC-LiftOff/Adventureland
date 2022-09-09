@@ -2,9 +2,11 @@ package org.launchcode.adventureland.controllers;
 
 import org.launchcode.adventureland.models.CatData;
 import org.launchcode.adventureland.models.Equipment;
+import org.launchcode.adventureland.models.User;
 import org.launchcode.adventureland.models.data.CategoryRepository;
 import org.launchcode.adventureland.models.Category;
 import org.launchcode.adventureland.models.data.EquipmentRepository;
+import org.launchcode.adventureland.models.data.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -25,6 +27,9 @@ public class CategoryController{
     private CategoryRepository categoryRepository;
 
     @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
     private EquipmentRepository equipmentRepository;
 
     @GetMapping("")
@@ -35,7 +40,11 @@ public class CategoryController{
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "categories/index";
         }
-        return "loggedInUser/categories";
+
+        String email = authentication.getName();
+        User user = userRepository.findByEmail(email);
+        model.addAttribute("user", user);
+        return "categories/index";
 
     }
 
@@ -63,12 +72,16 @@ public class CategoryController{
 
             String value = category.toString();
 
+            String email = authentication.getName();
+            User user = userRepository.findByEmail(email);
+            model.addAttribute("user", user);
+
             equipmentInCategory = CatData.findByValue(value, equipmentRepository.findAll());
             model.addAttribute("category", category);
             model.addAttribute("title", "Equipment in " + value);
             model.addAttribute("equipments", equipmentInCategory);
 
-            return "loggedInUser/catView";
+            return "catView";
         } else {
             return "redirect:../";
         }

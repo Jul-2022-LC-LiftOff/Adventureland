@@ -111,7 +111,7 @@ public class UserController {
         model.addAttribute("user", user);
 
 
-        return "loggedInUser/account";
+        return "user/account";
     }
 
     @GetMapping("account/edit-name")
@@ -129,7 +129,7 @@ public class UserController {
         model.addAttribute("title", "Hi, " + firstName + "!");
         model.addAttribute("reservations", reservations);
         model.addAttribute("user", user);
-        return "loggedInUser/edit-name";
+        return "user/edit-name";
 
     }
 
@@ -151,7 +151,7 @@ public class UserController {
     public String getEditPasswordForm(Model model) {
         model.addAttribute("title", "Edit Password");
         model.addAttribute("changePassword", new ChangePassword());
-        return "loggedInUser/edit-password";
+        return "user/edit-password";
     }
 
     @PostMapping("account/edit-password")
@@ -161,12 +161,12 @@ public class UserController {
 
         if (!thePasswordEncoder().matches(changeThePassword.getOldPassword(), user.getPassword())) {
             errors.rejectValue("oldPassword", "wrong.old.password", "Incorrect password.");
-        return "loggedInUser/edit-password";
+        return "user/edit-password";
         }
 
         if (!changeThePassword.getNewPassword().equals(changeThePassword.getVerifyPassword())) {
             errors.rejectValue("verifyPassword", "wrong.new.password", "Passwords do not match.");
-            return "loggedInUser/edit-password";
+            return "user/edit-password";
         }
 
         user.setPassword(thePasswordEncoder().encode(changeThePassword.getNewPassword()));

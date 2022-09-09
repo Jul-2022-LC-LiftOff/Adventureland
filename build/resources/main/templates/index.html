@@ -3,6 +3,11 @@
 <head th:replace="fragments :: head">
 <body>
 
+<div th:if="${user != null}">
+    <div th:replace="fragments :: logged-in-header"></div>
+</div>
+<div th:if="${user == null}">
 <div th:replace="fragments :: page-header"></div>
+</div>
 </body>
 </html>

@@ -5,7 +5,12 @@
 
 
 <body>
-<div th:replace="fragments :: page-header"></div>
+<div th:if="${user != null}">
+    <div th:replace="fragments :: logged-in-header"></div>
+</div>
+<div th:if="${user == null}">
+    <div th:replace="fragments :: page-header"></div>
+</div>
 List of the Equipment
 <table id="Equipment List">
     <thead>
