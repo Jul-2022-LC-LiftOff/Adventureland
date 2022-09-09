@@ -1,10 +1,9 @@
 package org.launchcode.adventureland.controllers;
 
-import org.launchcode.adventureland.models.CatData;
-import org.launchcode.adventureland.models.Equipment;
+import org.launchcode.adventureland.models.*;
 import org.launchcode.adventureland.models.data.CategoryRepository;
-import org.launchcode.adventureland.models.Category;
 import org.launchcode.adventureland.models.data.EquipmentRepository;
+import org.launchcode.adventureland.models.data.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -25,17 +24,23 @@ public class CategoryController{
     private CategoryRepository categoryRepository;
 
     @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
     private EquipmentRepository equipmentRepository;
 
     @GetMapping("")
     public String index(Model model) {
         model.addAttribute("title", "All Categories");
         model.addAttribute("categories", categoryRepository.findAll());
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+        if (UserData.isUserNotLoggedIn()) {
             return "categories/index";
         }
-        return "loggedInUser/categories";
+
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userRepository.findByEmail(email);
+        model.addAttribute("user", user);
+        return "categories/index";
 
     }
 
@@ -43,32 +48,24 @@ public class CategoryController{
 
     @GetMapping("/{categoryId}")
     public String displayViewCategory(Model model, @PathVariable  Integer categoryId) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Optional optCategory = categoryRepository.findById(categoryId);
-        if (optCategory.isPresent() && (authentication == null || authentication instanceof AnonymousAuthenticationToken)) {
-            Category category = (Category) optCategory.get();
-            Iterable<Equipment> equipmentInCategory;
+        Category category = (Category) optCategory.get();
+        Iterable<Equipment> equipmentInCategory;
 
-            String value = category.toString();
+        String value = category.toString();
 
-            equipmentInCategory = CatData.findByValue(value, equipmentRepository.findAll());
-            model.addAttribute("category", category);
-            model.addAttribute("title", "Equipment in " + value);
-            model.addAttribute("equipments", equipmentInCategory);
+        equipmentInCategory = CatData.findByValue(value, equipmentRepository.findAll());
+        model.addAttribute("category", category);
+        model.addAttribute("title", "Equipment in " + value);
+        model.addAttribute("equipments", equipmentInCategory);
 
+        if (optCategory.isPresent() && (UserData.isUserNotLoggedIn())) {
             return "catView";
-        } else if (optCategory.isPresent() && (authentication != null && !(authentication instanceof AnonymousAuthenticationToken))) {
-            Category category = (Category) optCategory.get();
-            Iterable<Equipment> equipmentInCategory;
-
-            String value = category.toString();
-
-            equipmentInCategory = CatData.findByValue(value, equipmentRepository.findAll());
-            model.addAttribute("category", category);
-            model.addAttribute("title", "Equipment in " + value);
-            model.addAttribute("equipments", equipmentInCategory);
-
-            return "loggedInUser/catView";
+        } else if (optCategory.isPresent() && (!UserData.isUserNotLoggedIn())) {
+            String email = SecurityContextHolder.getContext().getAuthentication().getName();
+            User user = userRepository.findByEmail(email);
+            model.addAttribute("user", user);
+            return "catView";
         } else {
             return "redirect:../";
         }

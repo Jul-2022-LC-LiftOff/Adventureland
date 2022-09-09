@@ -1,8 +1,7 @@
 package org.launchcode.adventureland.controllers;
 
 
-import org.launchcode.adventureland.models.Category;
-import org.launchcode.adventureland.models.Equipment;
+import org.launchcode.adventureland.models.*;
 import org.launchcode.adventureland.models.Category;
 import org.launchcode.adventureland.models.data.EquipmentRepository;
 import org.launchcode.adventureland.models.data.CategoryRepository;
@@ -30,15 +29,21 @@ public class EquipmentController {
     @Autowired
     CategoryRepository categoryRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @GetMapping("")
     public String displayEquipment(Model model){
 
         model.addAttribute("EquipmentList", equipmentRepository.findAll());
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+        if (UserData.isUserNotLoggedIn()) {
             return "equipment/view";
         }
-        return "loggedInUser/viewEquipment";
+
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userRepository.findByEmail(email);
+        model.addAttribute("user", user);
+        return "equipment/view";
 
     }
     @GetMapping("add")

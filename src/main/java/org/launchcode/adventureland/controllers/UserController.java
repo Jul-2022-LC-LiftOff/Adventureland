@@ -5,6 +5,7 @@ import org.launchcode.adventureland.dto.UserRegistrationDto;
 import org.launchcode.adventureland.models.ChangePassword;
 import org.launchcode.adventureland.models.Reservation;
 import org.launchcode.adventureland.models.User;
+import org.launchcode.adventureland.models.UserData;
 import org.launchcode.adventureland.models.data.UserRepository;
 import org.launchcode.adventureland.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,8 +52,7 @@ public class UserController {
 
     @GetMapping("register")
     public String displayRegistrationForm() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+        if (UserData.isUserNotLoggedIn()) {
             return "user/register";
             //if user is not authenticated/logged in, return register form.
         }
@@ -85,9 +85,7 @@ public class UserController {
 
     @GetMapping("login")
     public String displayLoginPage(Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-            //model.addAttribute("user", new User());
+        if (UserData.isUserNotLoggedIn()) {
             return "user/login";
             //if user is not authenticated/logged in, return login form.
         }
@@ -99,9 +97,6 @@ public class UserController {
     @GetMapping("account")
     public String displayAccount(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-            return "user/login";
-        }
         String email = authentication.getName();
         User user = userRepository.findByEmail(email);
         String firstName = user.getFirstName();
@@ -111,17 +106,12 @@ public class UserController {
         model.addAttribute("user", user);
 
 
-        return "loggedInUser/account";
+        return "user/account";
     }
 
     @GetMapping("account/edit-name")
     public String displayEditNameForm(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-            return "redirect:/login";
-            //if user is not authenticated/logged in, return login form.
-        }
-
         String email = authentication.getName();
         User user = userRepository.findByEmail(email);
         String firstName = user.getFirstName();
@@ -129,7 +119,7 @@ public class UserController {
         model.addAttribute("title", "Hi, " + firstName + "!");
         model.addAttribute("reservations", reservations);
         model.addAttribute("user", user);
-        return "loggedInUser/edit-name";
+        return "user/edit-name";
 
     }
 
@@ -151,7 +141,7 @@ public class UserController {
     public String getEditPasswordForm(Model model) {
         model.addAttribute("title", "Edit Password");
         model.addAttribute("changePassword", new ChangePassword());
-        return "loggedInUser/edit-password";
+        return "user/edit-password";
     }
 
     @PostMapping("account/edit-password")
@@ -161,12 +151,12 @@ public class UserController {
 
         if (!thePasswordEncoder().matches(changeThePassword.getOldPassword(), user.getPassword())) {
             errors.rejectValue("oldPassword", "wrong.old.password", "Incorrect password.");
-        return "loggedInUser/edit-password";
+        return "user/edit-password";
         }
 
         if (!changeThePassword.getNewPassword().equals(changeThePassword.getVerifyPassword())) {
             errors.rejectValue("verifyPassword", "wrong.new.password", "Passwords do not match.");
-            return "loggedInUser/edit-password";
+            return "user/edit-password";
         }
 
         user.setPassword(thePasswordEncoder().encode(changeThePassword.getNewPassword()));
