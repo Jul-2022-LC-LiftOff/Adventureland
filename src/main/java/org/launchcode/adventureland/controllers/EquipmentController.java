@@ -1,6 +1,6 @@
 package org.launchcode.adventureland.controllers;
 
-
+import org.launchcode.adventureland.models.AbstractEntity;
 import org.launchcode.adventureland.models.*;
 import org.launchcode.adventureland.models.Category;
 import org.launchcode.adventureland.models.data.EquipmentRepository;
@@ -22,6 +22,8 @@ import java.util.List;
 @Controller
 @RequestMapping("equipment")
 public class EquipmentController {
+
+    private static final List<Equipment<AbstractEntity>> equipment = new ArrayList<>();
 
     @Autowired
     EquipmentRepository equipmentRepository;

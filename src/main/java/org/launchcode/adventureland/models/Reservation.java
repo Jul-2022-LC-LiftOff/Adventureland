@@ -1,13 +1,17 @@
 package org.launchcode.adventureland.models;
 
 
-import org.springframework.ui.Model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-import java.util.ArrayList;
 import java.util.List;
+
+
+
 
 
 @Entity
@@ -28,30 +32,40 @@ public class Reservation extends AbstractEntity {
     private double total;
 
 
-    @ManyToMany
-    @JoinColumn(name = "reservation_id")
-    private final List<Equipment> equipment = new ArrayList<>();
+//
+//    @ManyToOne
+//    @JoinColumn(name = "equipment_id")
+//    private final List<Equipment> equipment = new ArrayList<>();
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "equipment_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private Equipment equipment;
 
     @ManyToOne
     private User user;
 
-    public Reservation(String equipmentName, String dateReserved, int equipmentQuantity, double unitPrice, double total, User user) {
-        this.equipmentName = equipmentName;
+
+    public Reservation(String dateReserved, int equipmentQuantity, double total, User user, Equipment<AbstractEntity> equipment) {
+        this.equipmentName = equipment.getEquipmentName();
         this.dateReserved = dateReserved;
         this.equipmentQuantity = equipmentQuantity;
-        this.unitPrice = unitPrice;
+        this.unitPrice = equipment.getPrice();
         this.total = total;
         this.user = user;
+        this.equipment = equipment;
     }
 
     public Reservation() {
 
     }
 
-    public Reservation(String equipmentName, double unitPrice) {
+    public Reservation(Equipment equipment) {
         super();
-        this.equipmentName = equipmentName;
-        this.unitPrice = unitPrice;
+        this.equipmentName = equipment.getEquipmentName();
+        this.unitPrice = equipment.getPrice();
+        this.equipment = equipment;
     }
 
     public Reservation(String equipmentName, String dateReserved, int equipmentQuantity, double unitPrice, double total) {
@@ -102,9 +116,11 @@ public class Reservation extends AbstractEntity {
     }
 
     public List<Equipment> getEquipment() {
-        return equipment;
+        return (List<Equipment>) equipment;
     }
-
+    public void setEquipment(Equipment equipment) {
+        this.equipment = equipment;
+    }
     public User getUser() {
         return user;
     }
@@ -112,15 +128,6 @@ public class Reservation extends AbstractEntity {
     public void setUser(User user) {
         this.user = user;
     }
-
-    //    public Number calculateTotal(id) {
-//
-//        Where equals ID
-//
-//            double total = unitPrice * equipmentQuantity
-//
-//        return total;
-//    }
 
     public void setTotal(double total) {
         this.total = total;
@@ -138,3 +145,4 @@ public class Reservation extends AbstractEntity {
                 '}';
     }
 }
+
