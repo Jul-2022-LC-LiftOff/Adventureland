@@ -47,7 +47,7 @@ public class Reservation extends AbstractEntity {
     private User user;
 
 
-    public Reservation(String dateReserved, int equipmentQuantity, double total, User user, Equipment<AbstractEntity> equipment) {
+    public Reservation(String dateReserved, int equipmentQuantity, double total, User user, Equipment equipment) {
         this.equipmentName = equipment.getEquipmentName();
         this.dateReserved = dateReserved;
         this.equipmentQuantity = equipmentQuantity;

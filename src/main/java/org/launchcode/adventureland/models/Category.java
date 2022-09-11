@@ -14,7 +14,7 @@ public class Category extends AbstractEntity{
 
 
     @OneToMany
-    @JoinColumn(name = "equipment_id")
+//    @JoinColumn(name = "equipment_id")
     private final List<Equipment> equipment = new ArrayList<>();
 
     public Category(){}

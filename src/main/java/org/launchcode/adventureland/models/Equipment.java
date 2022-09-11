@@ -1,7 +1,11 @@
 package org.launchcode.adventureland.models;
 
+import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Equipment extends AbstractEntity{
@@ -16,6 +20,13 @@ public class Equipment extends AbstractEntity{
     private int quantity;
 
     private int price;
+
+// Builds a reservation with equipment
+    @OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "equipment")
+    private Set<Reservation> reservations = new HashSet<>();
+
 
     public Equipment(){}
 

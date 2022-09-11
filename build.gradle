@@ -31,10 +31,12 @@ dependencies {
 	implementation 'com.google.guava:guava:31.1-jre'
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-java8time:3.0.4.RELEASE'
 	compileOnly 'org.projectlombok:lombok'
+	compileOnly 'net.bytebuddy:byte-buddy:1.12.13'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'com.h2database:h2'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.6.2'
 }
 
 tasks.named('test') {

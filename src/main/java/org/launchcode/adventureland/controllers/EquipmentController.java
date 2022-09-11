@@ -12,6 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,7 +24,7 @@ import java.util.List;
 @RequestMapping("equipment")
 public class EquipmentController {
 
-    private static final List<Equipment<AbstractEntity>> equipment = new ArrayList<>();
+    private static final List<Equipment> equipment = new ArrayList<>();
 
     @Autowired
     EquipmentRepository equipmentRepository;
@@ -59,11 +60,17 @@ public class EquipmentController {
 
 
     @PostMapping("add")
-    public String processEquipmentForm(@ModelAttribute @Valid Equipment newEquipment) {
+    public String processEquipmentForm(@ModelAttribute @Valid Equipment newEquipment, Errors errors, Model model) {
+        if (errors.hasErrors()) {
+            return "equipment/form";
+        }
 
         equipmentRepository.save(newEquipment);
+        model.addAttribute("EquipmentList", equipmentRepository.findAll());
+
 
         return "redirect:";
+
 
     }
 }

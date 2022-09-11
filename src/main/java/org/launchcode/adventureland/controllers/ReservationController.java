@@ -48,12 +48,11 @@ public class ReservationController {
         return "reservation/cartView";
     }
 
-    // **SEE BELOW**
+
     // Below handles the retrieval of "a piece of equipment" TO RESERVE.
     @GetMapping("resFormView/{equipmentId}")
     public String displayAddReservationForm(Model model, @PathVariable  Integer equipmentId) {
         model.addAttribute("title", "Reserve Equipment");
-        //        int equipmentId = 1577;
         Optional<Equipment> optEquipment = equipmentRepository.findById(equipmentId);
         if (optEquipment.isPresent()) {
             Equipment equipment = (Equipment) optEquipment.get();
