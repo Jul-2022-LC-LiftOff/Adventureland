@@ -35,7 +35,11 @@ List of the Equipment
 </table>
 
 <!--    needs to be admin-only      -->
-<a th:href="@{/equipment/add}" class="btn">New Item</a>
+<div th:if="${user != null && user.getRole().toString() == 'ADMIN'}">
+    <a th:href="@{/equipment/add}" class="btn">New Item</a>
+</div>
+
+
 
 </body>
 </html>

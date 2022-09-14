@@ -44,10 +44,12 @@ public class SecurityConfiguration {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/css/*", "/js/*", "/", "/categories", "/search", "/register", "/login", "/equipment", "/search/results", "/categories/{categoryId}", "/photos/**")
+                .antMatchers("/css/*", "/js/*", "/", "/categories", "/search", "/register", "/login", "/equipment", "/search/results", "/photos/**")
                 .permitAll()
-                //.mvcMatchers("/register", "/login").anonymous()
                 //.anyMatcher() and .permitAll() allow you to specify which pages can be accessed by everyone.
+                .antMatchers("/categories/add").hasAuthority("ADMIN")
+                .antMatchers("/equipment/add").hasAuthority("ADMIN")
+                .antMatchers("/categories/{categoryId}").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()

@@ -34,7 +34,10 @@
     </table>
 
 <!--    needs to be admin only-->
-    <a th:href="@{/categories/add}" class="btn">New Category</a>
+    <div th:if="${user != null && user.getRole().toString() == 'ADMIN'}">
+        <a th:href="@{/categories/add}" class="btn">New Category</a>
+    </div>
+
 
 
 </div>
