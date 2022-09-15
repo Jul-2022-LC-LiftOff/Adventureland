@@ -35,20 +35,19 @@ public class User {
 
     private String birthdate;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    //@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
-    private final List<Role> roles = new ArrayList<>();
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @OneToMany
-    private List<Reservation> reservations;
+    private List<Reservation> reservations = new ArrayList<>();
 
-    public User(String firstName, String lastName, String email, String password, String birthdate, List<Reservation> reservations) {
+    public User(String firstName, String lastName, String email, String password, String birthdate, Role role) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.birthdate = birthdate;
-        this.reservations = reservations;
+        this.role = role;
     }
 
     public User() {
@@ -102,10 +101,13 @@ public class User {
         this.birthdate = birthdate;
     }
 
-    public Collection<Role> getRoles() {
-        return roles;
+    public Role getRole() {
+        return role;
     }
 
+    public void setRole(Role role) {
+        this.role = role;
+    }
 
     public List<Reservation> getReservations() {
         return reservations;
