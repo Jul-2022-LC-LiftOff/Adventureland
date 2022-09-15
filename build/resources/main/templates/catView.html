@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
 
-<body style="background-image:url('/photos/background.jpg')>
+<body style="background-image:url('/photos/background.jpg'); background-size: cover;">
 
 <div th:if="${user != null}">
     <div th:replace="fragments :: logged-in-header"></div>
