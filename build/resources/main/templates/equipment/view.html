@@ -32,7 +32,7 @@ List of the Equipment
     </thead>
     <tbody>
     <tr th:each="equipment : ${EquipmentList}">
-        <td th:text="${equipment.category}"></td>
+        <td th:text="${equipment.category.getName}"></td>
         <td th:text="${equipment.equipmentName}"></td>
         <td th:text="${equipment.manufacturer}"></td>
         <td th:text="${equipment.quantity}"></td>
