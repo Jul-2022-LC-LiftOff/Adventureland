@@ -30,7 +30,7 @@ public class EquipmentController {
     @Autowired
     CategoryRepository categoryRepository;
 
-    @GetMapping("")
+    @GetMapping("view")
     public String displayEquipment(Model model){
 
         model.addAttribute("EquipmentList", equipmentRepository.findAll());
@@ -38,7 +38,7 @@ public class EquipmentController {
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "equipment/view";
         }
-        return "loggedInUser/viewEquipment";
+        return "equipment/view";
 
     }
     @GetMapping("add")
@@ -60,10 +60,4 @@ public class EquipmentController {
 
     }
 
-    @GetMapping("customerView")
-    public String displayCustomerEquipmentView(Model model) {
-
-        model.addAttribute("EquipmentList", equipmentRepository.findAll());
-        return "equipment/customerView";
-    }
 }
