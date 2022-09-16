@@ -7,7 +7,7 @@
 </head>
 
 
-<body style="background-image:url('/photos/background.jpg'); background-size: cover;">
+<body class="d-flex flex-column min-vh-100" style="background-image:url('/photos/background.jpg'); background-size: cover;">
 
 <div th:if="${user != null}">
     <div th:replace="fragments :: logged-in-header"></div>
@@ -44,6 +44,6 @@
 
 
 </div>
-
+<footer th:replace="fragments :: footer"></footer>
 </body>
 </html>
