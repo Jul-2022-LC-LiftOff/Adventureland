@@ -12,7 +12,7 @@
     <div th:replace="fragments :: page-header"></div>
 </div>
 
-<table id="Equipment List" style="font-family:Garamond; background-color:#F8DCC1; width:75%" class="table mx-auto table-striped table-bordered border-dark table-hover ml-3 mr-3">
+<table id="Equipment List" style="font-family:Garamond; background-color:#F8DCC1; width:75%" class="table mx-auto table-striped table-bordered border-dark table-hover ml-3 mr-3 mt-3">
     <thead class="table-header">
     <tr class="align-middle" style="font-size:20px;">
         <th scope="col" class="text-center"> Equipment Name </th>
@@ -37,8 +37,8 @@
 </table>
 
 <!--    needs to be admin-only      -->
-<div th:if="${user != null && user.getRole().toString() == 'ADMIN'}">
-    <a th:href="@{/equipment/add}" class="btn">New Item</a>
+<div th:if="${user != null && user.getRole().toString() == 'ADMIN'}" style="text-align: center;">
+    <a th:href="@{/equipment/add}" class="btn btn-dark" style="font-family:Garamond">New Item</a>
 </div>
 
 
