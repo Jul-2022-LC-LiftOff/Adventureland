@@ -3,11 +3,12 @@
 <head th:replace="fragments :: head">
 </head>
 <body style="background-image:url('/photos/background.jpg'); background-size: cover;">
-<div th:replace="fragments :: page-header"></div>
+<div th:replace="fragments :: logged-in-header"></div>
 
 <div class="container text-center">
+    <br>
+    <br>
     <h3 style="font-family:Garamond">You have successfully signed up!</h3>
-    <h4><a href="http://localhost:8080/login" style="font-family:Garamond; color:tan">Click here to Login</a></h4>
 </div>
 </body>
 </html>
