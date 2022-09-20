@@ -3,7 +3,7 @@
 <head th:replace="fragments :: head">
 </head>
 
-<body style="background-image: url(https://images.unsplash.com/photo-1426604966848-d7adac402bff?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80); background-size: cover;">
+<body style="background-image:url('/photos/background.jpg'); background-size: cover;">
 <div th:replace="fragments :: page-header"></div>
 
 <div th:if="${param.error}">
@@ -11,7 +11,7 @@
     </div>
 </div>
 
-<div class="card mx-auto display:block mt-5" style="width: 40rem; background-color: #F8F0E3">
+<div class="card mx-auto display:block mt-5" style="width: 40rem; background-color: #F8DCC1">
     <form method="post" th:action="@{/register}">
         <div class="card-body">
             <h1 class="card-title text-center" style="font-family:Garamond">Register</h1>

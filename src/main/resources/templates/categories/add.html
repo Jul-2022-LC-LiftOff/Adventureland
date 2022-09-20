@@ -3,25 +3,27 @@
 
 <head th:replace="fragments :: head"></head>
 
-<body class="container">
+<body style="background-image:url('/photos/background.jpg'); background-size: cover;">
 <nav th:replace="fragments :: logged-in-header"></nav>
 
-<h1 th:text="${title}">Add Category</h1>
-
-<form method="post">
-    <div class="form-group">
-        <label for="name"> Category Name: </label>
-        <input type="text" id="name" name="name"/>
+<div class="card mx-auto display:block mt-3" style="font-family:Garamond; width:50%; background-color:#F8DCC1">
+    <h1 class="text-center card-header" style="font-family:Garamond" th:text="${title}">Add Category</h1>
+    <div class="card-body">
+        <form method="post">
+            <div class="mb-3">
+                <label class="form-label" for="name"> Category Name: </label>
+                <input class="form-control" type="text" id="name" name="name"/>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="description"> Category Description: </label>
+                <input class="form-control" type="text" id="description" name="description"/>
+            </div>
+            <div class="form-group text-center">
+                <button type="submit" class="btn btn-dark">Add Category</button>
+            </div>
+        </form>
     </div>
-    <div class="form-group">
-        <label for="description"> Category Description: </label>
-        <input type="text" id="description" name="description"/>
-    </div>
-    <div class="form-group">
-        <input type="submit" value="Add Category"/>
-    </div>
-</form>
-
+</div>
 </body>
 
 </html>
