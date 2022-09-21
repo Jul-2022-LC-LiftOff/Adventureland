@@ -1,11 +1,9 @@
 package org.launchcode.adventureland.controllers;
 
-import org.launchcode.adventureland.models.Equipment;
-import org.launchcode.adventureland.models.Reservation;
-import org.launchcode.adventureland.models.Reserved;
-import org.launchcode.adventureland.models.User;
+import org.launchcode.adventureland.models.*;
 import org.launchcode.adventureland.models.data.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -54,6 +52,14 @@ public class ReservationController {
         model.addAttribute("ReservationList", reservationRepository.findAll());
         model.addAttribute("reservation", reservation);
 
+
+        if (UserData.isUserNotLoggedIn()) {
+            return "reservation/cartView";
+        }
+
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userRepository.findByEmail(email);
+        model.addAttribute("user", user);
         return "reservation/cartView";
     }
 

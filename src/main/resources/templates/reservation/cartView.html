@@ -8,9 +8,10 @@
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 
-<body class="container-fluid">
+<body>
 
-<nav th:replace="fragments :: page-header"></nav>
+    <div th:replace="fragments :: logged-in-header"></div>
+
 <h1 class="text-center" th:text="${title}">Default Title</h1>
 
 
