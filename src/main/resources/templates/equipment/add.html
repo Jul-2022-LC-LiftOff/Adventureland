@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+
+<head th:replace="fragments :: head"></head>
+
+<body style="background-image:url('/photos/background.jpg'); background-size: cover;">
+<nav th:replace="fragments :: logged-in-header"></nav>
+
+<div class="card mx-auto display:block mt-3" style="font-family:Garamond; width:50%; background-color:#F8DCC1">
+    <h1 th:text="${title}" class="card-header text-center" style="font-family:Garamond">Default Title</h1>
+    <div class="card-body">
+        <form method="post">
+            <div class="form-group">
+                <ul>
+                    <li th:each="category : ${categories}">
+                        <span th:text="${category.name}"></span>
+                        <input type="radio"
+                               name="category"
+                               th:id="${category.id}"
+                               th:value="${category.id}">
+                    </li>
+                </ul>
+            </div>
+            <div class="mb-3">
+                <label for="equipmentName" class="form-label"> Equipment Name: </label>
+                <input class="form-control" type="text" id="equipmentName" name="equipmentName"/>
+            </div>
+            <div class="mb-3">
+                <label for="manufacturer" class="form-label"> Manufacturer: </label>
+                <input class="form-control" type="text" id="manufacturer" name="manufacturer"/>
+            </div>
+            <div class="mb-3">
+                <label for="quantity" class="form-label"> Quantity: </label>
+                <input class="form-control" type="number" id="quantity" name="quantity"/>
+            </div>
+            <div class="mb-3">
+                <label for="price" class="form-label"> Price: </label>
+                <input class="form-control" type="number" id="price" name="price"/>
+            </div>
+            <div class="form-group text-center">
+                <button type="submit" class="btn btn-dark">Add to Inventory</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+
+</html>

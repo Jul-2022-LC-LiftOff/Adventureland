@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+
+<body style="background-image:url('/photos/background.jpg'); background-size: cover;">
+
+<div th:if="${user != null}">
+    <div th:replace="fragments :: logged-in-header"></div>
+</div>
+<div th:if="${user == null}">
+    <div th:replace="fragments :: page-header"></div>
+</div>
+
+
+<!--<div th:text="${category.name}">${category}</div>-->
+<!--<div th:text="${category.description}">${category}</div>-->
+
+<!--needs to iterate through items in category-->
+<div>
+
+
+<br>
+    <br>
+    <table style="font-family:Garamond; background-color:#F8DCC1; width:75%" class="table mx-auto table-striped table-bordered border-dark table-hover ml-3 mr-3 mt-3">
+        <thead class="table-header" style="text-align:center;">
+        <h1 th:text="${#strings.capitalizeWords(title)}" class="text-center" style="font-size:40px; font-family:Garamond;"></h1>
+        <tr class="align-middle" style="font-size:20px;">
+            <th scope="col" class="text-center"> Equipment Name </th>
+            <th scope="col" class="text-center"> Manufacturer </th>
+            <th scope="col" class="text-center"> Price Per Day (Dollars) </th>
+            <th scope="col" class="text-center"> Reserve </th>
+        </tr>
+        </thead>
+        <tbody class="table-group-divider text-center">
+        <tr th:each="equipment : ${equipments}">
+            <td th:text="${equipment.equipmentName}"></td>
+            <td th:text="${equipment.manufacturer}"></td>
+            <td th:text="${equipment.price}"></td>
+            <td>
+                <a th:href="@{/reservation/resFormView/EquipmentId={id}(id=${equipment.id})}" class="btn btn-success" role="button">Reserve</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+
+</body>
+</html>

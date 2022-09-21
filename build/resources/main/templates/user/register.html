@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head">
+</head>
+
+<body style="background-image:url('/photos/background.jpg'); background-size: cover;">
+<div th:replace="fragments :: page-header"></div>
+
+<div th:if="${param.error}">
+    <div class="alert alert-danger">Email address is already in use.
+    </div>
+</div>
+
+<div class="card mx-auto display:block mt-5" style="width: 40rem; background-color: #F8DCC1">
+    <form method="post" th:action="@{/register}">
+        <div class="card-body">
+            <h1 class="card-title text-center" style="font-family:Garamond">Register</h1>
+            <div>
+                <label class="form-label" style="font-family:Garamond">First Name:</label>
+                <input class="form-control" type="text" name="firstName" th:value="${firstName}" required
+                       placeholder="First Name">
+                                <p class="error" style="color: red" th:errors="${user.firstName}"></p>
+            </div>
+            <br>
+            <div>
+                <label class="form-label" style="font-family:Garamond">Last Name:</label>
+                <input class="form-control" type="text" name="lastName" th:value="${lastName}" required placeholder="Last Name">
+                                <p class="error" style="color: red" th:errors="${user.lastName}"></p>
+            </div>
+            <br>
+            <div>
+                <label class="form-label" style="font-family:Garamond">Email:</label>
+                <input class="form-control" type="email" name="email" th:value="${email}" required
+                       placeholder="Email Address">
+                <p class="error" style="color: red" th:errors="${user.email}"></p>
+            </div>
+            <br>
+            <div>
+                <label class="form-label" style="font-family:Garamond">Password:</label>
+                <input class="form-control" type="password" id="password" name="password" required
+                       placeholder="Password">
+                                <p class="error" style="color: red" th:errors="${user.password}"></p>
+            </div>
+            <br>
+            <!--            <div>-->
+            <!--                <label class="form-label">Confirm Password:</label>-->
+            <!--                <input class="form-control" type="password" id="verify" name="verify" placeholder="Confirm Password">-->
+            <!--            </div>-->
+            <!--            <br>-->
+            <div>
+                <label class="form-label" style="font-family:Garamond">Birth Date:</label>
+                <input class="form-control" type="date" name="birthdate" id="birthdate"  th:value="${birthdate}"
+                       required placeholder="Birth Date">
+                                <p class="error" style="color: red" th:errors="${user.birthdate}"></p>
+            </div>
+        </div>
+        <div class="card-footer text-center">
+            <button class="btn btn-dark btn-lg" type="submit">Submit</button>
+            <br>
+            <div><a href="http://localhost:8080/login" style="color: black">Already have an account? Login here.</a></div>
+        </div>
+    </form>
+</div>
+</body>
+</html>
