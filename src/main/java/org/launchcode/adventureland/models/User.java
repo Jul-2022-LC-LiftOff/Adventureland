@@ -38,8 +38,8 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @OneToMany
-    private List<Reservation> reservations = new ArrayList<>();
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user",  cascade=CascadeType.ALL)
+    private final List<Reserved> reserved = new ArrayList<>();
 
     public User(String firstName, String lastName, String email, String password, String birthdate, Role role) {
         this.firstName = firstName;
@@ -109,9 +109,10 @@ public class User {
         this.role = role;
     }
 
-    public List<Reservation> getReservations() {
-        return reservations;
+    public List<Reserved> getReserved() {
+        return reserved;
     }
 
 
 }
+

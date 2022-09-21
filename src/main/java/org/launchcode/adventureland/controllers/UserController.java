@@ -2,10 +2,7 @@ package org.launchcode.adventureland.controllers;
 
 
 import org.launchcode.adventureland.dto.UserRegistrationDto;
-import org.launchcode.adventureland.models.ChangePassword;
-import org.launchcode.adventureland.models.Reservation;
-import org.launchcode.adventureland.models.User;
-import org.launchcode.adventureland.models.UserData;
+import org.launchcode.adventureland.models.*;
 import org.launchcode.adventureland.models.data.UserRepository;
 import org.launchcode.adventureland.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -100,9 +97,9 @@ public class UserController {
         String email = authentication.getName();
         User user = userRepository.findByEmail(email);
         String firstName = user.getFirstName();
-        List<Reservation> reservations = user.getReservations();
+        List<Reserved> reserved = user.getReserved();
         model.addAttribute("title", "Hi, " + firstName + "!");
-        model.addAttribute("reservations", reservations);
+        model.addAttribute("reserved", reserved);
         model.addAttribute("user", user);
 
 
@@ -115,9 +112,9 @@ public class UserController {
         String email = authentication.getName();
         User user = userRepository.findByEmail(email);
         String firstName = user.getFirstName();
-        List<Reservation> reservations = user.getReservations();
+        List<Reserved> reserved = user.getReserved();
         model.addAttribute("title", "Hi, " + firstName + "!");
-        model.addAttribute("reservations", reservations);
+        model.addAttribute("reserved", reserved);
         model.addAttribute("user", user);
         return "user/edit-name";
 
