@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div th:fragment="quantity_control(qtyValue, equipmentId)" th:object="${reservation}">
+    <nav>
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link minusButton" href="" th:eid="${equipmentId}"><b>-</b></a>
+            </li>
+            <li class="page-item">
+                <input type="text" th:value="${qtyValue}" class="form-control text-center"
+                onkeydown="return false;" style="max-width: 55px"
+                th:id="'quantity' + ${equipmentId}"
+                />
+                <input class="form-control" th:attr="value = ${qtyValue}" id="equipmentQuantity" type="hidden" name="equipmentQuantity"/>
+            </li>
+            <li class="page-item">
+                <a class="page-link plusButton" href="" th:eid="${equipmentId}"><b>+</b></a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+</body>
+</html>
+<script src="/js/quantity_control.js"></script>

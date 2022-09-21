@@ -7,7 +7,9 @@
           integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
     <script type="text/javascript" th:src="@{/js/bootstrap.js}"></script>
     <script type="text/javascript" th:src="@{/js/app.js}"></script>
-
+    
+    <script src="https://kit.fontawesome.com/d0e017ed3f.js" crossorigin="anonymous"></script>
+    
     <title th:text="'adventureland' + ${title == null ? '' : ' :: ' + title}">Adventure Outdoors</title>
 
 </head>
@@ -49,6 +51,9 @@
                 <li class="nav-item"><a class="nav-link" th:href="@{/account}" style="font-family:Garamond; color:tan">Account</a></li>
                 <li class="nav-item"><a class="nav-link" th:href="@{/logout}" style="font-family:Garamond; color:tan">Logout</a></li>
             </ul>
+            <div class="topnav-right">
+                <li><a class="fa-solid fa-cart-shopping text-right" style="color:white" th:href="@{/reservation/cartView/show={id}(id=0)}" ></a></li>
+            </div>
         </div>
     </div>
 </nav>
