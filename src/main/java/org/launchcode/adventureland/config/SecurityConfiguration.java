@@ -12,6 +12,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+
+import static org.hibernate.tool.schema.SchemaToolingLogging.LOGGER;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
@@ -35,16 +40,16 @@ public class SecurityConfiguration {
 
 
     protected void configure(AuthenticationManagerBuilder auth)
-        throws Exception {
+            throws Exception {
         auth.authenticationProvider(authenticationProvider());
-        }
+    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/css/*", "/js/*", "/", "/categories", "/search", "/register", "/login", "/equipment", "/search/results", "/photos/**")
+                .antMatchers("/css/*", "/js/*", "/", "/categories", "/search", "/register", "/login", "/equipment", "/search/results", "/photos/**", "/about")
                 .permitAll()
                 //.anyMatcher() and .permitAll() allow you to specify which pages can be accessed by everyone.
                 .antMatchers("/categories/add").hasAuthority("ADMIN")

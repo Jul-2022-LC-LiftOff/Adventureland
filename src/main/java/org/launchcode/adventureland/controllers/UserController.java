@@ -7,9 +7,11 @@ import org.launchcode.adventureland.models.data.UserRepository;
 import org.launchcode.adventureland.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,6 +21,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.text.ParseException;
 import java.time.LocalDate;
@@ -47,6 +51,8 @@ public class UserController {
     }
 
 
+
+
     @GetMapping("register")
     public String displayRegistrationForm() {
         if (UserData.isUserNotLoggedIn()) {
@@ -60,7 +66,7 @@ public class UserController {
 
 
     @PostMapping("register")
-    public String processRegistrationForm(@ModelAttribute("user") UserRegistrationDto registrationDto, Errors errors) throws ParseException {
+    public String processRegistrationForm(@ModelAttribute("user") UserRegistrationDto registrationDto, Errors errors, HttpServletRequest request) throws ParseException, ServletException {
         if (userRepository.findByEmail(registrationDto.getEmail()) != null) {
             errors.rejectValue("email", "email.duplicate", "Email is already registered.");
             return "user/register";
@@ -76,8 +82,9 @@ public class UserController {
         }
 
         userService.save(registrationDto);
+        request.login(registrationDto.getEmail(), registrationDto.getPassword());
         return "user/register_success";
-        //otherwise, return registration success page.
+        //otherwise, save user object, log them in, and return registration success page.
     }
 
     @GetMapping("login")

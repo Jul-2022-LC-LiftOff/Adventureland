@@ -12,7 +12,12 @@
 </head>
 
 <body>
-<nav th:replace="fragments :: page-header"></nav>
+<div th:if="${user != null}">
+    <div th:replace="fragments :: logged-in-header"></div>
+</div>
+<div th:if="${user == null}">
+    <div th:replace="fragments :: page-header"></div>
+</div>
 <h1>
     Who We Are
 </h1>

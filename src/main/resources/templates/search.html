@@ -12,35 +12,29 @@
     <div th:replace="fragments :: page-header"></div>
 </div>
 
-<h1>Search all inventory or refine your search</h1>
-
-<form th:action="@{/search/results}" method = "post">
-
-
-    <div class="form-group">
-
-        <ul>
-            <li th:each="searchType : ${searchTypes}">
-                <span th:text="${searchType.value}"></span>
-                <input type="radio"
-                       name="searchType"
-                       th:id="${searchType.key}"
-                       th:value="${searchType.key}" checked>
-
-            </li>
-        </ul>
-
-
+<div class="card mx-auto display:block mt-3" style="font-family:Garamond; width:50%; background-color:#F8DCC1">
+    <h1 class="card-header text-center" style="font-size:30px">Search all inventory or refine your search</h1>
+    <div class="card-body">
+        <form th:action="@{/search/results}" method="post" class="text-center">
+            <div class="container">
+                <div class="form-check form-check-inline" th:each="searchType : ${searchTypes}">
+                    <input class="form-check-input radio-inline" type="radio"
+                           name="searchType"
+                           th:id="${searchType.key}"
+                           th:value="${searchType.key}" checked>
+                    <label class="form-check-label" th:text="${searchType.value}"></label>
+                </div>
+            </div>
+            <br>
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Search Term" name="searchTerm" id="searchTerm"/>
+                <div class="input-group-append">
+                <button class="btn btn-dark" for="searchTerm" type="submit">Search</button>
+                </div>
+                </div>
+        </form>
     </div>
-
-    <p>
-        <label for="searchTerm">Search Term:</label>
-        <input type="text" name="searchTerm" id="searchTerm" />
-    </p>
-
-    <input type="submit" value="Search" />
-</form>
-
+</div>
 </body>
 
 </html>
