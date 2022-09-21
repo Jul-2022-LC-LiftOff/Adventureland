@@ -23,6 +23,8 @@ import java.util.List;
 @RequestMapping("equipment")
 public class EquipmentController {
 
+    private static final List<Equipment> equipment = new ArrayList<>();
+
     @Autowired
     EquipmentRepository equipmentRepository;
 
@@ -34,7 +36,6 @@ public class EquipmentController {
 
     @GetMapping("")
     public String displayEquipment(Model model){
-
         model.addAttribute("EquipmentList", equipmentRepository.findAll());
         if (UserData.isUserNotLoggedIn()) {
             return "equipment/view";
