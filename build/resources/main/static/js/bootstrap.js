@@ -43,4 +43,6 @@ label {
 
 .centered {
     text-align: center;
+
 }
+
