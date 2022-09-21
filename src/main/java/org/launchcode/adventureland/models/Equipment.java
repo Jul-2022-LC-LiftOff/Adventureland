@@ -1,7 +1,11 @@
 package org.launchcode.adventureland.models;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Equipment extends AbstractEntity{
@@ -15,17 +19,20 @@ public class Equipment extends AbstractEntity{
 
     private int quantity;
 
-    private int price;
+    private double price;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "equipment")
+    private List<Reservation> reservations = new ArrayList<>();
 
     public Equipment(){}
 
-    public Equipment(Category aCategory, String anEquipmentName, String aManufacturer, int aQuantity, int aPrice) {
+    public Equipment(Category category, String equipmentName, String manufacturer, int quantity, double price, Reservation reservations) {
         super();
-        this.category = aCategory;
-        this.equipmentName = anEquipmentName;
-        this.manufacturer = aManufacturer;
-        this.quantity = aQuantity;
-        this.price = aPrice;
+        this.category = category;
+        this.equipmentName = equipmentName;
+        this.manufacturer = manufacturer;
+        this.quantity = quantity;
+        this.price = price;
     }
 
     public Category getCategory() {
@@ -60,11 +67,26 @@ public class Equipment extends AbstractEntity{
         this.quantity = quantity;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
+    }
+
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
+
+    @Override
+    public String toString() {
+        return "Equipment{" +
+                "category='" + category + '\'' +
+                ", equipmentName='" + equipmentName + '\'' +
+                ", manufacturer='" + manufacturer + '\'' +
+                ", quantity=" + quantity +
+                ", price=" + price +
+                '}';
     }
 }
