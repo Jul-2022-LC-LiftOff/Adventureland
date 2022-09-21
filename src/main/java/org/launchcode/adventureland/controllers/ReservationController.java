@@ -151,6 +151,9 @@ public class ReservationController {
             return "reservation/resFormView";
         } else {
             model.addAttribute("title", "My Cart");
+            if (newReservation.getReservationStatus() == null) {
+                newReservation.setReservationStatus("Pending-Checkout");
+            }
             String currentStatus = newReservation.getReservationStatus();
             if (currentStatus.equals("Pending-Checkout")) {
                 if (reserved.getResStatus() == null) {
