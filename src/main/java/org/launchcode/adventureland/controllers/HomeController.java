@@ -26,8 +26,6 @@ public class HomeController  {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private EquipmentRepository equipmentRepository;
 
     @GetMapping("")
     public String index(Model model) {
@@ -58,22 +56,5 @@ public class HomeController  {
         return "searchResults";
     }
 
-    @PostMapping("results")
-    public String displaySearchResults(Model model, @RequestParam String searchTerm){
-        Iterable<Equipment> equipment;
-
-        equipment = CatData.findByValue(searchTerm, equipmentRepository.findAll());
-
-        model.addAttribute("title", "Equipment containing: " + searchTerm);
-        model.addAttribute("equipments", equipment);
-
-        if (UserData.isUserNotLoggedIn()) {
-            return "searchResults";
-        }
-        String email = SecurityContextHolder.getContext().getAuthentication().getName();
-        User user = userRepository.findByEmail(email);
-        model.addAttribute("user", user);
-        return "searchResults";
-    }
 
 }
