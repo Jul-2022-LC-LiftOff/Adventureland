@@ -10,27 +10,10 @@
 <div th:if="${user == null}">
     <div th:replace="fragments :: page-header"></div>
 </div>
-<div>
-
+<div class="text-center" style="font-family:Garamond; color:black ">
     <h1 th:text="${#strings.capitalizeWords(title)}"></h1>
     <h2 th:text="${#strings.capitalizeWords(subtitle)}"></h2>
-
-    <table>
-        <tr th:each="equipment : ${equipments}">
-            <td>
-                <p th:text="${'Name: ' + equipment.equipmentName}"></p>
-                <p>
-                    Manufacturer:
-                    <a th:text="${equipment.manufacturer}"></a>
-                </p>
-                <p>
-                    Price Per Day:   $
-                    <a th:text="${equipment.price}"></a>
-                </p>
-            </td>
-        </tr>
-    </table>
-
 </div>
+<div th:replace="fragments :: equipment-list-table"></div>
 </body>
 </html>

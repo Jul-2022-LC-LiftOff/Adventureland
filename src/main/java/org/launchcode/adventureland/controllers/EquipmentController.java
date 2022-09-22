@@ -32,7 +32,7 @@ public class EquipmentController {
     @GetMapping("")
     public String displayEquipment(Model model){
 
-        model.addAttribute("EquipmentList", equipmentRepository.findAll());
+        model.addAttribute("equipments", equipmentRepository.findAll());
         if (UserData.isUserNotLoggedIn()) {
             return "equipment/view";
         }
