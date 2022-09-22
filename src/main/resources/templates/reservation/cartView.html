@@ -8,63 +8,65 @@
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 
-<body class="container-fluid">
+<body style="background-image:url('/photos/background.jpg'); background-size: cover;">
 
-<nav th:replace="fragments :: page-header"></nav>
-<h1 class="text-center" th:text="${title}">Default Title</h1>
+<div th:replace="fragments :: logged-in-header"></div>
 
 
+<br>
 <h3 th:unless="${reservationList} and ${reservationList.size()}">
-    <p id="cartStatus" class="text-center">Your cart is empty.</p>
+    <p id="cartStatus" class="text-center" style="font-family:Garamond;">Your cart is empty.</p>
 
 </h3>
+<br>
+<div class="card mx-auto display:block mt-3" style="font-family:Garamond; width:75%; background-color:#F8DCC1">
+    <div class="card-header text-center" style="font-size: 30px">My Cart</div>
+    <div class="card-body">
+        <form th:action="@{/reservation/resConfirmView}" th:object="${reservationList}" method="post">
+            <table style="font-family:Garamond;" class="table table-striped table-hover text-center">
+                <thead>
+                <tr>
+                    <th>Equipment</th>
+                    <th>Quantity</th>
+                    <th>Unit Price</th>
+                    <th>Date</th>
+                    <th></th>
+                </thead>
+                <tbody class="table-group-divider text-center">
+                <tr th:each="reservation : ${reservationList}">
+                    <td th:text="${reservation.equipmentName}"></td>
+                    <td th:text="${reservation.equipmentQuantity}"></td>
+                    <td th:text="${reservation.unitPrice}"></td>
+                    <td th:text="${reservation.dateReserved}"></td>
+                    <td><a th:href="@{/reservation/resFormView/ReservationId={id}(id=${reservation.id})}"
+                           class="btn btn-danger" role="button">Edit</a></td>
+                </tr>
+                </tbody>
 
-<p></p>
-<div class="row"> </div>
-<p></p>
-<div class="row">
-    <h3 th:text="|Reservation List|"></h3>
-</div>
-<p></p>
+            </table>
+        </form>
 
-<form  th:action="@{/reservation/resConfirmView}"  th:object="${reservationList}" method="post">
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th>Equipment</th>
-            <th>Quantity</th>
-            <th>Unit Price</th>
-            <th>Date</th>
-            <th></th>
-        </thead>
-        <tbody>
-        <tr th:each="reservation : ${reservationList}">
-            <td th:text="${reservation.equipmentName}"></td>
-            <td th:text="${reservation.equipmentQuantity}"></td>
-            <td th:text="${reservation.unitPrice}"></td>
-            <td th:text="${reservation.dateReserved}"></td>
-            <td><a th:href="@{/reservation/resFormView/ReservationId={id}(id=${reservation.id})}" class="btn btn-success" role="button">Edit</a></td>
-        </tr>
-        </tbody>
-
-    </table>
-</form>
-
-<p></p>
-<div class="row">
-    <p></p>
-    <input th:attr="value = ${reserved.total}" class="form-control" id="reservedTotal"
-           type="hidden" name="reservedTotal"/>
-    <p></p>
-    <div class="row">
-        <h5 th:text="|Grand Total: $${reserved.total}|"></h5>
+        <p></p>
+        <div class="row">
+            <p></p>
+            <input th:attr="value = ${reserved.total}" class="form-control" id="reservedTotal"
+                   type="hidden" name="reservedTotal"/>
+            <p></p>
+            <div class="row text-center">
+                <h5 th:text="|Grand Total: $${reserved.total}|"></h5>
+            </div>
+            <p></p>
+        </div>
+        <p></p>
+        <div class="text-center">
+            <a th:href="@{'/equipment'}" class="btn btn-dark" role="button">Continue Shopping</a>
+            <a th:href="@{'/reservation/resConfirmView'}" id="btnCompleteReservation" class="btn btn-success"
+                    role="button"
+                    type="submit">Complete Reservation
+            </a>
+        </div>
     </div>
-    <p></p>
 </div>
-<p></p>
-<a th:href="@{'/equipment'}" class="btn btn-success" role="button">Continue Shopping</a>
-<a th:href="@{'/reservation/resConfirmView'}" id="btnCompleteReservation" class="btn btn-success" role="button" type="submit">Complete Reservation</a>
-
 </body>
 </html>
 

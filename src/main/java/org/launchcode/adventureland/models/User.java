@@ -113,6 +113,8 @@ public class User {
         return reserved;
     }
 
-
+    public void addReserved(Reserved newReserved) {
+        this.reserved.add(newReserved);
+    }
 }
 
