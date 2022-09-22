@@ -101,7 +101,7 @@
             <td th:if="${user != null && user.getRole().toString() == 'ADMIN'}" th:text="${equipment.quantity}"></td>
             <td th:text="${equipment.price}"></td>
             <td th:if="${user == null || user.getRole().toString() != 'ADMIN'}" style="text-align: center;">
-                <a th:href="@{/reservation/resFormView/{id}(id=${equipment.id})}" class="btn btn-success" role="button">Reserve</a>
+                <a th:href="@{/reservation/resFormView/EquipmentId={id}(id=${equipment.id})}" class="btn btn-success" role="button">Reserve</a>
             </td>
             <td th:if="${user != null && user.getRole().toString() == 'ADMIN'}" style="text-align: center;">
                 <a th:href="@{/equipment/edit/{id}(id=${equipment.id})}" class="btn btn-dark" style="font-family:Garamond">Edit Item</a>
