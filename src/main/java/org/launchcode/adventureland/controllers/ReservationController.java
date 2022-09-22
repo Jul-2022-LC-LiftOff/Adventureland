@@ -3,6 +3,7 @@ package org.launchcode.adventureland.controllers;
 import org.launchcode.adventureland.models.*;
 import org.launchcode.adventureland.models.data.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -197,6 +198,8 @@ public class ReservationController {
                 reservationRepository.save(newReservation);
                 reservationId = newReservation.getId();
 
+
+
             } else if (currentStatus.equals("Pending-Edit")) {
 //                    Optional<Reserved> optReserved = reservedRepository.findById(newReservation.getReservedId());
 //                    if (optReserved.isPresent()) {
@@ -286,6 +289,7 @@ public class ReservationController {
             Reserved pendingReserved = new Reserved();
             pendingReserved.setTotal(0);
             reservedRepository.save(pendingReserved);
+
 
             model.addAttribute("reserved", pendingReserved);
             return "reservation/cartView";

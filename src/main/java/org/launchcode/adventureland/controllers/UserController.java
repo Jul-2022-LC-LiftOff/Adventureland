@@ -104,9 +104,12 @@ public class UserController {
         String email = authentication.getName();
         User user = userRepository.findByEmail(email);
         String firstName = user.getFirstName();
-        List<Reserved> reserved = user.getReserved();
+
+        List<Reservation> reservationsList = UserData.getReservationList(user);
+
         model.addAttribute("title", "Hi, " + firstName + "!");
-        model.addAttribute("reserved", reserved);
+        //model.addAttribute("reserved", reservedList);
+        model.addAttribute("reservations", reservationsList);
         model.addAttribute("user", user);
 
 

@@ -46,7 +46,7 @@
                 <div class="card-header text-center" style="font-family:Garamond; font-weight:bold; font-size:24px">
                     Reservation History
                 </div>
-                <div class="card-body">
+                <div class="card-body" th:each="reservations: ${reservationsList}">
                     <div class="card border-dark" th:each="reservation: ${reservations}" style="font-family:Garamond; font-size:20px; text-align:center">
                         <div class="card-header" style="background-color:black; color:white;" th:text="${reservation.dateReserved}">
                         </div>
