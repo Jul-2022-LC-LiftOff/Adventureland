@@ -54,14 +54,11 @@
     <!--    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>-->
 
 
-
-
     <!--    <script>-->
     <!--$(document).ready(function(){-->
     <!--        $( "#dateReserved" ).datepicker({minDate:1});-->
     <!--  });-->
     <!--  </script>-->
-
 
 
 </head>
@@ -72,80 +69,74 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<body>
+<body style="background-image:url('/photos/background.jpg'); background-size: cover;">
 
-    <div th:replace="fragments :: logged-in-header"></div>
+<div th:replace="fragments :: logged-in-header"></div>
 
-<h1 th:text="${title}">Default Title</h1>
 
 <!--<p id = "ChangeButton">Current Text</p>-->
 <!--<button>Change</button>-->
-
-<div class="container" id="reserve-form">
-    <form th:action="@{/reservation/cartView}" th:object="${reservation}" method="post" id="reserve-form-obj">
-        <!--        Equipment Information needed for jquery to access and identify if equipment is available to reserve-->
-        <div th:object="${equipment}">
-            <input th:attr="value = ${equipment.quantity}" class="form-control" id="totalEquipmentInv"
-                   type="hidden" name="totalEquipmentInv"/>
-            <input th:attr="value = ${equipment.equipmentName}" class="form-control" id="equipmentName"
-                   type="hidden" name="equipmentName"/>
-            <input th:attr="value = ${equipment.price}" class="form-control" id="equipmentPrice"
-                   type="hidden" name="equipmentPrice"/>
-        </div>
-        <!--    reservedDatesList is a HashMap of all dates that have reservations and their corresponding quantities-->
-        <div th:object="${reservedDatesList}">
-            <input th:attr="value = ${reservedDatesList}" class="form-control" id="reservedDatesList"
-                   type="hidden" name="reservedDatesList"/>
-        </div>
-        <p></p>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="row">
+<div class="card mx-auto display:block mt-3 text-center"
+     style="font-family:Garamond; width:50%; background-color:#F8DCC1">
+    <div class="card-header text-center" style="font-size:30px" th:text="${title}">Default Title</div>
+    <div class="card-body" id="reserve-form">
+        <form th:action="@{/reservation/cartView}" th:object="${reservation}" method="post" id="reserve-form-obj">
+            <!--        Equipment Information needed for jquery to access and identify if equipment is available to reserve-->
+            <div th:object="${equipment}">
+                <input th:attr="value = ${equipment.quantity}" class="form-control" id="totalEquipmentInv"
+                       type="hidden" name="totalEquipmentInv"/>
+                <input th:attr="value = ${equipment.equipmentName}" class="form-control" id="equipmentName"
+                       type="hidden" name="equipmentName"/>
+                <input th:attr="value = ${equipment.price}" class="form-control" id="equipmentPrice"
+                       type="hidden" name="equipmentPrice"/>
+            </div>
+            <!--    reservedDatesList is a HashMap of all dates that have reservations and their corresponding quantities-->
+            <div th:object="${reservedDatesList}">
+                <input th:attr="value = ${reservedDatesList}" class="form-control" id="reservedDatesList"
+                       type="hidden" name="reservedDatesList"/>
+            </div>
+            <p></p>
                     <h1 th:text="${equipment.equipmentName}"></h1>
-                </div>
-                <p></p>
-                <div class="row">
-                    <h3 th:text="|Rate: ${equipment.price}|"></h3>
-                </div>
-                <p></p>
-                <div class="row">
-                    <div class="form-group">
 
-                        <input th:attr="value = ${equipment.price}" class="form-control" id="unitPrice" type="hidden"
-                               name="unitPrice"/>
-                    </div>
-                    <p></p>
-                    <div class="form-group">
-                        <div th:replace="quantity_control :: quantity_control(${reservation.equipmentQuantity}, ${equipment.id})">Quantity</div>
-                    </div>
-                    <p></p>
-                    <div class="form-group">
-                        <label for="dateReserved"> Select a Reservation Date: </label>
-                        <input th:attr="value = ${reservation.dateReserved}" th:field="${reservation.dateReserved}" name="dateRes" class="form-control" type="text" id="dateReserved" placeholder="Reservation Date">
-                    </div>
+                <p></p>
+                <h3 th:text="|Rate: ${equipment.price}|"></h3>
+                <p></p>
+                <div class="form-group">
+                    <input th:attr="value = ${equipment.price}" class="form-control" id="unitPrice"
+                           type="hidden"
+                           name="unitPrice"/>
+                </div>
+                <p></p>
+            <div class="form-group justify-center">
+            <div th:replace="quantity_control :: quantity_control(${reservation.equipmentQuantity}, ${equipment.id})">
+                    Quantity
+                </div>
+            </div>
+                <p></p>
+                <div class="form-group input-group mb-3 justify-content-center">
+                    <input style="width:50%;" th:attr="value = ${reservation.dateReserved}"
+                           th:field="${reservation.dateReserved}"
+                           name="dateRes" class="form-control-sm" type="text" id="dateReserved"
+                           placeholder="Select a Date">
                     <div class="form-group">
                         <input class="form-control" type="hidden" th:field="*{equipment}"/>
                         <input class="form-control" type="hidden" th:field="*{reservationStatus}"/>
                         <input class="form-control" type="hidden" th:field="${reservation.id}"/>
                     </div>
                     <p></p>
-
-                    <div class="form-group">
-                        <input type="submit" id="btnSubmit" value="Add To Cart">
+                    <div class="input-group-append">
+                        <button class="btn btn-dark" type="submit" id="btnSubmit">Add to Cart</button>
                     </div>
-                    <p></p>
-                    <div>
-                        <a th:href="@{'/equipment'}" class="btn btn-success" role="button">Continue Shopping</a>
-                    </div>
-                    <p></p>
                 </div>
-            </div>
-        </div>
+                <p></p>
+                <div>
+                    <a th:href="@{'/equipment'}" class="btn btn-success" role="button">Continue Shopping</a>
+                </div>
+                <p></p>
 
-    </form>
+        </form>
+    </div>
 </div>
-
-
 </body>
 
 
