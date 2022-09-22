@@ -2,22 +2,17 @@ package org.launchcode.adventureland.controllers;
 
 
 import org.launchcode.adventureland.models.*;
-import org.launchcode.adventureland.models.Category;
 import org.launchcode.adventureland.models.data.EquipmentRepository;
 import org.launchcode.adventureland.models.data.CategoryRepository;
 import org.launchcode.adventureland.models.data.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("equipment")
@@ -34,6 +29,8 @@ public class EquipmentController {
     @Autowired
     private UserRepository userRepository;
 
+    Integer equipmentId;
+
     @GetMapping("")
     public String displayEquipment(Model model){
         model.addAttribute("EquipmentList", equipmentRepository.findAll());
@@ -44,6 +41,7 @@ public class EquipmentController {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userRepository.findByEmail(email);
         model.addAttribute("user", user);
+
         return "equipment/view";
 
     }
@@ -56,13 +54,45 @@ public class EquipmentController {
         return "equipment/add";
     }
 
-
     @PostMapping("add")
     public String processEquipmentForm(@ModelAttribute @Valid Equipment newEquipment) {
 
         equipmentRepository.save(newEquipment);
 
         return "redirect:";
+
+    }
+
+    @GetMapping("edit/{equipmentId}")
+    public String displayEditEquipmentForm(Model model, @PathVariable Integer equipmentId) {
+        model.addAttribute("title", "Editing: ");
+        Optional<Equipment> optEquipment = equipmentRepository.findById(equipmentId);
+        if (optEquipment.isPresent()) {
+            Equipment equipment = (Equipment) optEquipment.get();
+            equipmentId = equipment.getId();
+            model.addAttribute("categories", categoryRepository.findAll());
+            model.addAttribute("equipment", equipment);
+
+        }
+        return "equipment/edit";
+
+    }
+    @PostMapping("edit/{id}")
+    public String processEditEquipmentForm(@ModelAttribute Equipment updateEquipment, Model model, @PathVariable Integer id) {
+
+
+        Optional<Equipment> optEquipment = equipmentRepository.findById(id);
+        if (optEquipment.isPresent()) {
+            Equipment equipment = (Equipment) optEquipment.get();
+            equipment.setEquipmentName(updateEquipment.getEquipmentName());
+            equipment.setCategory(updateEquipment.getCategory());
+            equipment.setManufacturer(updateEquipment.getManufacturer());
+            equipment.setQuantity(updateEquipment.getQuantity());
+            equipment.setPrice(updateEquipment.getPrice());
+            equipmentRepository.save(equipment);
+        }
+
+        return "redirect:/";
 
     }
 }
