@@ -20,7 +20,7 @@ public class UserData {
 
     public static List<Reservation> getReservationList(User user) {
         List<Reserved> reservedList = user.getReserved();
-        List<Reservation> reservationsList = new ArrayList<Reservation>();
+        List<Reservation> reservationsList = new ArrayList<>();
        for (int i = 0; i < reservedList.size(); i++) {
            reservationsList.addAll(reservedList.get(i).getReservations());
        }
