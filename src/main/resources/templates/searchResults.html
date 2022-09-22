@@ -10,33 +10,10 @@
 <div th:if="${user == null}">
     <div th:replace="fragments :: page-header"></div>
 </div>
-<div>
 <div class="text-center" style="font-family:Garamond; color:black ">
     <h1 th:text="${#strings.capitalizeWords(title)}"></h1>
     <h2 th:text="${#strings.capitalizeWords(subtitle)}"></h2>
 </div>
-    <div class="container-lg mt-3">
-    <table style="font-family:Garamond; background-color:#F8DCC1;" class="table table-striped table-bordered border-dark table-hover">
-        <thead class="table-header">
-        <tr class="align-middle" style="font-size:20px;">
-            <th scope="col" class="text-center">Equipment Name</th>
-            <th scope="col" class="text-center">Manufacturer</th>
-            <th scope="col" class="text-center">Price Per Day (Dollars)</th>
-            <th scope="col" class="text-center"> Reserve </th>
-        </tr>
-        </thead>
-        <tbody class="table-group-divider text-center">
-        <tr th:each="equipment : ${equipments}" class="align-middle">
-            <td th:text="${equipment.equipmentName}"></td>
-            <td th:text="${equipment.manufacturer}"></td>
-            <td th:text="${equipment.price}"></td>
-            <td>
-                <a th:href="@{/reservation/resFormView/EquipmentId={id}(id=${equipment.id})}" class="btn btn-success" role="button">Reserve</a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-    </div>
-</div>
+<div th:replace="fragments :: equipment-list-table"></div>
 </body>
 </html>
