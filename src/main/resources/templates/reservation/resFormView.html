@@ -73,6 +73,7 @@
 
 <div th:replace="fragments :: logged-in-header"></div>
 
+<<<<<<< HEAD
 
 <!--<p id = "ChangeButton">Current Text</p>-->
 <!--<button>Change</button>-->
@@ -96,6 +97,34 @@
                        type="hidden" name="reservedDatesList"/>
             </div>
             <p></p>
+=======
+<nav th:replace="fragments :: logged-in-header"></nav>
+<h1 th:text="${title}">Default Title</h1>
+
+<!--<p id = "ChangeButton">Current Text</p>-->
+<!--<button>Change</button>-->
+
+<div class="container" id="reserve-form">
+    <form th:action="@{/reservation/cartView}" th:object="${reservation}" method="post" id="reserve-form-obj">
+        <!--        Equipment Information needed for jquery to access and identify if equipment is available to reserve-->
+        <div th:object="${equipment}">
+            <input th:attr="value = ${equipment.quantity}" class="form-control" id="totalEquipmentInv"
+                   type="hidden" name="totalEquipmentInv"/>
+            <input th:attr="value = ${equipment.equipmentName}" class="form-control" id="equipmentName"
+                   type="hidden" name="equipmentName"/>
+            <input th:attr="value = ${equipment.price}" class="form-control" id="equipmentPrice"
+                   type="hidden" name="equipmentPrice"/>
+        </div>
+        <!--    reservedDatesList is a HashMap of all dates that have reservations and their corresponding quantities-->
+        <div th:object="${reservedDatesList}">
+            <input th:attr="value = ${reservedDatesList}" class="form-control" id="reservedDatesList"
+                   type="hidden" name="reservedDatesList"/>
+        </div>
+        <p></p>
+        <div class="row">
+            <div>
+                <div class="row">
+>>>>>>> 926c8322c6bda9b2a29a9645598153e8af099703
                     <h1 th:text="${equipment.equipmentName}"></h1>
 
                 <p></p>
@@ -124,6 +153,7 @@
                         <input class="form-control" type="hidden" th:field="${reservation.id}"/>
                     </div>
                     <p></p>
+<<<<<<< HEAD
                     <div class="input-group-append">
                         <button class="btn btn-dark" type="submit" id="btnSubmit">Add to Cart</button>
                     </div>
@@ -133,6 +163,32 @@
                     <a th:href="@{'/equipment'}" class="btn btn-success" role="button">Continue Shopping</a>
                 </div>
                 <p></p>
+=======
+
+                    <div class="form-group">
+                        <input type="submit" id="btnSubmit" value="Add To Cart">
+                    </div>
+                    <p></p>
+                    <div>
+                        <a th:href="@{'/equipment'}" class="btn btn-success" role="button">Continue Shopping</a>
+                    </div>
+                    <p></p>
+                    <div class="container-text" id="about-rental">
+<!--                        <div class="row">-->
+<!--                            <h3 style="margin-left:30px">About this rental</h3>-->
+<!--                            &lt;!&ndash;                            <p th:text="${equipment.description}"></p>&ndash;&gt;-->
+<!--                        </div>-->
+                    </div>
+                </div>
+            </div>
+
+<!--            <div class="col-md-6">-->
+<!--                &lt;!&ndash;                <img src="@{${equipment.image}}" alt="${equipment.name}" width="425" height="625">&ndash;&gt;-->
+<!--                <img src="https://images.pexels.com/photos/2749500/pexels-photo-2749500.jpeg" alt="kayak" width="425"-->
+<!--                     height="625">-->
+<!--            </div>-->
+        </div>
+>>>>>>> 926c8322c6bda9b2a29a9645598153e8af099703
 
         </form>
     </div>
