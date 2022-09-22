@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head">
-<body>
+<body style="background-image:url(https://images.unsplash.com/photo-1426604966848-d7adac402bff?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80); background-size: cover;">
+
 
 <div th:if="${user != null}">
     <div th:replace="fragments :: logged-in-header"></div>
@@ -9,5 +10,9 @@
 <div th:if="${user == null}">
 <div th:replace="fragments :: page-header"></div>
 </div>
+<h1>Adventure Outdoors Rentals</h1>
+<h3>Adventure With Us:</h3>
+<p>Whether you're experienced or just dipping your toes, an adventure can be costly.
+    That's where we come in: for one-off adventures or figuring out what you like, we're here to help with affordable short-term rentals for a wide variety of experiences. Browse our selection and get your adventure going!</p>
 </body>
 </html>
