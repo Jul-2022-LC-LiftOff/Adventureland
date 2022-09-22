@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head">
+
+<body style="background-image:url('/photos/background.jpg'); background-size: cover;">
+<nav th:replace="fragments :: logged-in-header"></nav>
+
+<div class="card mx-auto display:block mt-3" style="font-family:Garamond; width:50%; background-color:#F8DCC1">
+
+<h1 th:text="${title}" class="card-header text-center" style="font-family:Garamond">Default Title</h1>
+<div class="card-body">
+    <div th:object="${equipment}">
+        <div class="col-md-6">
+            <div class="row">
+            </div>
+            <div class="row">
+                <h1 th:text="${equipment.equipmentName}"></h1>
+            </div>
+            <div class="row">
+                <h3 th:text="|Manufacturer: ${equipment.manufacturer}|"></h3>
+            </div>
+            <div class="row">
+                <h3 th:text="|Quantity: ${equipment.quantity}|"></h3>
+            </div>
+            <div class="row">
+                <h3 th:text="|Rate: $${equipment.price}|"></h3>
+            </div>
+        </div>
+        <form class="form-group" method="post" th:action="@{/equipment/edit/{id}(id=${equipment.id})}" th:object="${equipment}">
+        <div class="form-group">
+            <ul>
+                <li th:each="category : ${categories}">
+                    <span th:text="${category.name}"></span>
+                    <input type="radio"
+                           name="category"
+                           th:id="${category.id}"
+                           th:value="${category.id}">
+                </li>
+            </ul>
+            <div class="mb-3">
+                <label for="equipmentName" class="form-label"> Equipment Name: </label>
+                <input class="form-control" type="text" id="equipmentName" name="equipmentName"/>
+            </div>
+            <div class="mb-3">
+                <label for="manufacturer" class="form-label"> Manufacturer: </label>
+                <input class="form-control" type="text" id="manufacturer" name="manufacturer"/>
+            </div>
+            <div class="mb-3">
+                <label for="quantity" class="form-label"> Quantity: </label>
+                <input class="form-control" type="number" id="quantity" name="quantity"/>
+            </div>
+            <div class="mb-3">
+                <label for="price" class="form-label"> Price: </label>
+                <input class="form-control" type="number" id="price" name="price"/>
+            </div>
+            <div class="form-group">
+<!--                <input class="form-control" type="hidden" th:field="*{equipment}"/>-->
+                <input class="form-control" type="hidden" th:field="${equipment.id}"/>
+
+            </div>
+            <div class="form-group text-center">
+                <button type="submit" class="btn btn-dark">Save Item</button>
+            </div></div>
+        </form>
+    </div>
+</div>
+
+</div>
+</div>
+</body>
+</html>
