@@ -39,7 +39,8 @@
                     <td th:text="${reservation.unitPrice}"></td>
                     <td th:text="${reservation.dateReserved}"></td>
                     <td><a th:href="@{/reservation/resFormView/ReservationId={id}(id=${reservation.id})}"
-                           class="btn btn-danger" role="button">Edit</a></td>
+                           class="btn btn-success" role="button">Edit</a></td>
+                    <td><a th:href="@{/reservation/cartView/delete={id}(id=${reservation.id})}" class="btn btn-danger" role="button">Delete</a></td>
                 </tr>
                 </tbody>
 

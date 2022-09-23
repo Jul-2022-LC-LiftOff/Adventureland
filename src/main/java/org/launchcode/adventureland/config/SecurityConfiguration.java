@@ -49,7 +49,7 @@ public class SecurityConfiguration {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/css/*", "/js/*", "/", "/categories", "/search", "/register", "/login", "/equipment", "/search/results", "/photos/**", "/about")
+                .antMatchers("/css/*", "/js/*", "/results" , "/", "/categories", "/search", "/register", "/login", "/equipment", "/search/results", "/photos/**", "/about")
                 .permitAll()
                 //.anyMatcher() and .permitAll() allow you to specify which pages can be accessed by everyone.
                 .antMatchers("/categories/add").hasAuthority("ADMIN")
