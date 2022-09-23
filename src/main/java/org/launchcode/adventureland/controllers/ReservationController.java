@@ -1,36 +1,22 @@
 package org.launchcode.adventureland.controllers;
 
+import org.launchcode.adventureland.models.Equipment;
 import org.launchcode.adventureland.models.Reservation;
 import org.launchcode.adventureland.models.Reserved;
+import org.launchcode.adventureland.models.User;
+import org.launchcode.adventureland.models.data.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import javax.validation.constraints.NotBlank;
+import java.lang.reflect.Array;
+import java.util.*;
 
-
-
-        import org.launchcode.adventureland.models.Equipment;
-        import org.launchcode.adventureland.models.Reservation;
-        import org.launchcode.adventureland.models.Reserved;
-        import org.launchcode.adventureland.models.User;
-        import org.launchcode.adventureland.models.data.*;
-        import org.springframework.beans.factory.annotation.Autowired;
-        import org.springframework.security.core.context.SecurityContextHolder;
-        import org.springframework.stereotype.Controller;
-        import org.springframework.ui.Model;
-        import org.springframework.validation.Errors;
-        import org.springframework.web.bind.annotation.*;
-
-        import javax.validation.constraints.NotBlank;
-        import java.lang.reflect.Array;
-        import java.util.*;
-
-        import static org.springframework.data.util.CastUtils.cast;
-        import static org.thymeleaf.util.StringUtils.length;
+import static org.springframework.data.util.CastUtils.cast;
+import static org.thymeleaf.util.StringUtils.length;
 
 
 //import org.launchcode.adventureland.persistent.models.Reservation;
@@ -45,7 +31,6 @@ public class ReservationController {
     Reserved reserved = new Reserved();
     Reservation reservation = new Reservation();
     Equipment equipment = new Equipment();
-    //    User user = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
     Integer reservedId;
     Integer reservationId;
     Integer equipmentId;
@@ -58,7 +43,7 @@ public class ReservationController {
     private EquipmentRepository equipmentRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    UserRepository userRepository;
 
     @Autowired
     ReservedRepository reservedRepository;
@@ -100,6 +85,8 @@ public class ReservationController {
         {
             return "redirect:../";
         }
+
+
         //HTML Prep
         reservation.setEquipment(equipment);
         reservationId = reservation.getId();
@@ -113,7 +100,7 @@ public class ReservationController {
     }
 
     @PostMapping("cartView")
-    public String processAddReservationForm(@ModelAttribute Reservation newReservation, Errors errors, @ModelAttribute Equipment equipment, Model model) {
+    public String processAddReservationForm(@ModelAttribute Reservation newReservation, Errors errors,@ModelAttribute Equipment equipment, Model model) {
         if (errors.hasErrors()) {
             return "reservation/resFormView";
         } else {
@@ -126,19 +113,17 @@ public class ReservationController {
             Reservation originalReservation;
             if (currentStatus.equals("Pending-Checkout")) {
                 // Used when making a new reservation
-                if (reserved.getResStatus() == null) {
-                    reserved = new Reserved();
-                } else if (reserved.getResStatus() != null) {
-                    if (reservedId != null) {
-                        Reserved checkReserved = getReservedByID(reservedId, currentStatus);
-                        if (checkReserved.getResStatus() == "Active") {
-//                           reserved = null;
-                            reserved = new Reserved();
-                        }
-                    } else {
-//                       reserved = null;
+                if (reservedId != null) {
+                    //existing reserved obj
+                    Reserved checkReserved = getReservedByID(reservedId, currentStatus);
+                    if (checkReserved.getResStatus() == "Active" || checkReserved.getResStatus() == "Archived") {
+                        checkReserved = null;
                         reserved = new Reserved();
+                    } else {
+                        reserved = checkReserved;
                     }
+                } else {
+                    reserved = new Reserved();
                 }
                 newReservation.setTotal((newReservation.getUnitPrice()) * (newReservation.getEquipmentQuantity()));
                 reserved.setTotal((reserved.getTotal()) + (newReservation.getTotal()));
@@ -176,7 +161,7 @@ public class ReservationController {
 
     @GetMapping("cartView/{cartViewRequest}")
     public String displayCart(Model model, @PathVariable String cartViewRequest) {
-        // Used when clicking the Cart Icon
+        // Used when clicking the Cart Icon or delete reservation btn
         // Initial Configuartion
         Reserved pendingReserved = null;
         List<Reservation> pendingReservations = null;
@@ -220,9 +205,11 @@ public class ReservationController {
             pendingReserved.setTotal(0);
             reservedRepository.save(pendingReserved);
         }
+
         // HTML Prep
+        reserved = pendingReserved;
         model.addAttribute("reservationList", pendingReservations);
-        model.addAttribute("reserved", pendingReserved);
+        model.addAttribute("reserved", reserved);
         return "reservation/cartView";
     }
 
@@ -253,17 +240,6 @@ public class ReservationController {
         model.addAttribute("reserved", confirmedReserved);
         return "reservation/resConfirmView";
     }
-
-//    @GetMapping("view")
-//    public String displayViewReservation(Model model/*, @PathVariable int userId*/) {
-//        model.addAttribute("title", "My Reservations");
-//            return "reservation/view";
-//    }
-//    @GetMapping("editView")
-//    public String displayEditReservationForm(Model model) {
-//        model.addAttribute("title", "Edit Reservation");
-//        return "reservation/editView";
-//    }
 
     public HashMap<String, Integer> getReservedDatesList(String typeOfRequest, Integer recordId) {
         //typeOfRequest = EquipmentId or ReservationId
@@ -346,8 +322,8 @@ public class ReservationController {
         optReserved = reservedRepository.findById(recordId);
         if (optReserved.isPresent()) {
             orginalReserved = optReserved.get();
-            orginalReserved.setUser(userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
-            userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).addReserved(orginalReserved);
+            //TODO: set user object to reserved object
+//            orginalReserved.setUser(userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
         }
         return orginalReserved;
     }
@@ -370,13 +346,11 @@ public class ReservationController {
         if (listOfReservations != null){
             listOfReservations.clear();
         }
-        //Ask Wintaye for help
 
         listOfReservations = reservationRepository.findAllByReservedId(recordId);
         return listOfReservations;
     }
 }
-
 	
 	
 	
