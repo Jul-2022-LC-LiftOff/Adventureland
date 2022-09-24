@@ -6,6 +6,7 @@ import org.launchcode.adventureland.models.Reserved;
 import org.launchcode.adventureland.models.User;
 import org.launchcode.adventureland.models.data.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -322,8 +323,8 @@ public class ReservationController {
         optReserved = reservedRepository.findById(recordId);
         if (optReserved.isPresent()) {
             orginalReserved = optReserved.get();
-            //TODO: set user object to reserved object
-//            orginalReserved.setUser(userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
+            orginalReserved.setUser(userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
+            userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).addReserved(orginalReserved);
         }
         return orginalReserved;
     }
