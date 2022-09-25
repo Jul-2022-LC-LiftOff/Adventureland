@@ -3,25 +3,15 @@ package org.launchcode.adventureland.controllers;
 import org.launchcode.adventureland.models.Equipment;
 import org.launchcode.adventureland.models.Reservation;
 import org.launchcode.adventureland.models.Reserved;
-import org.launchcode.adventureland.models.User;
 import org.launchcode.adventureland.models.data.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.constraints.NotBlank;
 import java.lang.reflect.Array;
 import java.util.*;
-
-import static org.springframework.data.util.CastUtils.cast;
-import static org.thymeleaf.util.StringUtils.length;
-
-
-//import org.launchcode.adventureland.persistent.models.Reservation;
-//import org.launchcode.adventureland.persistent.models.data.reservationRepository;
 
 
 @Controller
@@ -32,6 +22,7 @@ public class ReservationController {
     Reserved reserved = new Reserved();
     Reservation reservation = new Reservation();
     Equipment equipment = new Equipment();
+    //    User user = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
     Integer reservedId;
     Integer reservationId;
     Integer equipmentId;
@@ -93,10 +84,16 @@ public class ReservationController {
         reservationId = reservation.getId();
         // Used for Calendar and jQuery
         reservedDatesList = getReservedDatesList(viewRequestFrom,viewRequestID);
+
+        String originalReservationDate = reservation.getDateReserved();
+        Integer originalReservationQuantity = reservation.getEquipmentQuantity();
+
         model.addAttribute("reservedDatesList", reservedDatesList);
         model.addAttribute("totalReservedQty", totalReservedQty);
         model.addAttribute("equipment", equipment);
         model.addAttribute("reservation", reservation);
+        model.addAttribute("originalReservationDate", originalReservationDate);
+        model.addAttribute("originalReservationQuantity", originalReservationQuantity);
         return "reservation/resFormView";
     }
 
@@ -187,6 +184,7 @@ public class ReservationController {
                 pendingReservations = getReservationsList(reservedId, "reserved");
                 pendingReserved.setReservations(pendingReservations);
                 reservedRepository.save(pendingReserved);
+                reservedId = pendingReserved.getId();
             }
 
 
@@ -205,6 +203,7 @@ public class ReservationController {
             pendingReserved = new Reserved();
             pendingReserved.setTotal(0);
             reservedRepository.save(pendingReserved);
+            reservedId = pendingReserved.getId();
         }
 
         // HTML Prep
@@ -241,6 +240,17 @@ public class ReservationController {
         model.addAttribute("reserved", confirmedReserved);
         return "reservation/resConfirmView";
     }
+
+//    @GetMapping("view")
+//    public String displayViewReservation(Model model/*, @PathVariable int userId*/) {
+//        model.addAttribute("title", "My Reservations");
+//            return "reservation/view";
+//    }
+//    @GetMapping("editView")
+//    public String displayEditReservationForm(Model model) {
+//        model.addAttribute("title", "Edit Reservation");
+//        return "reservation/editView";
+//    }
 
     public HashMap<String, Integer> getReservedDatesList(String typeOfRequest, Integer recordId) {
         //typeOfRequest = EquipmentId or ReservationId
@@ -323,8 +333,8 @@ public class ReservationController {
         optReserved = reservedRepository.findById(recordId);
         if (optReserved.isPresent()) {
             orginalReserved = optReserved.get();
-            orginalReserved.setUser(userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
-            userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).addReserved(orginalReserved);
+            //TODO: set user object to reserved object
+//            orginalReserved.setUser(userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
         }
         return orginalReserved;
     }

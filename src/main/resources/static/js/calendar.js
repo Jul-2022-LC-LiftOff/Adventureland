@@ -4,6 +4,9 @@ var reservedDatesList;
 var equipQty;
 var listOfDates = [];
 var newDates = [];
+var originalQuantity = $("#originalReservationQuantity").val();
+var originalDate = $("#originalReservationDate").val();
+var currentReservationStatus = $("#reservationStatus").val();
 
     $(document).ready(function(){
         newDates = [];
@@ -122,6 +125,12 @@ var newDates = [];
                    var currentlyReservedQty = value
                    var newReserveQty = parseFloat(currentlyReservedQty) + parseFloat(userQuantity);
                    var availableEquipment = parseFloat(totalEquipmentInv) - parseFloat(newReserveQty);
+
+                   if (currentReservationStatus == "Pending-Edit"){
+                       if (originalDate == key) {
+                          availableEquipment = parseFloat(availableEquipment) + parseFloat(originalQuantity);
+                      }
+                   }
                    if (availableEquipment < 0) {
                    // dates added here will show as disabled in calendar.
                    listOfDates.push(key);
@@ -134,84 +143,3 @@ var newDates = [];
         //   Researching how to hide the calendar when the “Equipment Not Available” alert is triggered
 
     });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-0
-
-////  ------------------------------------------------------------------------------------------------
-////  ------------------------------------------------------------------------------------------------
-//
-//
-//// Alert
-////$(document).ready(function($){
-////      alert("js is working");
-////      });
-////  });
-
-
-
-
-
-////  ------------------------------------------------------------------------------------------------
-//Sample Code:
-////  ------------------------------------------------------------------------------------------------
-
-
-//testing .each to loop through the array to capture the elements in an array
-////        JQuery.each(dateres1, function(key, element) {
-////            alert('key: ' + key + '\n' + 'value: ' + element);
-////        });
-////  ------------------------------------------------------------------------------------------------
-////  ------------------------------------------------------------------------------------------------
-// testing for to loop through and capture the Key value of the array
-////        for(var key in realArray) {
-////            alert('key: ' + key + '\n' + 'value: ' + realArray[key]);
-////        }
-////  ------------------------------------------------------------------------------------------------
-////  ------------------------------------------------------------------------------------------------
-//below extracts the array information from string based on Key and Value format
-//// remove the space at start and end
-//reservedDatesList
-//  .trim()
-//  // get string without `{` and `}`
-//  .slice(1, -1)
-//  // split by `,`
-//  .split(',')
-//  // iterate over the array
-//  .forEach(function(v) {
-//    // split by `=`
-//    var val = v.trim().split('=');
-//    alert('key : ' + val[0] + ", value : " + val[1]);
-//  })
-////  ------------------------------------------------------------------------------------------------
-////  ------------------------------------------------------------------------------------------------
-//  $("#dateReserved").datepicker({
-//            beforeShowDay: function(date)
-//            {
-//               // this is a look in jquery structure that goes through each date and
-//               // with the if logic disables that date in the calendar form being selected.
-//               var day = date.getDay();
-//               if (equipQty == 1 && day == 6)
-//               {return [false];
-//               }
-//               else
-//               {return [true];
-//               }
-//});
