@@ -27,7 +27,7 @@ public interface ReservationRepository extends CrudRepository<Reservation, Integ
 
     Object reservation = new ArrayList<>();
 
-    @Query(value = "select * from Reservation where equipment_id = :equipment_id", nativeQuery = true)
+    @Query(value = "select * from Reservation where equipment_id = :equipment_id and reservation_status <> 'Archived'", nativeQuery = true)
     ArrayList<Object> findAllByEquipmentId(@Param("equipment_id") Integer equipmentId);
 
     @Query(value = "select * from Reservation where reserved_id = :reserved_id", nativeQuery = true)

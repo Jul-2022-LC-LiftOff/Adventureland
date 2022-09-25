@@ -3,15 +3,25 @@ package org.launchcode.adventureland.controllers;
 import org.launchcode.adventureland.models.Equipment;
 import org.launchcode.adventureland.models.Reservation;
 import org.launchcode.adventureland.models.Reserved;
+import org.launchcode.adventureland.models.User;
 import org.launchcode.adventureland.models.data.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.NotBlank;
 import java.lang.reflect.Array;
 import java.util.*;
+
+import static org.springframework.data.util.CastUtils.cast;
+import static org.thymeleaf.util.StringUtils.length;
+
+
+//import org.launchcode.adventureland.persistent.models.Reservation;
+//import org.launchcode.adventureland.persistent.models.data.reservationRepository;
 
 
 @Controller
@@ -22,7 +32,6 @@ public class ReservationController {
     Reserved reserved = new Reserved();
     Reservation reservation = new Reservation();
     Equipment equipment = new Equipment();
-    //    User user = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
     Integer reservedId;
     Integer reservationId;
     Integer equipmentId;
@@ -73,8 +82,7 @@ public class ReservationController {
             equipment = getBuildEquipment(viewRequestID);
             equipmentId = equipment.getId();
             reservation = newReservation;
-        } else
-        {
+        } else {
             return "redirect:../";
         }
 
@@ -83,22 +91,16 @@ public class ReservationController {
         reservation.setEquipment(equipment);
         reservationId = reservation.getId();
         // Used for Calendar and jQuery
-        reservedDatesList = getReservedDatesList(viewRequestFrom,viewRequestID);
-
-        String originalReservationDate = reservation.getDateReserved();
-        Integer originalReservationQuantity = reservation.getEquipmentQuantity();
-
+        reservedDatesList = getReservedDatesList(viewRequestFrom, viewRequestID);
         model.addAttribute("reservedDatesList", reservedDatesList);
         model.addAttribute("totalReservedQty", totalReservedQty);
         model.addAttribute("equipment", equipment);
         model.addAttribute("reservation", reservation);
-        model.addAttribute("originalReservationDate", originalReservationDate);
-        model.addAttribute("originalReservationQuantity", originalReservationQuantity);
         return "reservation/resFormView";
     }
 
     @PostMapping("cartView")
-    public String processAddReservationForm(@ModelAttribute Reservation newReservation, Errors errors,@ModelAttribute Equipment equipment, Model model) {
+    public String processAddReservationForm(@ModelAttribute Reservation newReservation, Errors errors, @ModelAttribute Equipment equipment, Model model) {
         if (errors.hasErrors()) {
             return "reservation/resFormView";
         } else {
@@ -145,7 +147,7 @@ public class ReservationController {
                 updateReservation(newReservation.getReservationStatus(), newReservation.getEquipmentQuantity(), newReservation.getDateReserved(), reservationId);
             }
             // HTML Prep
-            if(reservations != null) {
+            if (reservations != null) {
                 reservations.clear();
             }
             reservations = getReservationsList(reservedId, "reserved");
@@ -171,7 +173,7 @@ public class ReservationController {
         //Logic
         if (cartViewRequestFrom.equals("delete")) {
             // Used to delete a reservation and update the reserved object
-            originalReservation = getExistingReservationByID(cartViewRequestID,cartViewRequestFrom);
+            originalReservation = getExistingReservationByID(cartViewRequestID, cartViewRequestFrom);
             pendingReserved = getReservedByID(originalReservation.getReservedId(), cartViewRequestFrom);
             pendingReserved.setTotal((reserved.getTotal()) - (originalReservation.getUnitPrice()) * (originalReservation.getEquipmentQuantity()));
             reservedRepository.save(pendingReserved);
@@ -184,7 +186,6 @@ public class ReservationController {
                 pendingReservations = getReservationsList(reservedId, "reserved");
                 pendingReserved.setReservations(pendingReservations);
                 reservedRepository.save(pendingReserved);
-                reservedId = pendingReserved.getId();
             }
 
 
@@ -203,7 +204,6 @@ public class ReservationController {
             pendingReserved = new Reserved();
             pendingReserved.setTotal(0);
             reservedRepository.save(pendingReserved);
-            reservedId = pendingReserved.getId();
         }
 
         // HTML Prep
@@ -240,17 +240,6 @@ public class ReservationController {
         model.addAttribute("reserved", confirmedReserved);
         return "reservation/resConfirmView";
     }
-
-//    @GetMapping("view")
-//    public String displayViewReservation(Model model/*, @PathVariable int userId*/) {
-//        model.addAttribute("title", "My Reservations");
-//            return "reservation/view";
-//    }
-//    @GetMapping("editView")
-//    public String displayEditReservationForm(Model model) {
-//        model.addAttribute("title", "Edit Reservation");
-//        return "reservation/editView";
-//    }
 
     public HashMap<String, Integer> getReservedDatesList(String typeOfRequest, Integer recordId) {
         //typeOfRequest = EquipmentId or ReservationId
@@ -296,9 +285,11 @@ public class ReservationController {
         }
 
         return reservedDatesList;
-    };
+    }
 
-    public Equipment getBuildEquipment(Integer recordId){
+    ;
+
+    public Equipment getBuildEquipment(Integer recordId) {
         equipment = null;
         Optional<Equipment> optEquipment = equipmentRepository.findById(recordId);
         if (optEquipment.isPresent()) {
@@ -315,7 +306,7 @@ public class ReservationController {
         optReservation = reservationRepository.findById(recordId);
         if (optReservation.isPresent()) {
             orginalReservation = optReservation.get();
-            if(typeOfRequest.equals("ReservationId") || typeOfRequest.equals("Pending-Edit")) {
+            if (typeOfRequest.equals("ReservationId") || typeOfRequest.equals("Pending-Edit")) {
                 Integer equipmentIdCheck = orginalReservation.getEquipmentId();
                 equipment = getBuildEquipment(orginalReservation.getEquipmentId());
                 orginalReservation.setEquipment(equipment);
@@ -333,8 +324,8 @@ public class ReservationController {
         optReserved = reservedRepository.findById(recordId);
         if (optReserved.isPresent()) {
             orginalReserved = optReserved.get();
-            //TODO: set user object to reserved object
-//            orginalReserved.setUser(userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
+            orginalReserved.setUser(userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
+            userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).addReserved(orginalReserved);
         }
         return orginalReserved;
     }
@@ -354,7 +345,7 @@ public class ReservationController {
 
     public List<Reservation> getReservationsList(Integer recordId, String typeOfRequest) {
         List<Reservation> listOfReservations = null;
-        if (listOfReservations != null){
+        if (listOfReservations != null) {
             listOfReservations.clear();
         }
 
@@ -362,6 +353,3 @@ public class ReservationController {
         return listOfReservations;
     }
 }
-	
-	
-	
