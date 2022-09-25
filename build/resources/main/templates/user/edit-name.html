@@ -10,7 +10,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-6">
-            <div class="card" style="background-color: #F8F0E3">
+            <div class="card" style="background-color: #F8DCC1">
                 <div class="card-header text-center" style="font-family:Garamond; font-weight:bold; font-size:24px;">
                     Account Profile
                 </div>
@@ -35,7 +35,7 @@
             </div>
         </div>
         <div class="col-md-6">
-            <div class="card" style="font-family:Garamond; background-color: #F8F0E3">
+            <div class="card" style="font-family:Garamond; background-color: #F8DCC1">
                 <div class="card-header text-center" style="font-family:Garamond; font-weight:bold; font-size:24px">
                     Reservation History
                 </div>
@@ -43,7 +43,7 @@
                     <div class="card border-dark" th:each="reservation: ${reservations}" style="font-family:Garamond; font-size:20px; text-align:center">
                         <div class="card-header" style="background-color:black; color: white;" th:text="${reservation.dateReserved}">
                         </div>
-                        <div class="card-body text-dark"
+                        <div style="background-color:#F8DCC1" class="card-body text-dark"
                              th:text="'A rental of' + ' ' + ${reservation.equipmentQuantity} + ' ' + ${reservation.equipmentName} + '(s) for $' + ${reservation.total}">
                         </div>
                     </div>
