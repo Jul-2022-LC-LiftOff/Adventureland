@@ -1,4 +1,13 @@
+var originalQuantity = $("#originalReservationQuantity").val();
+var originalDate = $("#originalReservationDate").val();
+var currentReservationStatus = $("#reservationStatus").val();
 
+  var reservationStatus = ($"{reservation.reservationStatus}").val();
+      if (reservationStatus == "Pending-Edit"){
+      btnSubmit.val("Save Changes");
+      } else if (reservationStatus =="Pending-Checkout"){
+      btnSubmit.val("Add To Cart");
+      }
 
 //var userSelectedDate;
  $("#btnSubmit").on('click',function() {
@@ -24,6 +33,12 @@
         var userQty = $("#equipmentQuantity").val();
         var bookedQty = getBookedQty(userSelectedDate);
         var availableQty = parseFloat(inventoryQty) - parseFloat(bookedQty);
+
+        if (currentReservationStatus == "Pending-Edit"){
+            if (originalDate == $("#dateReserved").val()) {
+               availableQty = parseFloat(availableQty) + parseFloat(originalQuantity);
+            }
+        }
         var remainingQtyCheck = parseFloat(availableQty) - parseFloat(userQty);
 
             if (remainingQtyCheck < 0) {
@@ -65,33 +80,3 @@
         }, {});
         return res;
     }
-
-
-
-
-
-
-
-//$(document).ready(function() {
-//    $("#AddToCart").on("click", function(e) {
-////        alert("Add to cart");
-//            addToCart();
-//    });
-//});
-//
-//function addToCart() {
-//quantity = $("#quantity" + equipmentId).val();
-//}
-//
-//url = contextPath + "cart/"
-//$.ajax({
-//type: "POST",
-////need url
-////url: "http://"
-//beforeSend: function(xhr) {
-//xhr.setRequestHeader(crsfHeaderName, csrfValue)
-//}
-//}).done(function(response) {
-
-//});
-//}
