@@ -32,6 +32,7 @@ public class ReservationController {
     Reserved reserved = new Reserved();
     Reservation reservation = new Reservation();
     Equipment equipment = new Equipment();
+    User user;
     Integer reservedId;
     Integer reservationId;
     Integer equipmentId;
@@ -106,6 +107,11 @@ public class ReservationController {
         } else {
             // Initial Configuration
             model.addAttribute("title", "My Cart");
+            if(user == null) {
+                user = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+                reserved = getReservedByID(Math.toIntExact(user.getId()), "User Reserved Obj");
+                reservedId = reserved.getId();
+            }
             String currentStatus = newReservation.getReservationStatus();
             // Logic
 
@@ -118,12 +124,12 @@ public class ReservationController {
                     Reserved checkReserved = getReservedByID(reservedId, currentStatus);
                     if (checkReserved.getResStatus() == "Active" || checkReserved.getResStatus() == "Archived") {
                         checkReserved = null;
-                        reserved = new Reserved();
+                        reserved = getReservedByID(Math.toIntExact(user.getId()), "User Reserved Obj");
                     } else {
                         reserved = checkReserved;
                     }
                 } else {
-                    reserved = new Reserved();
+                    reserved = getReservedByID(Math.toIntExact(user.getId()), "User Reserved Obj");
                 }
                 newReservation.setTotal((newReservation.getUnitPrice()) * (newReservation.getEquipmentQuantity()));
                 reserved.setTotal((reserved.getTotal()) + (newReservation.getTotal()));
@@ -163,6 +169,11 @@ public class ReservationController {
     public String displayCart(Model model, @PathVariable String cartViewRequest) {
         // Used when clicking the Cart Icon or delete reservation btn
         // Initial Configuartion
+        if(user == null) {
+            user = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+            reserved = getReservedByID(Math.toIntExact(user.getId()), "User Reserved Obj");
+            reservedId = reserved.getId();
+        }
         Reserved pendingReserved = null;
         List<Reservation> pendingReservations = null;
         Reservation originalReservation = null;
@@ -198,11 +209,17 @@ public class ReservationController {
             if (!reservationRepository.findAllByReservedId(reservedId).toString().isEmpty()) {
                 pendingReservations = getReservationsList(reservedId, "reserved");
                 pendingReserved.setReservations(pendingReservations);
+            } else {
+                pendingReservations = getReservationsList(reservedId, "reserved");
+                pendingReserved.setReservations(pendingReservations);
             }
         } else {
             // Used when a reservation has not yet been made or there is no reserved object
-            pendingReserved = new Reserved();
-            pendingReserved.setTotal(0);
+            reserved = null;
+            pendingReserved =  getReservedByID(Math.toIntExact(user.getId()), "User Reserved Obj");
+            pendingReservations = getReservationsList(pendingReserved.getId(), "reserved");
+            pendingReserved.setReservations(pendingReservations);
+
             reservedRepository.save(pendingReserved);
         }
 
@@ -224,6 +241,7 @@ public class ReservationController {
             // Updates all reservation status' as Booked and the reserved status as Active
             confirmedReserved = getReservedByID(reservedId, "Active");
             confirmedReserved.setResStatus("Active");
+            userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).addReserved(confirmedReserved);
             reservedRepository.save(confirmedReserved);
             confirmedReservations = getReservationsList(reservedId, "reserved");
             for (Reservation confirmedRes : confirmedReservations) {
@@ -285,9 +303,9 @@ public class ReservationController {
         }
 
         return reservedDatesList;
-    }
+    };
 
-    ;
+
 
     public Equipment getBuildEquipment(Integer recordId) {
         equipment = null;
@@ -296,7 +314,7 @@ public class ReservationController {
             equipment = optEquipment.get();
         }
         return equipment;
-    }
+    };
 
     public Reservation getExistingReservationByID(Integer recordId, String typeOfRequest) {
         // recordID = reservation ID
@@ -314,21 +332,43 @@ public class ReservationController {
             }
         }
         return orginalReservation;
-    }
+    };
 
     public Reserved getReservedByID(Integer recordId, String typeOfRequest) {
-        // recordID = Reserved.id
-        // typeOfRequest = Pending-Edit, Pending-Checkout, Delete (a Reservation), ReservedId
-        Reserved orginalReserved = null;
+        // recordID = Reserved.id, user.id
+        // typeOfRequest = User Reserved Obj, Pending-Edit, Pending-Checkout, Delete (a Reservation), ReservedId
+        user = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+        Reserved originalReserved = null;
         Optional<Reserved> optReserved = null;
-        optReserved = reservedRepository.findById(recordId);
-        if (optReserved.isPresent()) {
-            orginalReserved = optReserved.get();
-            orginalReserved.setUser(userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
-            userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).addReserved(orginalReserved);
+
+        if (typeOfRequest.equals("User Reserved Obj")) {
+            optReserved = reservedRepository.findByUserId(user.getId());
+            if (optReserved.isPresent()) {
+                originalReserved = optReserved.get();
+
+            } else {
+                originalReserved = new Reserved();
+                originalReserved.setResStatus("Pending-Checkout");
+            }
+        } else if (reservedRepository.findByUserId(user.getId()).isPresent()){
+            optReserved = reservedRepository.findByUserId(user.getId());
+            if (optReserved.isPresent()) {
+                originalReserved = optReserved.get();
+
+            }
+        } else {
+            originalReserved = new Reserved();
+            originalReserved.setResStatus("Pending-Checkout");
         }
-        return orginalReserved;
-    }
+
+        originalReserved.setUser(user);
+        reservedRepository.save(originalReserved);
+        reservedId = originalReserved.getId();
+
+//        userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).addReserved(originalReserved);
+
+        return originalReserved;
+    };
 
     private void updateReservation(String reservationStatus, Integer qty, String dateReserved, Integer reservationId) {
         Reservation updateReservation = null;
@@ -341,7 +381,7 @@ public class ReservationController {
             updateReservation.setDateReserved(dateReserved);
             reservationRepository.save(updateReservation);
         }
-    }
+    };
 
     public List<Reservation> getReservationsList(Integer recordId, String typeOfRequest) {
         List<Reservation> listOfReservations = null;
@@ -351,5 +391,5 @@ public class ReservationController {
 
         listOfReservations = reservationRepository.findAllByReservedId(recordId);
         return listOfReservations;
-    }
+    };
 }

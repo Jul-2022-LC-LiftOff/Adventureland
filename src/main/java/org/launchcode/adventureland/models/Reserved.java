@@ -12,10 +12,10 @@ import java.util.List;
 public class Reserved extends AbstractEntity {
 
 
-//    @NotNull
+    //    @NotNull
     private String resStatus;
 
-    private double total;
+    private double total = 0;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "reserved", cascade=CascadeType.ALL)
     private List<Reservation> reservations = new ArrayList<>();
@@ -28,7 +28,7 @@ public class Reserved extends AbstractEntity {
     }
 
     public Reserved(String resStatus, double total, User user) {
-       super();
+        super();
         this.resStatus = resStatus;
         this.total = total;
         this.user = user;
@@ -95,5 +95,3 @@ public class Reserved extends AbstractEntity {
     }
 
 }
-
-
