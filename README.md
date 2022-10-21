@@ -3,37 +3,36 @@
 
 ### Overview
 
-Adventure app - Rent adventure equipment, schedule reservation based on availability, database of equipment and status, pay for rental, leave reviews
+Adventure app - Rent adventure equipment, schedule reservation based on availability, database of equipment and status, pay for rental,
 calendar for availability
 ---
 
 ### Features
 Users can CRUD an account
-Users can CRUD listings, upload photos
-Users can check equipment availability using Google Calendars API
+Users can CRUD listings
+Users can check equipment availability using a jquery Calendar API
 Users can CRUD equipment reservations for a specified timeframe
-Users can pay to reserve equipment
-Users can rate lending/renting experience
-Users can comment on listings
 ---
 
 ### Technologies
 
-React
 JavaScript
+Thymeleaf
+Bootstrap
+HTML
+CSS
+jQuery
 Java
-Node.js
+Spring Boot
+Spring MVC
 MySQL
-HTML/CSS/Bootstrap
-Stripe (payment)
 Spring security
-Google Calendar API
+
 ---
 
 ### What We Learned
 
-REACT
-API integration - Google Calendar, Stripe
+API integration - jQUERY Calendar
 Bootstrap
 Spring security/authentication
 
@@ -45,8 +44,6 @@ Social Media - photos/stories of renters using equipment on
 Rewards program
 Newsletter
 Events
-Integrate Google Maps
-Create our own API
 Ecommerce page
 ---
 
@@ -54,7 +51,6 @@ Ecommerce page
 
 PFC976
 JarohnJ
-rachelscott-kc
+rscott-25
 jojomoomaw
-jennlee195
 ---
