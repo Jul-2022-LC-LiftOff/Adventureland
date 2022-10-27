@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:fragment="head">
+
+    <!-- Bootstrap stylesheets and script -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
+          integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/2805810a71.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap.js}"></script>
+    <script type="text/javascript" th:src="@{/js/app.js}"></script>
+
+    <title th:text="'adventureland' + ${title == null ? '' : ' :: ' + title}">Adventure Outdoors</title>
+
+</head>
+
+<body>
+
+<nav th:fragment="page-header" style="font-family:Garamond" class="navbar navbar-expand-lg navbar-fixed-top bg-dark" role="navigation">
+    <div class="container-fluid">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+        <a class="navbar-brand" href="/">
+            <img src="https://i.ibb.co/kxRLg81/logo.png" alt="" width="225" height="75" class="img-fluid">
+        </a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" th:href="@{/equipment}" style="font-family:Garamond; color:tan">All Equipment</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/categories}" style="font-family:Garamond; color:tan">All Categories</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/search}" style="font-family:Garamond; color:tan">Search</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/account}" style="font-family:Garamond; color:tan">Account</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/register}" style="font-family:Garamond; color:tan">Register</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/login}" style="font-family:Garamond; color:tan">Login</a></li>
+            </ul>
+            <div class="col-sm-4 mt-3">
+            <div class="navbar-nav ms-auto align-self-center justify-content-end">
+                <form th:action="@{/results}" method = "post">
+                    <input class="form-control py-2 rounded-pill mb-0 mt-2 mr-1 pr-5 align-items-center" name="searchTerm" type="search" placeholder="Quick Search" id="searchTerm" style="height:50%; width:150%; background-color:#F8DCC1">
+                    <span class="input-group-append">
+                    <button class="btn btn-outline-light text-dark border-0 rounded-pill ml-n5" type="button">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </span>
+                </form>
+            </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<nav th:fragment="logged-in-header" style="font-family:Garamond;" class="navbar navbar-expand-lg navbar-fixed-top bg-dark" role="navigation">
+    <div class="container-fluid">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+        <a class="navbar-brand" href="/">
+            <img src="https://i.ibb.co/kxRLg81/logo.png" alt="" width="225" height="75" class="img-fluid">
+        </a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" th:href="@{/equipment}" style="font-family:Garamond; color:tan">All Equipment</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/categories}" style="font-family:Garamond; color:tan">All Categories</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/search}" style="font-family:Garamond; color:tan">Search</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/account}" style="font-family:Garamond; color:tan">Account</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/logout}" style="font-family:Garamond; color:tan">Logout</a></li>
+
+            </ul>
+            <div>
+            <a th:href="@{/reservation/cartView/show={id}(id=0)}" ><i class="fa-solid fa-cart-shopping" style="color:tan"></i></a>
+            </div>
+                <div class="col-sm-4 mt-3">
+                <div class="navbar-nav ms-auto align-self-center justify-content-end">
+                    <form th:action="@{/results}" method = "post">
+                        <input class="form-control py-2 rounded-pill mb-0 mt-2 mr-1 pr-5 align-items-center" name="searchTerm" type="search" placeholder="Quick Search" id="searchTerm" style="height:50%; width:150%; background-color:#F8DCC1">
+                        <span class="input-group-append">
+                    <button class="btn btn-outline-light text-dark border-0 rounded-pill ml-n5" type="button">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </span>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<table th:fragment="equipment-list-table" id="Equipment List" style="font-family:Garamond; background-color:#F8DCC1; width:75%" class="table mx-auto table-striped table-bordered border-dark table-hover ml-3 mr-3 mt-3">
+    <div class="container-lg mt-3">
+        <thead class="table-header">
+        <tr class="align-middle" style="font-size:20px;">
+            <th scope="col" class="text-center"> Equipment Name </th>
+            <th scope="col" class="text-center"> Category </th>
+            <th scope="col" class="text-center"> Manufacturer </th>
+            <th th:if="${user != null && user.getRole().toString() == 'ADMIN'}" style="text-align: center;" scope="col" class="text-center"> Quantity </th>
+            <th scope="col" class="text-center"> Price </th>
+            <th th:if="${user == null || user.getRole().toString() != 'ADMIN'}" style="text-align: center;" scope="col" class="text-center"> Reserve </th>
+            <th th:if="${user != null && user.getRole().toString() == 'ADMIN'}" style="text-align: center;" scope="col" class="text-center"> Edit </th>
+        </tr>
+        </thead>
+        <tbody class="table-group-divider text-center">
+        <tr th:each="equipment : ${equipments}" class="align-middle">
+            <td th:text="${equipment.equipmentName}"></td>
+            <td th:text="${equipment.category}"></td>
+            <td th:text="${equipment.manufacturer}"></td>
+            <td th:if="${user != null && user.getRole().toString() == 'ADMIN'}" th:text="${equipment.quantity}"></td>
+            <td th:text="${equipment.price}"></td>
+            <td th:if="${user == null || user.getRole().toString() != 'ADMIN'}" style="text-align: center;">
+                <a th:href="@{/reservation/resFormView/EquipmentId={id}(id=${equipment.id})}" class="btn btn-success" role="button">Reserve</a>
+            </td>
+            <td th:if="${user != null && user.getRole().toString() == 'ADMIN'}" style="text-align: center;">
+                <a th:href="@{/equipment/edit/{id}(id=${equipment.id})}" class="btn btn-dark" style="font-family:Garamond">Edit Item</a>
+            </td>
+        </tr>
+        </tbody>
+    </div>
+</table>
+</body>
+</html>
